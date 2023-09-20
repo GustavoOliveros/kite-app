@@ -11,22 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('titles', function (Blueprint $table) {
             $table->id();
-            
-            $table->string('name');
-            $table->string('username')->unique();
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('profile_path')->nullable();
-    
+            $table->string('type');
+            $table->string('original_title');
+            $table->string('title');
+            $table->string('year');
+            $table->string('poster_path')->nullable();
+            $table->string('backdrop_path')->nullable();
+            $table->boolean('status');
+            $table->boolean('availability_status');
+            $table->string('overview');
+
             $table->timestamp('disabled_at')->nullable();
             $table->string('reason')->nullable();
-            
-            $table->timestamp('email_verified_at')->nullable();
-            $table->rememberToken();
             $table->timestamps();
-            
         });
     }
 
@@ -35,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('titles');
     }
 };
