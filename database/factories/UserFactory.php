@@ -17,11 +17,20 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        // 1 out of 10 users will be disabled.
+        $disabled = rand(1, 10) === 1 ? now() : null;
+        $reason = $disabled ? 'Baneo de prueba' : null;
+
         return [
             'name' => fake()->name(),
+            'username' => fake()->unique()->userName(),
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'profile_path' => null,
+            'disabled_at' => $disabled,
+            'reason' => $reason,
+            'email_verified_at' => now(),
+            
             'remember_token' => Str::random(10),
         ];
     }
