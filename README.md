@@ -1,3 +1,5 @@
+![image](https://github.com/GustavoOliveros/kite-app/assets/94009609/b9ced01f-b7ba-4f10-9be9-9e10371d7fff)
+
 # Kite App
 Aplicación web para la consulta de disponibilidad de películas y series en servicios de streaming en Argentina.
 
