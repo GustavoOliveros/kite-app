@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,8 @@ Route::get('/dashboard', function () {
 Route::get('/search', function () {
     return Inertia::render('Search/Search');
 })->middleware(['auth', 'verified'])->name('search');
+
+Route::get('/search/{query}', [SearchController::class, 'perform'])->middleware(['auth', 'verified'])->name('search-term');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
