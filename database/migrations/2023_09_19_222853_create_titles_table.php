@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('backdrop_path')->nullable();
             $table->boolean('status');
             $table->boolean('availability_status');
-            $table->string('overview');
+            $table->text('overview');
 
             $table->timestamp('disabled_at')->nullable();
             $table->string('reason')->nullable();

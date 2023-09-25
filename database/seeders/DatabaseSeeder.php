@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use Database\Seeders\TitleTableSeeder;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -23,5 +23,9 @@ class DatabaseSeeder extends Seeder
             'disabled_at' => null,
             'reason' => null
         ]);
+
+        // Title seeder
+        $this->call(TitleTableSeeder::class);
+
     }
 }

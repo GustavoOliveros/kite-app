@@ -32,7 +32,7 @@ export default function Register() {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel htmlFor="name" value="Nombre" />
 
                     <TextInput
                         id="name"
@@ -42,14 +42,13 @@ export default function Register() {
                         autoComplete="name"
                         isFocused={true}
                         onChange={(e) => setData('name', e.target.value)}
-                        required
                     />
 
                     <InputError message={errors.name} className="mt-2" />
                 </div>
                 
                 <div className="mt-4">
-                    <InputLabel htmlFor="username" value="Username" />
+                    <InputLabel htmlFor="username" value="Nombre de Usuario" />
 
                     <TextInput
                         id="username"
@@ -59,14 +58,13 @@ export default function Register() {
                         autoComplete="username"
                         isFocused={true}
                         onChange={(e) => setData('username', e.target.value)}
-                        required
                     />
 
                     <InputError message={errors.username} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel htmlFor="email" value="Correo electrónico" />
 
                     <TextInput
                         id="email"
@@ -76,14 +74,13 @@ export default function Register() {
                         className="mt-1 block w-full"
                         autoComplete="username"
                         onChange={(e) => setData('email', e.target.value)}
-                        required
                     />
 
                     <InputError message={errors.email} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <InputLabel htmlFor="password" value="Contraseña" />
 
                     <TextInput
                         id="password"
@@ -93,14 +90,13 @@ export default function Register() {
                         className="mt-1 block w-full"
                         autoComplete="new-password"
                         onChange={(e) => setData('password', e.target.value)}
-                        required
                     />
 
                     <InputError message={errors.password} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
+                    <InputLabel htmlFor="password_confirmation" value="Confirme su contraseña" />
 
                     <TextInput
                         id="password_confirmation"
@@ -110,7 +106,6 @@ export default function Register() {
                         className="mt-1 block w-full"
                         autoComplete="new-password"
                         onChange={(e) => setData('password_confirmation', e.target.value)}
-                        required
                     />
 
                     <InputError message={errors.password_confirmation} className="mt-2" />
@@ -121,11 +116,11 @@ export default function Register() {
                         href={route('login')}
                         className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
-                        Already registered?
+                        ¿Ya está registrado?
                     </Link>
 
                     <PrimaryButton className="ml-4" disabled={processing}>
-                        Register
+                        Crear cuenta
                     </PrimaryButton>
                 </div>
             </form>
