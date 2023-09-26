@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +21,9 @@ use App\Http\Controllers\SearchController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/home', function () {
-    return Inertia::render('Home/Home');
-})->middleware(['auth', 'verified'])->name('home');
+Route::get('/home', [HomeController::class, 'indexHomepage'])->middleware(['auth', 'verified'])->name('home');
+
+Route::get('/services', [ServiceController::class, 'index'])->middleware(['auth', 'verified'])->name('services');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

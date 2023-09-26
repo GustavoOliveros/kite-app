@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -18,6 +19,18 @@ class HomeController extends Controller
         }
 
         return Inertia::render('Landing_Page');
+    }
+
+    public function indexHomepage(){
+        //  check if user has services
+        $user = User::where('id',Auth::user()->id)->first();
+        $services = $user->services;
+
+        if(count($services) > 0){
+            return Inertia::render('Home/Home');
+        }
+        
+        return redirect()->route('services');
     }
 
     /**

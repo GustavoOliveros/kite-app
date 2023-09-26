@@ -23,7 +23,7 @@ export default function Search({ auth }) {
 
   return (
     <>
-      <Head title="Kite App - Todo en un solo lugar" />
+      <Head title="Búsqueda" />
       <AuthenticatedLayout user={auth.user}>
         <form onSubmit={submit}>
           <SearchInput

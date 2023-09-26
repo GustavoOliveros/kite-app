@@ -1,0 +1,116 @@
+{
+    "results": [
+        {
+            "id": "apple",
+            "name": "Apple TV",
+            "homePage": "https://tv.apple.com/ar",
+            "themeColorCode": "#000000",
+            "images": {
+                "lightThemeImage": "https://media.movieofthenight.com/services/apple/logo-light-theme.svg",
+                "darkThemeImage": "https://media.movieofthenight.com/services/apple/logo-dark-theme.svg",
+                "whiteImage": "https://media.movieofthenight.com/services/apple/logo-white.svg"
+            },
+            "supportedStreamingTypes": {
+                "addon": true,
+                "buy": true,
+                "free": false,
+                "rent": true,
+                "subscription": true
+            }  
+        },
+        {
+            "id": "disney",
+            "name": "Disney+",
+            "homePage": "https://www.disneyplus.com/",
+            "themeColorCode": "#01137c",
+            "images": {
+              "lightThemeImage": "https://media.movieofthenight.com/services/disney/logo-light-theme.svg",
+              "darkThemeImage": "https://media.movieofthenight.com/services/disney/logo-dark-theme.svg",
+              "whiteImage": "https://media.movieofthenight.com/services/disney/logo-white.svg"
+            },
+            "supportedStreamingTypes": {
+              "addon": false,
+              "buy": false,
+              "free": false,
+              "rent": false,
+              "subscription": true
+            }
+        },
+        {
+            "id": "hbo",
+            "name": "HBO Max",
+            "homePage": "https://play.hbomax.com/",
+            "themeColorCode": "#000000",
+            "images": {
+            "lightThemeImage": "https://media.movieofthenight.com/services/hbo/logo-light-theme.svg",
+            "darkThemeImage": "https://media.movieofthenight.com/services/hbo/logo-dark-theme.svg",
+            "whiteImage": "https://media.movieofthenight.com/services/hbo/logo-white.svg"
+            },
+            "supportedStreamingTypes": {
+            "addon": false,
+            "buy": false,
+            "free": true,
+            "rent": false,
+            "subscription": true
+            },
+            "addons": {}
+        },
+        {
+            "id": "netflix",
+            "name": "Netflix",
+            "homePage": "https://www.netflix.com",
+            "themeColorCode": "#E50914",
+            "images": {
+            "lightThemeImage": "https://media.movieofthenight.com/services/netflix/logo-light-theme.svg",
+            "darkThemeImage": "https://media.movieofthenight.com/services/netflix/logo-dark-theme.svg",
+            "whiteImage": "https://media.movieofthenight.com/services/netflix/logo-white.svg"
+            },
+            "supportedStreamingTypes": {
+            "addon": false,
+            "buy": false,
+            "free": false,
+            "rent": false,
+            "subscription": true
+            },
+            "addons": {}
+        },
+        {
+            "id": "paramount",
+            "name": "Paramount+",
+            "homePage": "https://www.paramountplus.com",
+            "themeColorCode": "#0064FF",
+            "images": {
+            "lightThemeImage": "https://media.movieofthenight.com/services/paramount/logo-light-theme.svg",
+            "darkThemeImage": "https://media.movieofthenight.com/services/paramount/logo-dark-theme.svg",
+            "whiteImage": "https://media.movieofthenight.com/services/paramount/logo-white.svg"
+            },
+            "supportedStreamingTypes": {
+            "addon": false,
+            "buy": false,
+            "free": true,
+            "rent": false,
+            "subscription": true
+            },
+            "addons": {}
+        },
+        {
+            "id": "prime",
+            "name": "Amazon Prime Video",
+            "homePage": "https://www.primevideo.com",
+            "themeColorCode": "#00A8E1",
+            "images": {
+              "lightThemeImage": "https://media.movieofthenight.com/services/prime/logo-light-theme.svg",
+              "darkThemeImage": "https://media.movieofthenight.com/services/prime/logo-dark-theme.svg",
+              "whiteImage": "https://media.movieofthenight.com/services/prime/logo-white.svg"
+            },
+            "supportedStreamingTypes": {
+              "addon": false,
+              "buy": false,
+              "free": false,
+              "rent": false,
+              "subscription": true
+            },
+            "addons": {}
+        }
+    ]
+}

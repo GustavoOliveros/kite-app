@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\TitleTableSeeder;
+use Database\Seeders\ServiceTableSeeder;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -24,8 +25,9 @@ class DatabaseSeeder extends Seeder
             'reason' => null
         ]);
 
-        // Title seeder
+        // Seeders
         $this->call(TitleTableSeeder::class);
+        $this->call(ServiceTableSeeder::class);
 
     }
 }

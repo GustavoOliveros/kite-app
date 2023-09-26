@@ -5,7 +5,7 @@ import LinkButton from '@/Components/LinkButton';
 export default function Landing_Page({ auth }) {
     return (
         <>
-            <Head title="Kite App - Todo en un solo lugar" />
+            <Head title="Todo en un solo lugar" />
             <div className="bg-zinc-900 min-h-screen flex flex-col items-center justify-center">
                 <ApplicationLogo className="w-28" />
                 <h1 className="text-2xl text-white font-bold my-5">Kite App <span className="text-sm">v0.25</span></h1>

@@ -4,7 +4,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 export default function Home({ auth }) {
     return (
         <>
-            <Head title="Kite App - Todo en un solo lugar" />
+            <Head title="Home" />
             <AuthenticatedLayout user={auth.user} />
         </>
     );
