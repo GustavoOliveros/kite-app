@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Service;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class ServiceController extends Controller
 {
@@ -15,7 +17,15 @@ class ServiceController extends Controller
     {
         $services = Service::all();
 
-        return Inertia::render('Home/Service_Choice',["data" => $services]);
+        //  check if user has services
+        $user = User::where('id',Auth::user()->id)->first();
+        $userServices = $user->services;
+
+        if(count($userServices) > 0){
+            return redirect()->route('home')->with('services',$services);
+        }
+
+        return Inertia::render('Home/Service_Choice',["serviceData" => $services]);
     }
 
     /**

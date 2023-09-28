@@ -1,6 +1,7 @@
 import InputLabel from '@/Components/InputLabel';
 import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
+import { useState } from 'react';
 
 export default function SearchInput({ ...props }) {
     return (
@@ -16,6 +17,7 @@ export default function SearchInput({ ...props }) {
                         className="mt-1 block w-full bg-zinc-800 border-0 border-b-4 focus:border-b-4 focus:ring-0 text-white h-20 text-xl"
                         isFocused={true}
                         minLength="2"
+                        required
                         {...props}
                     />
             </div>

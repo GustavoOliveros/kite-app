@@ -13,7 +13,7 @@ class User_Has_Service extends Model
 
     protected $table = 'user_has_service';
 
-    protected $primaryKey = ['user_id', 'service_id'];
+    protected $primaryKey = 'user_id,service_id';
 
     protected $fillable = ['user_id' , 'service_id'];
 

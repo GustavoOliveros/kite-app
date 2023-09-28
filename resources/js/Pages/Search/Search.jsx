@@ -6,12 +6,14 @@ import { useState } from 'react';
 import SearchResults from '@/Components/SearchResults';
 
 export default function Search({ auth }) {
+  const [showNoResults, setShowNoResults] = useState(false);
   const [data, setData] = useState([]); // React variable for the results
   const { data: formData, setData: setFormData } = useForm({
     query: '',
   }); // Form data
 
   const fetchData = (query) => {
+    setShowNoResults(true);
     return axios.get(route('search-term', { query: query }))
       .then((response) => setData(response.data));
   };
@@ -32,7 +34,7 @@ export default function Search({ auth }) {
           />
         </form>
 
-        <SearchResults data={data} />
+        <SearchResults data={data} showNoResults={showNoResults} />
       </AuthenticatedLayout>
     </>
   );

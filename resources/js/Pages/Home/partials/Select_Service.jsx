@@ -1,18 +1,14 @@
-import InputLabel from "@/Components/InputLabel";
-import Checkbox_Choice from "@/Components/CheckboxChoiceInput";
-
-export default function Select_Service({ data }) {
+import { Link } from "@inertiajs/react"
+export default function Select_Service({ service }) {
     return (
-        <>
-            <div className="grid grid-cols-1 md:grid-cols-6 gap-4 md:mx-20">
-                {data && data.length > 0 ? (
-                    data.map((element, index) => <Checkbox_Choice key={index} data={element} />)
-                ) : (
-                    <p className="text-white">Ocurrió un error. Vuelva más tarde.</p>
-                )}
-                
-                
-            </div>
-        </>
-    );
+        <Link
+            className='flex justify-center p-10 mx-8 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150'
+            disabled={false}
+            href={service.homepage}
+            target='_blank'
+        >
+            <img src={service.logo_path} className="w-20 h-20" alt={service.name} />
+        </Link>
+    )
+    
 }

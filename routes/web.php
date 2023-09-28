@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,10 +36,14 @@ Route::get('/search', function () {
 
 Route::get('/search/{query}', [SearchController::class, 'perform'])->middleware(['auth', 'verified'])->name('search-term');
 
+Route::post('/services-selection', [UserController::class,'addServices'])->middleware(['auth', 'verified'])->name('services-selection');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 
 require __DIR__.'/auth.php';

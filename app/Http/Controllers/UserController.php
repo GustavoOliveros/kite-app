@@ -3,40 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User_Has_Service;
 use Illuminate\Support\Facades\Auth;
-use Inertia\Inertia;
 use App\Models\User;
-use App\Models\Title;
+use App\Models\Service;
 
-class HomeController extends Controller
+
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        if(Auth::check()){
-            return redirect()->route('home');
-        }
-
-        return Inertia::render('Landing_Page');
-    }
-
-    public function indexHomepage(){
-        //  check if user has services
-        $user = User::where('id',Auth::user()->id)->first();
-        $services = $user->services;
-        $servicesObjCol = [];
-
-        if(count($services) > 0){
-            $titles = Title::all();
-            foreach($services as $service){
-                array_push($servicesObjCol, $service->service);
-            }
-            return Inertia::render('Home/Home', ['services' => $servicesObjCol, 'titles' => $titles]);
-        }
-        
-        return redirect()->route('services');
+        //
     }
 
     /**
@@ -85,5 +65,22 @@ class HomeController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function addServices(Request $request){
+        $userObj = User::find(Auth::user()->id);
+        $services = $request['services'];
+
+        if(count($services) > 0){
+            foreach($services as $service){
+                $userHasService = new User_Has_Service();
+                $userHasService->user()->associate($userObj);
+                $serviceObj = Service::find($service);
+                $userHasService->service()->associate($serviceObj);
+                $userHasService->save();
+            }
+        }
+
+        return redirect()->route('home');
     }
 }
