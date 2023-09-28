@@ -1,5 +1,5 @@
-import TitleCard from "./TitleCard";
-import TitleInfo from "./TitleInfo";
+import TitleCard from "@/Components/TitleCard";
+import TitleInfo from "@/Components/TitleInfo";
 
 export default function MobileSearchResult({ data }) {
     return (

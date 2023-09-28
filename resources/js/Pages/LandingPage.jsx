@@ -2,7 +2,7 @@ import { Link, Head } from '@inertiajs/react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import LinkButton from '@/Components/LinkButton';
 
-export default function Landing_Page({ auth }) {
+export default function LandingPage({ auth }) {
     return (
         <>
             <Head title="Todo en un solo lugar" />

@@ -1,10 +1,10 @@
 import { Head, useForm } from '@inertiajs/react';
 import Choice from '@/Layouts/ChoiceLayout';
 import PrimaryButton from '@/Components/PrimaryButton';
-import Checkbox_Choice from '@/Components/CheckboxChoiceInput';
+import CheckboxChoice from './partials/CheckboxChoiceInput';
 import { useState } from 'react';
 
-export default function Service_Choice({ auth, serviceData }) {
+export default function ServiceChoice({ auth, serviceData }) {
     const [selectedValues, setSelectedValues] = useState([]);
 
     const { data, setData, post } = useForm({
@@ -37,7 +37,7 @@ export default function Service_Choice({ auth, serviceData }) {
                                 <div className="grid grid-cols-1 md:grid-cols-6 gap-4 md:mx-20">
                                     {serviceData && serviceData.length > 0 ? (
                                         serviceData.map((element, index) =>
-                                            <Checkbox_Choice
+                                            <CheckboxChoice
                                                 key={index}
                                                 data={element}
                                                 name="services[]"

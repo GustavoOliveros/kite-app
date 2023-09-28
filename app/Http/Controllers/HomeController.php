@@ -19,7 +19,7 @@ class HomeController extends Controller
             return redirect()->route('home');
         }
 
-        return Inertia::render('Landing_Page');
+        return Inertia::render('LandingPage');
     }
 
     public function indexHomepage(){

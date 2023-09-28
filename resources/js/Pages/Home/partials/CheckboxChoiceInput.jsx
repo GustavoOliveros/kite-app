@@ -1,7 +1,6 @@
-import InputLabel from './InputLabel';
-import { useState } from 'react';
+import InputLabel from '../../../Components/InputLabel';
 
-export default function Checkbox_Choice({ data, name, onChange, selectedValues }) {
+export default function CheckboxChoice({ data, name, onChange, selectedValues }) {
   return (
     <>
       <InputLabel

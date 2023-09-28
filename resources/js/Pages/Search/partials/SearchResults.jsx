@@ -1,7 +1,6 @@
-import TitleCard from "./TitleCard";
-import TitleInfo from "./TitleInfo";
+import TitleCard from "@/Components/TitleCard";
 import MobileSearchResult from "./MobileSearchResult";
-import { useState } from "react";
+
 
 export default function SearchResults({ data, showNoResults }) {
     return (

@@ -1,7 +1,5 @@
 import InputLabel from '@/Components/InputLabel';
-import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
-import { useState } from 'react';
 
 export default function SearchInput({ ...props }) {
     return (

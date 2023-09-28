@@ -27,7 +27,7 @@ Route::get('/home', [HomeController::class, 'indexHomepage'])->middleware(['auth
 Route::get('/services', [ServiceController::class, 'index'])->middleware(['auth', 'verified'])->name('services');
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('Dashboard/Home/DashboardHome');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/search', function () {

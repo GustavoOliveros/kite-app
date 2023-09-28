@@ -25,7 +25,7 @@ class ServiceController extends Controller
             return redirect()->route('home')->with('services',$services);
         }
 
-        return Inertia::render('Home/Service_Choice',["serviceData" => $services]);
+        return Inertia::render('Home/ServiceChoice',["serviceData" => $services]);
     }
 
     /**

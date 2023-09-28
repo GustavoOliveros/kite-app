@@ -1,9 +1,9 @@
 import { Link, Head, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import SearchInput from '@/Components/SearchInput';
+import SearchInput from './partials/SearchInput';
 import axios from 'axios';
 import { useState } from 'react';
-import SearchResults from '@/Components/SearchResults';
+import SearchResults from './partials/SearchResults';
 
 export default function Search({ auth }) {
   const [showNoResults, setShowNoResults] = useState(false);
