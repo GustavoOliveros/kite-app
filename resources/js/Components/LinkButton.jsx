@@ -1,6 +1,6 @@
 import { Link } from "@inertiajs/react";
 
-export default function LinkButton({ className = '', disabled, href, title, ...props }) {
+export default function LinkButton({ className = '', disabled, children, href, title = "", ...props }) {
     return (
         <Link
             {...props}
@@ -13,6 +13,7 @@ export default function LinkButton({ className = '', disabled, href, title, ...p
             href={href}
         >
             {title}
+            {children}
         </Link>
     );
 }

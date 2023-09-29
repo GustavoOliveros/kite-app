@@ -4,18 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Title;
+use App\Models\User;
 use Inertia\Inertia;
 
-class TitleController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $titles = Title::all();
+        $countTitles = Title::count();
+        $countUsers = User::count();
 
-        return Inertia::render('Dashboard/Titles', ['titles' => $titles]);
+        return Inertia::render('Dashboard/Dashboard',
+            ['countTitles' => $countTitles, 'countUsers' => $countUsers]);
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -8,6 +9,8 @@ use Inertia\Inertia;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TitleController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,9 +29,11 @@ Route::get('/home', [HomeController::class, 'indexHomepage'])->middleware(['auth
 
 Route::get('/services', [ServiceController::class, 'index'])->middleware(['auth', 'verified'])->name('services');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard/Home/DashboardHome');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/users', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('users');
+Route::get('/titles', [TitleController::class, 'index'])->middleware(['auth', 'verified'])->name('titles');
+
 
 Route::get('/search', function () {
     return Inertia::render('Search/Search');
