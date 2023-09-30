@@ -4,8 +4,12 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 use Database\Seeders\TitleTableSeeder;
 use Database\Seeders\ServiceTableSeeder;
+use Database\Seeders\RolesAndPermissionsSeeder;
+use Database\Seeders\UserTableSeeder;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -13,21 +17,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User factory
-
-        \App\Models\User::factory(10)->create(); // Creating 10 users
-
-        \App\Models\User::factory()->create([  // Creating Gus (11th user)
-            'name' => 'Gus',
-            'username' => 'Gus',
-            'email' => 'gusa05@gmail.com',
-            'disabled_at' => null,
-            'reason' => null
-        ]);
-
-        // Seeders
+        $this->call(RolesAndPermissionsSeeder::class);
+        $this->call(UserTableSeeder::class);
         $this->call(TitleTableSeeder::class);
         $this->call(ServiceTableSeeder::class);
-
     }
 }
