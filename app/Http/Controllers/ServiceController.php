@@ -17,14 +17,6 @@ class ServiceController extends Controller
     {
         $services = Service::all();
 
-        //  check if user has services
-        $user = User::where('id',Auth::user()->id)->first();
-        $userServices = $user->services;
-
-        if(count($userServices) > 0){
-            return redirect()->route('home')->with('services',$services);
-        }
-
         return Inertia::render('Home/ServiceChoice',["serviceData" => $services]);
     }
 

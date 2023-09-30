@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use App\Models\User;
 use App\Models\Title;
+use Spatie\Permission\Models\Permission;
 
 class HomeController extends Controller
 {
@@ -26,17 +27,13 @@ class HomeController extends Controller
         //  check if user has services
         $user = User::where('id',Auth::user()->id)->first();
         $services = $user->services;
+        $titles = Title::all();
         $servicesObjCol = [];
-
-        if(count($services) > 0){
-            $titles = Title::all();
-            foreach($services as $service){
-                array_push($servicesObjCol, $service->service);
-            }
-            return Inertia::render('Home/Home', ['services' => $servicesObjCol, 'titles' => $titles]);
-        }
         
-        return redirect()->route('services');
+        foreach($services as $service){
+            array_push($servicesObjCol, $service->service);
+        }
+        return Inertia::render('Home/Home', ['services' => $servicesObjCol, 'titles' => $titles]);
     }
 
     /**

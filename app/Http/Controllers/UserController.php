@@ -83,6 +83,8 @@ class UserController extends Controller
             }
         }
 
+        $userObj->assignRole('user');
+
         return redirect()->route('home');
     }
 }

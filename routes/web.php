@@ -23,32 +23,48 @@ use App\Http\Controllers\TitleController;
 |
 */
 
+// Guests
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/home', [HomeController::class, 'indexHomepage'])->middleware(['auth', 'verified'])->name('home');
+// Users without services
+Route::group(['middleware' => ['no access app', 'auth']], function(){
+    // Service selection
+    Route::get('/services', [ServiceController::class, 'index'])->name('services');
+    Route::post('/services-selection', [UserController::class,'addServices'])
+        ->name('services-selection');
+});
 
-Route::get('/services', [ServiceController::class, 'index'])->middleware(['auth', 'verified'])->name('services');
+// All users, except those who have not selected their streaming services
+Route::group(['middleware' => ['access app', 'auth']], function(){
+    // Home
+    Route::get('/home', [HomeController::class, 'indexHomepage'])
+        ->name('home');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+    // Search
+    Route::get('/search', function () {
+        return Inertia::render('Search/Search');
+    })->name('search');
+    Route::get('/search/{query}', [SearchController::class, 'perform'])
+        ->name('search-term');
 
-Route::get('/users', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('users');
-Route::get('/titles', [TitleController::class, 'index'])->middleware(['auth', 'verified'])->name('titles');
-
-
-Route::get('/search', function () {
-    return Inertia::render('Search/Search');
-})->middleware(['auth', 'verified'])->name('search');
-
-Route::get('/search/{query}', [SearchController::class, 'perform'])->middleware(['auth', 'verified'])->name('search-term');
-
-Route::post('/services-selection', [UserController::class,'addServices'])->middleware(['auth', 'verified'])->name('services-selection');
-
-Route::middleware('auth')->group(function () {
+    // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Dashboard (admins & moderators)
+    Route::group(['middleware' => ['can:access dashboard']], function(){
+        Route::get('/dashboard', [DashboardController::class, 'index'])
+            ->name('dashboard');
+
+        // USERS
+        Route::get('/users', [UserController::class, 'index'])
+            ->middleware(['can:see users'])->name('users');
+
+        // TITLES
+        Route::get('/titles', [TitleController::class, 'index'])
+            ->middleware(['can:see titles'])->name('titles');
+    });
 });
-
-
 
 require __DIR__.'/auth.php';

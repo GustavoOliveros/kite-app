@@ -66,5 +66,15 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'access app' => \App\Http\Middleware\CanAccessApp::class,
+        'no access app' => \App\Http\Middleware\NoAccessApp::class,
+        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
+    ];
+
+    protected $routeMiddleware = [
+        // ...
+        'can:access app' => \App\Http\Middleware\CanAccessApp::class,
     ];
 }
