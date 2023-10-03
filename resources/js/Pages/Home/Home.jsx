@@ -7,8 +7,8 @@ export default function Home({ auth, services, titles }) {
     return (
         <>
             <Head title="Home" />
-            <AuthenticatedLayout user={auth.user}>
-                <h1 className="text-2xl text-white text-center mt-8">¡Bienvenido, {auth.user.name}!<br />¿Qué deseas ver?</h1>
+            <AuthenticatedLayout user={auth.user} permissions={auth.permissions}>
+                <h1 className="text-2xl text-white text-center mt-8">¡Bienvenid@, {auth.user.username}!<br />¿Qué deseas ver?</h1>
                 <div className="flex-wrap justify-center gap-4 my-10 hidden md:flex">
                     {services && services.length > 0 ? (
                         services.map((element, index) => <SelectService key={index} service={element}  />)

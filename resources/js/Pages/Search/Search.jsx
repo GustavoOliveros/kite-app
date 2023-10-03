@@ -26,7 +26,7 @@ export default function Search({ auth }) {
   return (
     <>
       <Head title="Búsqueda" />
-      <AuthenticatedLayout user={auth.user}>
+      <AuthenticatedLayout user={auth.user} permissions={auth.permissions}>
         <form onSubmit={submit}>
           <SearchInput
             value={formData.query}

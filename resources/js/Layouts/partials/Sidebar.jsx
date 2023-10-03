@@ -23,7 +23,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
    
   export default function Sidebar() {
     return (
-      <Card className="w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 rounded-lg bg-gray-800 text-white">
+      <Card className="w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 rounded-lg bg-gray-800 text-white hidden md:block">
         <div className="mb-2 p-4">
           <Link href={route('home')} value="test">
             <ApplicationLogo className="h-8 w-8 inline me-2"/>

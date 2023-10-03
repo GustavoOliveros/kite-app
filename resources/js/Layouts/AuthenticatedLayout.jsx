@@ -6,7 +6,7 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 import { FooterWithLogo } from './partials/Footer';
 
-export default function Authenticated({ user, header, children }) {
+export default function Authenticated({ user, header, children, permissions }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
@@ -48,7 +48,7 @@ export default function Authenticated({ user, header, children }) {
                                                 type="button"
                                                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-gray-800 hover:text-gray-400 focus:outline-none transition ease-in-out duration-150"
                                             >
-                                                {user.name}
+                                                {user.username}
 
                                                 <svg
                                                     className="ml-2 -mr-0.5 h-4 w-4"
@@ -67,7 +67,8 @@ export default function Authenticated({ user, header, children }) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link href={route('dashboard')}>Dashboard</Dropdown.Link>
+                                        {permissions.includes('access dashboard') ?
+                                            <Dropdown.Link href={route('dashboard')}>Dashboard</Dropdown.Link> : ''}
                                         <Dropdown.Link href={route('profile.edit')}>Perfil</Dropdown.Link>
                                         <Dropdown.Link href={route('logout')} method="post" as="button" className='text-red-600'>
                                             Cerrar sesión

@@ -60,6 +60,8 @@ Route::group(['middleware' => ['access app', 'auth']], function(){
         // USERS
         Route::get('/users', [UserController::class, 'index'])
             ->middleware(['can:see users'])->name('users');
+        Route::get('/user-filter/{query}', [UserController::class, 'userFilter'])
+            ->middleware(['can:see users'])->name('user-filter');
 
         // TITLES
         Route::get('/titles', [TitleController::class, 'index'])

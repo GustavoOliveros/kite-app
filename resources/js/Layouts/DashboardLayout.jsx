@@ -13,8 +13,8 @@ export default function Dashboard({ auth, title, children }) {
             <Sidebar />
 
            
-            {/* falta responsive */}
-            <div className="text-white w-full ps-5">
+            {/* falta responsive xd */}
+            <div className="text-white w-full md:ps-5">
                 <Link href={route('home')}>
                     <Button className="border mb-5 hover:bg-gray-800">
                         <ArrowLeftIcon className="h-5 w-5 pe-2 inline" /> Volver a Kite
@@ -23,7 +23,7 @@ export default function Dashboard({ auth, title, children }) {
 
                 
 
-                <h1 className="text-3xl uppercase">{title}</h1>
+                <h1 className="text-3xl uppercase mb-5">{title}</h1>
                 {children}
             </div>
         </div>

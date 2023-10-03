@@ -87,4 +87,18 @@ class UserController extends Controller
 
         return redirect()->route('home');
     }
+
+    public function userFilter($query){
+        $response = [];
+
+        $response = User::where('id', $query)->first();
+
+        if(!$response){
+            $response = User::where('username', 'LIKE', '%'.$query.'%')
+                            ->orWhere('email', 'LIKE', '%'.$query.'%')
+                            ->get();
+        }
+        
+        return response()->json($response);
+    }
 }

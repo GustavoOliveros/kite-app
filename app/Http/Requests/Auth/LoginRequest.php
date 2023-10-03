@@ -56,7 +56,7 @@ class LoginRequest extends FormRequest
 
         if(!is_null($user->disabled_at)){
             throw ValidationException::withMessages([
-                'login' => 'Account disabled. Reason: ' . $user->reason,
+                'login' => 'Cuenta deshabilitada. Motivo: ' . $user->reason,
             ]);
         }
 

@@ -30,7 +30,7 @@ export default function ServiceChoice({ auth, serviceData }) {
     return (
         <>
             <Head title="Servicios de Streaming" />
-            <Choice user={auth.user} title={"¡Bienvenido, " + auth.user.name + "! Por favor, indique sus servicios de streaming contratados."}>
+            <Choice user={auth.user} title={"¡Bienvenido, " + auth.user.username + "! Por favor, indique sus servicios de streaming contratados."}>
                 <form onSubmit={submit}>
                     <div className="flex flex-col">
                         <div className="mt-10 mx-auto">

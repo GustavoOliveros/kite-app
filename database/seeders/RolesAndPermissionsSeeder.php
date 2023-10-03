@@ -24,7 +24,7 @@ class RolesAndPermissionsSeeder extends Seeder
         // create permissions - admin
         Permission::create(['name' => 'edit users']);
         Permission::create(['name' => 'see titles']); // allows you to see the titles table
-        Permission::create(['name' => 'edit title']);
+        Permission::create(['name' => 'edit titles']);
         Permission::create(['name' => 'disable titles']);
 
         // create roles and assign created permissions

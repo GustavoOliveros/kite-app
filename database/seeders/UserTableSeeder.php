@@ -17,28 +17,24 @@ class UserTableSeeder extends Seeder
         \App\Models\User::factory(10)->create(); // Creating 10 users
 
         \App\Models\User::factory()->create([ 
-            'name' => 'Gus',
             'username' => 'Gus',
             'email' => 'gusa05@gmail.com',
             'disabled_at' => null,
             'reason' => null
         ]);
         \App\Models\User::factory()->create([
-            'name' => 'admin',
             'username' => 'admin',
             'email' => 'admin@gmail.com',
             'disabled_at' => null,
             'reason' => null
         ]);
         \App\Models\User::factory()->create([
-            'name' => 'moderator',
             'username' => 'moderator',
             'email' => 'moderator@gmail.com',
             'disabled_at' => null,
             'reason' => null
         ]);
         \App\Models\User::factory()->create([
-            'name' => 'user',
             'username' => 'user',
             'email' => 'user@gmail.com',
             'disabled_at' => null,
