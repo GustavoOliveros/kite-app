@@ -1,6 +1,6 @@
 export function FooterWithLogo() {
     return (
-        <section className="bg-gray-800 border-t border-gray-700 mt-auto">
+        <section className="bg-zinc-900 mt-auto hidden md:block">
             <div className="max-w-screen-xl px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
                 <div className="flex justify-center space-x-6">
                     <a href="#" className="text-gray-400 hover:text-gray-500">

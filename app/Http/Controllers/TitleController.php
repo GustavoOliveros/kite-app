@@ -41,7 +41,11 @@ class TitleController extends Controller
     {
         $title = Title::find($id);
 
-        return Inertia::render('Title/Title', ['title' => $title]);
+        if($title){
+            return Inertia::render('Title/Title', ['title' => $title]);
+        }
+
+        return Inertia::render('Errors/Error', ['status' => 404]);
     }
 
     /**

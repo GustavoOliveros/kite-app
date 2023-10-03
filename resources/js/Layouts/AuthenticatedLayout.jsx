@@ -5,23 +5,24 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 import { FooterWithLogo } from './partials/Footer';
+import { HomeIcon, UserCircleIcon, MagnifyingGlassIcon, Squares2X2Icon, AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 
 export default function Authenticated({ user, header, children, permissions }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
-        <div className="min-h-screen bg-zinc-900 flex flex-col">
-            <nav className="sticky top-0 bg-gray-800 border-b border-gray-700">
+        <div className="min-h-screen bg-gradient-to-b from-gray-800 to-gray-900 flex flex-col">
+            <nav className="p-1 md:p-0 md:sticky md:top-0 md:bg-gray-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between h-16">
+                    <div className="flex justify-center md:justify-between h-16">
                         <div className="flex">
                             <div className="shrink-0 flex items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                                    <ApplicationLogo className="block h-10 w-auto fill-current text-gray-800" />
                                 </Link>
                             </div>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <div className="hidden space-x-8 md:-my-px md:ml-10 md:flex">
                                 <NavLink href={route('home')} active={route().current('home')} className='text-white flex align-center justify-center'>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 me-3">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
@@ -29,7 +30,7 @@ export default function Authenticated({ user, header, children, permissions }) {
                                     Home
                                 </NavLink>
                             </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <div className="hidden space-x-8 md:-my-px md:ml-10 md:flex">
                                 <NavLink href={route('search')} active={route().current('search')} className='text-white flex align-center justify-center'>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 me-3">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -39,7 +40,7 @@ export default function Authenticated({ user, header, children, permissions }) {
                             </div>
                         </div>
 
-                        <div className="hidden sm:flex sm:items-center sm:ml-6">
+                        <div className="hidden md:flex md:items-center md:ml-6">
                             <div className="ml-3 relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>
@@ -77,53 +78,23 @@ export default function Authenticated({ user, header, children, permissions }) {
                                 </Dropdown>
                             </div>
                         </div>
-
-                        <div className="-mr-2 flex items-center sm:hidden">
-                            <button
-                                onClick={() => setShowingNavigationDropdown((previousState) => !previousState)}
-                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
-                            >
-                                <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                    <path
-                                        className={!showingNavigationDropdown ? 'inline-flex' : 'hidden'}
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M4 6h16M4 12h16M4 18h16"
-                                    />
-                                    <path
-                                        className={showingNavigationDropdown ? 'inline-flex' : 'hidden'}
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
                     </div>
                 </div>
-
-                <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
-                    <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                            Dashboard
-                        </ResponsiveNavLink>
-                    </div>
-
-                    <div className="pt-4 pb-1 border-t border-gray-200">
-                        <div className="px-4">
-                            <div className="font-medium text-base text-gray-800">{user.name}</div>
-                            <div className="font-medium text-sm text-gray-500">{user.email}</div>
-                        </div>
-
-                        <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
-                            <ResponsiveNavLink method="post" href={route('logout')} as="button">
-                                Log Out
-                            </ResponsiveNavLink>
-                        </div>
-                    </div>
+            </nav>
+            <nav className="md:hidden bg-gray-900 text-gray-400 fixed bottom-0 w-full">
+                <div className="flex justify-between gap-5 py-3 px-8">
+                    <Link href={route('home')}>
+                        <HomeIcon className={`w-8 h-8 ${route().current('home') ? 'text-white' : ''}`} />
+                    </Link>
+                    <Link href={route('search')}>
+                        <MagnifyingGlassIcon className={`w-8 h-8 ${route().current('search') ? 'text-white' : ''}`} />
+                    </Link>
+                    {permissions.includes('access dashboard') ?
+                        <Link href={route('dashboard')}><AdjustmentsVerticalIcon className={`w-8 h-8 ${route().current('dashboard') ? 'text-white' : ''}`} /></Link>
+                        : <Link href={route('search')}><Squares2X2Icon className={`w-8 h-8 ${route().current('library') ? 'text-white' : ''}`} /></Link>}
+                    <Link href={route('search')}>
+                        <UserCircleIcon className={`w-8 h-8 ${route().current('profile') ? 'text-white' : ''}`} />
+                    </Link>
                 </div>
             </nav>
 
