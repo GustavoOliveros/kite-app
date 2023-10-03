@@ -4,7 +4,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import CheckboxChoice from './partials/CheckboxChoiceInput';
 import { useState } from 'react';
 
-export default function ServiceChoice({ auth, serviceData }) {
+export default function ServiceChoice({ auth, serviceData, errors }) {
     const [selectedValues, setSelectedValues] = useState([]);
 
     const { data, setData, post } = useForm({
@@ -29,9 +29,11 @@ export default function ServiceChoice({ auth, serviceData }) {
 
     return (
         <>
+        {console.log(errors)}
             <Head title="Servicios de Streaming" />
             <Choice user={auth.user} title={"¡Bienvenido, " + auth.user.username + "! Por favor, indique sus servicios de streaming contratados."}>
                 <form onSubmit={submit}>
+                <p className="text-white text-center bg-red-500 my-5">{errors[0]}</p>
                     <div className="flex flex-col">
                         <div className="mt-10 mx-auto">
                                 <div className="grid grid-cols-1 md:grid-cols-6 gap-4 md:mx-20">

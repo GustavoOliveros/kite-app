@@ -39,7 +39,9 @@ class TitleController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $title = Title::find($id);
+
+        return Inertia::render('Title/Title', ['title' => $title]);
     }
 
     /**

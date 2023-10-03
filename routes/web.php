@@ -47,6 +47,9 @@ Route::group(['middleware' => ['access app', 'auth']], function(){
     Route::get('/search/{query}', [SearchController::class, 'perform'])
         ->name('search-term');
 
+    // Title
+    Route::get('/title/{id}', [TitleController::class, 'show'])->name('title.show'); 
+
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -60,8 +63,6 @@ Route::group(['middleware' => ['access app', 'auth']], function(){
         // USERS
         Route::get('/users', [UserController::class, 'index'])
             ->middleware(['can:see users'])->name('users');
-        Route::get('/user-filter/{query}', [UserController::class, 'userFilter'])
-            ->middleware(['can:see users'])->name('user-filter');
 
         // TITLES
         Route::get('/titles', [TitleController::class, 'index'])

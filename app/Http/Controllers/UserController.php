@@ -7,7 +7,9 @@ use App\Models\User_Has_Service;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Service;
+use Exception;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -69,36 +71,34 @@ class UserController extends Controller
         //
     }
 
-    public function addServices(Request $request){
+    public function addServices(Request $request) {
         $userObj = User::find(Auth::user()->id);
         $services = $request['services'];
-
-        if(count($services) > 0){
-            foreach($services as $service){
-                $userHasService = new User_Has_Service();
-                $userHasService->user()->associate($userObj);
-                $serviceObj = Service::find($service);
-                $userHasService->service()->associate($serviceObj);
-                $userHasService->save();
+    
+        try {
+            DB::beginTransaction();
+    
+            if (count($services) > 0) {
+                foreach ($services as $service) {
+                    $userHasService = new User_Has_Service();
+                    $userHasService->user()->associate($userObj);
+                    $serviceObj = Service::find($service);
+                    $userHasService->service()->associate($serviceObj);
+    
+                    $userHasService->save();
+                }
             }
+    
+            $userObj->assignRole('user');
+    
+            DB::commit();
+        } catch (Exception $error) {
+            DB::rollback();
+    
+            return redirect()->route('services')->withErrors('Ocurrió un error al realizar el registro. Inténtelo más tarde.');
         }
-
-        $userObj->assignRole('user');
-
+    
         return redirect()->route('home');
     }
-
-    public function userFilter($query){
-        $response = [];
-
-        $response = User::where('id', $query)->first();
-
-        if(!$response){
-            $response = User::where('username', 'LIKE', '%'.$query.'%')
-                            ->orWhere('email', 'LIKE', '%'.$query.'%')
-                            ->get();
-        }
-        
-        return response()->json($response);
-    }
+    
 }

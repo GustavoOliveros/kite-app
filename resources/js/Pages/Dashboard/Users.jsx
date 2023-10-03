@@ -5,30 +5,54 @@ import { createTheme } from "react-data-table-component";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { useState } from "react";
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { PencilSquareIcon, MinusCircleIcon } from "@heroicons/react/24/solid";
 
 export default function Users(users) {
     createTheme('dark', {
         text: {
-          primary: '#FFFFFF',
-          secondary: '#FFFFFF',
+            primary: '#FFFFFF',
+            secondary: '#FFFFFF',
         },
         background: {
-          default: '#1F2937',
+            default: '#1F2937',
         },
         context: {
-          background: '#cb4b16',
-          text: '#FFFFFF',
+            background: '#cb4b16',
+            text: '#FFFFFF',
         },
         divider: {
-          default: '#073642',
+            default: '#073642',
         },
         action: {
-          button: 'rgba(0,0,0,.54)',
-          hover: 'rgba(0,0,0,.08)',
-          disabled: 'rgba(0,0,0,.12)',
+            button: 'rgba(0,0,0,.54)',
+            hover: 'rgba(0,0,0,.08)',
+            disabled: 'rgba(0,0,0,.12)',
         },
-      }, 'dark');
+    }, 'dark');
+
+    const renderEditButton = () => {
+        if (users.auth.permissions.includes('edit users')) {
+            return (
+                <PrimaryButton className="bg-yellow-600">
+                    <PencilSquareIcon className="w-5 h-5" />
+                </PrimaryButton>
+            );
+        }
+
+        return null;
+    };
+
+    const renderDeleteButton = () => {
+        if (users.auth.permissions.includes('disable users')) {
+            return (
+                <PrimaryButton className="bg-red-600">
+                    <MinusCircleIcon className="w-5 h-5" />
+                </PrimaryButton>
+            );
+        }
+
+        return null;
+    };
 
     const columns = [
         {
@@ -52,34 +76,30 @@ export default function Users(users) {
         {
             name: 'Acción',
             selector: row =>
-            <div className="flex gap-2">
-                <PrimaryButton className="bg-yellow-600">
-                    <PencilSquareIcon className="w-5 h-5" />
-                </PrimaryButton>
-                <PrimaryButton className="bg-red-600">
-                    <TrashIcon  className="w-5 h-5" />
-                </PrimaryButton>
-            </div>,
+                <div className="flex gap-2">
+                    {renderEditButton()}
+                    {renderDeleteButton()}
+                </div>,
         },
     ];
 
     const [filterText, setFilterText] = useState('');
-	const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
-	const filteredItems = users.users.filter(
-		item => item.username && item.username.toLowerCase().includes(filterText.toLowerCase()),
-	);
+    const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
+    const filteredItems = users.users.filter(
+        item => item.username && item.username.toLowerCase().includes(filterText.toLowerCase()),
+    );
 
     const change = (e) => {
         setFilterText(e.target.value);
     }
 
-    
+
     return (
         <>
-        {console.log(filteredItems)}
-            <Head title="Usuarios"/>
+            {console.log(users.auth.permissions)}
+            <Head title="Usuarios" />
             <Dashboard title="Usuarios">
-                
+
                 <div className="md:flex md:justify-between">
                     <PrimaryButton className="md:my-3">Crear Usuario</PrimaryButton>
                     <div>
@@ -102,7 +122,7 @@ export default function Users(users) {
                     pagination
                 />
             </Dashboard>
-            
+
         </>
     );
 };
