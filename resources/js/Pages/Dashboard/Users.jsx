@@ -84,7 +84,6 @@ export default function Users(users) {
     ];
 
     const [filterText, setFilterText] = useState('');
-    const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
     const filteredItems = users.users.filter(
         item => item.username && item.username.toLowerCase().includes(filterText.toLowerCase()),
     );

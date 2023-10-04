@@ -1,4 +1,3 @@
-import TitleCard from "@/Components/TitleCard";
 import TitleInfo from "@/Components/TitleInfo";
 import { Link } from "@inertiajs/react";
 
