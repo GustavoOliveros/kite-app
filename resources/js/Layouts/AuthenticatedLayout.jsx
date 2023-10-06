@@ -12,7 +12,7 @@ export default function Authenticated({ user, header, children, permissions }) {
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-gray-800 to-gray-900 flex flex-col">
-            <nav className="p-1 md:p-0 md:sticky md:top-0 md:bg-gray-800">
+            <nav className="p-1 md:p-0 md:sticky md:top-0 md:bg-zinc-800/90 backdrop-blur z-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-center md:justify-between h-16">
                         <div className="flex">
@@ -47,7 +47,7 @@ export default function Authenticated({ user, header, children, permissions }) {
                                         <span className="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-gray-800 hover:text-gray-400 focus:outline-none transition ease-in-out duration-150"
+                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white hover:text-gray-400 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 {user.username}
 

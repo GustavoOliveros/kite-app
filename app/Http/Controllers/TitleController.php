@@ -40,9 +40,18 @@ class TitleController extends Controller
     public function show(string $id)
     {
         $title = Title::find($id);
+        $titleOnServices = $title->services;
+        $services = [];
+        $array = [];
+
+        foreach($titleOnServices as $titleOnService){
+            $array['service'] = $titleOnService->service;
+            $array['title_on_service'] = $titleOnService;
+            array_push($services, $array);
+        }
 
         if($title){
-            return Inertia::render('Title/Title', ['title' => $title]);
+            return Inertia::render('Title/Title', ['title' => $title, 'services' => $services]);
         }
 
         return Inertia::render('Errors/Error', ['status' => 404]);

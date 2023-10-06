@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('title_id');
             $table->string('quality');
             $table->string('link');
-            $table->timestamp('leaving');
-            $table->timestamp('available_since');  
+            $table->timestamp('leaving')->nullable();
+            $table->timestamp('available_since')->nullable();  
             $table->timestamps();
 
             $table->primary(['service_id', 'title_id']);
