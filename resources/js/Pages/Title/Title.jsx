@@ -8,11 +8,11 @@ export default function Title({ auth, title, services }) {
         <>
             {console.log(services)}
             <Head title={"Ver " + title.title} />
-            <AuthenticatedLayout user={auth.user} permissions={auth.permissions}>
+            <AuthenticatedLayout user={auth.user} permissions={auth.permissions} backgroundImagePath={title.backdrop_path}>
                 <div className="text-white">
                     <img src={'https://image.tmdb.org/t/p/w1920_and_h1080_bestv2' + title.backdrop_path} alt={'Póster de la película ' + title.title + ' (' + title.year + ').'} className="md:hidden" />
-                    <div className="w-full md:h-screen bg-cover" style={{ backgroundImage: `url('https://image.tmdb.org/t/p/w1280_and_h720_bestv2${title.backdrop_path}')` }}>
-                        <div className="flex flex-col bg-gray-800 w-full gap-3 px-3 md:bg-black/80 md:h-screen md:p-28">
+                    <div className="w-full md:h-screen">
+                        <div className="flex flex-col w-full gap-3 px-3 md:h-screen md:p-28">
                             <h1 className="text-3xl my-4 text-center md:text-start">{title.title} <span className="text-sm text-gray-300">({title.year})</span></h1>
                             <div className="flex gap-3 flex-col md:flex-row">
                                 <Button className="bg-white text-black md:p-5 flex justify-center">
