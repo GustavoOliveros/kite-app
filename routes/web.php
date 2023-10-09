@@ -23,6 +23,9 @@ use App\Http\Controllers\TitleController;
 |
 */
 
+// Everyone
+Route::get('/popular', [TitleController::class, 'popular']);
+
 // Guests
 Route::get('/', [HomeController::class, 'index']);
 

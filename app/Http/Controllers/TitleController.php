@@ -80,4 +80,13 @@ class TitleController extends Controller
     {
         //
     }
+
+    /**
+     * Returns the 10 most popular titles
+     */
+    public function popular(){
+        $response = Title::take(10)->get();
+
+        return response()->json($response);
+    }
 }
