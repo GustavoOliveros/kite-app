@@ -1,4 +1,4 @@
-import { Link, Head, useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import SearchInput from './partials/SearchInput';
 import axios from 'axios';

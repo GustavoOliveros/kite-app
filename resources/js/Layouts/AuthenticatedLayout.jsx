@@ -5,7 +5,7 @@ import { Link } from '@inertiajs/react';
 import { FooterWithLogo } from './partials/Footer';
 import { HomeIcon, UserCircleIcon, MagnifyingGlassIcon, Squares2X2Icon, AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 
-export default function Authenticated({ user, header, children, permissions, backgroundImagePath = "" }) {
+export default function Authenticated({ user, children, permissions, backgroundImagePath = "" }) {
     const divStyle = {
         backgroundImage: `${backgroundImagePath === "" ? "" : "url(https://image.tmdb.org/t/p/w1280_and_h720_bestv2"+backgroundImagePath+")" }`
     }
@@ -104,13 +104,11 @@ export default function Authenticated({ user, header, children, permissions, bac
                     </div>
                 </nav>
 
-                {header && (
-                    <header className="bg-white shadow">
-                        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
-                    </header>
-                )}
-
-                <main className="flex-grow pb-20 md:pb-0">{children}</main>
+                <main className="flex-grow pb-20 md:pb-0">
+                    <div className='max-w-7xl mx-auto'>
+                        {children}
+                    </div>
+                </main>
 
                 <FooterWithLogo />
             </div>
