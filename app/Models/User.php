@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\User_Has_Service;
+use App\Models\User_Has_Title;
 
 class User extends Authenticatable
 {
@@ -50,5 +51,10 @@ class User extends Authenticatable
 
     public function services(){
         return $this->hasMany(User_Has_Service::class, "user_id", "id");
+    }
+
+    public function titles(){
+        return $this->hasMany(User_Has_Title::class, "user_id", "id");
+
     }
 }

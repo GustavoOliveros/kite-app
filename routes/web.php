@@ -10,6 +10,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TitleController;
+use App\Http\Controllers\LibraryController;
 
 
 /*
@@ -51,7 +52,12 @@ Route::group(['middleware' => ['access app', 'auth']], function(){
         ->name('search-term');
 
     // Title
-    Route::get('/title/{id}', [TitleController::class, 'show'])->name('title.show'); 
+    Route::get('/title/{id}', [TitleController::class, 'show'])->name('title.show');
+
+    // Library
+    Route::get('/your-library', [LibraryController::class, 'show'])->name('library');
+    Route::get('/your-library/{filter}', [LibraryController::class, 'filterLibrary'])->name('filterLibrary');
+    Route::post('/your-library/save', [LibraryController::class, 'store'])->name('saveToLibrary');
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

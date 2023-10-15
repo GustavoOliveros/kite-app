@@ -36,7 +36,7 @@ export default function ServiceChoice({ auth, serviceData, errors }) {
                 <p className="text-white text-center bg-red-500 my-5">{errors[0]}</p>
                     <div className="flex flex-col">
                         <div className="mt-10 mx-auto">
-                                <div className="grid grid-cols-1 md:grid-cols-6 gap-4 md:mx-20">
+                                <div className="grid grid-cols-1 md:grid-cols-6 gap-6 md:mx-20">
                                     {serviceData && serviceData.length > 0 ? (
                                         serviceData.map((element, index) =>
                                             <CheckboxChoice
