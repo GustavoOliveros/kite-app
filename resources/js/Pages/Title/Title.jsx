@@ -1,51 +1,58 @@
-import { Head } from '@inertiajs/react';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Button } from '@material-tailwind/react';
-import { PlayIcon, SquaresPlusIcon, CheckIcon } from '@heroicons/react/24/solid';
-import { useState } from 'react';
-import { Spinner } from '@material-tailwind/react';
+import { Head } from "@inertiajs/react";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Button } from "@material-tailwind/react";
+import {
+    PlayIcon,
+    SquaresPlusIcon,
+    CheckIcon,
+} from "@heroicons/react/24/solid";
+import { useState } from "react";
+import { Spinner } from "@material-tailwind/react";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Title({ auth, title, services, alreadySaved }) {
-    const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
-    const [messageType, setMessageType] = useState('');
     const [saved, setSaved] = useState(alreadySaved);
 
+    const callback = (response) => {
+        if (response.data.type === "success") {
+            toast.success(response.data.message);
+            setSaved(!saved);
+        } else {
+            toast.error(response.data.message);
+        }
+    };
+
     const submit = (titleId) => {
-        if(saved){
-            return axios.delete(route('deleteFromLibrary', {'titleId': titleId}))
+        if (saved) {
+            return axios
+                .delete(route("deleteFromLibrary", { titleId: titleId }))
                 .then((response) => {
                     setLoading(false);
-                    setMessage(response.data.message);
-                    setMessageType(response.data.type);
-                    setSaved(false);
-                    console.log(response);
+                    callback(response);
                 })
                 .catch((error) => {
                     setLoading(false);
-                    setMessage('Ocurrió un error. Inténtelo de nuevo más tarde.')
-                    setMessageType('error');
+                    toast.error(
+                        "Ocurrió un error. Inténtelo de nuevo más tarde."
+                    );
                     console.log(error);
-                 });
+                });
         }
 
-
-        return axios.post(route('saveToLibrary', { id: titleId }))
+        return axios
+            .post(route("saveToLibrary", { id: titleId }))
             .then((response) => {
                 setLoading(false);
-                setMessage(response.data.message);
-                setMessageType(response.data.type);
-                setSaved(true);
-                console.log(response);
+                callback(response);
             })
             .catch((error) => {
                 setLoading(false);
-                setMessage('Ocurrió un error. Inténtelo de nuevo más tarde.')
-                setMessageType('error');
+                toast.error("Ocurrió un error. Inténtelo de nuevo más tarde.");
                 console.log(error);
             });
-      };
-    
+    };
+
     const clickHandler = (e) => {
         setLoading(true);
         submit(title.id);
@@ -53,40 +60,79 @@ export default function Title({ auth, title, services, alreadySaved }) {
 
     return (
         <>
-            {console.log(messageType, message, loading)}
             <Head title={"Ver " + title.title} />
-            <AuthenticatedLayout user={auth.user} permissions={auth.permissions} backgroundImagePath={title.backdrop_path}>
+            <AuthenticatedLayout
+                user={auth.user}
+                permissions={auth.permissions}
+                backgroundImagePath={title.backdrop_path}
+            >
                 <div className="text-white">
-                    <img src={'https://image.tmdb.org/t/p/w1920_and_h1080_bestv2' + title.backdrop_path} alt={'Póster de la película ' + title.title + ' (' + title.year + ').'} className="md:hidden" />
+                    <img
+                        src={
+                            "https://image.tmdb.org/t/p/w1920_and_h1080_bestv2" +
+                            title.backdrop_path
+                        }
+                        alt={
+                            "Póster de la película " +
+                            title.title +
+                            " (" +
+                            title.year +
+                            ")."
+                        }
+                        className="md:hidden"
+                    />
                     <div className="w-full md:h-screen">
                         <div className="flex flex-col w-full gap-3 px-3 md:h-screen md:py-28">
-                            <h1 className="text-3xl my-4 text-center md:text-start">{title.title} <span className="text-sm text-gray-300">({title.year})</span></h1>
+                            <h1 className="text-3xl my-4 text-center md:text-start">
+                                {title.title}{" "}
+                                <span className="text-sm text-gray-300">
+                                    ({title.year})
+                                </span>
+                            </h1>
                             <div className="flex gap-3 flex-col md:flex-row">
                                 <Button className="bg-white text-black md:p-5 flex justify-center">
                                     <PlayIcon className="w-4 h-4" /> &nbsp; Ver
                                 </Button>
-                                <Button onClick={clickHandler} className="bg-transparent border border-white text-white flex justify-center md:p-5">
-                                    {loading ? <Spinner className='animate-spin h-4 w-4' /> : 
-                                        saved ? <CheckIcon className='h-4 w-4' /> : <SquaresPlusIcon className='h-4 w-4' />
-                                    }
+                                <Button
+                                    onClick={clickHandler}
+                                    className="bg-transparent border border-white text-white flex justify-center md:p-5"
+                                >
+                                    {loading ? (
+                                        <Spinner className="animate-spin h-4 w-4" />
+                                    ) : saved ? (
+                                        <CheckIcon className="h-4 w-4" />
+                                    ) : (
+                                        <SquaresPlusIcon className="h-4 w-4" />
+                                    )}
                                     &nbsp; Biblioteca
                                 </Button>
                             </div>
-                            <p className="md:w-1/2 my-4">
-                                {title.overview}
-                            </p>
+                            <p className="md:w-1/2 my-4">{title.overview}</p>
+
                             <div className="flex gap-5 mb-20">
                                 {services && services.length > 0 ? (
-                                    services.map((element, index) => <img key={index} className="w-10" src={element.service.logo_path} alt={'Logo de ' + element.service.name} />)
+                                    services.map((element, index) => (
+                                        <img
+                                            key={index}
+                                            className="w-10"
+                                            src={element.service.logo_path}
+                                            alt={
+                                                "Logo de " +
+                                                element.service.name
+                                            }
+                                        />
+                                    ))
                                 ) : (
-                                    <p className="text-white">No se encontraron resultados...</p>
+                                    <p className="text-white">
+                                        No se encontraron resultados...
+                                    </p>
                                 )}
                             </div>
                         </div>
                     </div>
-
                 </div>
             </AuthenticatedLayout>
+            <Toaster />
         </>
     );
 }

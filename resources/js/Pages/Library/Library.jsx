@@ -1,4 +1,4 @@
-import { Head, useForm } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import SearchResults from '../Search/partials/SearchResults';
 import LibraryFilter from './partials/LibraryFilter';
@@ -27,8 +27,8 @@ export default function Library({ auth, titles }) {
         {console.log(filteredTitles)}
             <Head title="Mi Biblioteca" />
             <AuthenticatedLayout user={auth.user} permissions={auth.permissions}>
-                <div className='flex flex-row gap-5'>
-                    <h1 className='text-4xl text-white my-5'>Mi Biblioteca</h1>
+                <div className='flex flex-col md:flex-row md:gap-5 text-center md:text-start'>
+                    <h1 className='text-4xl text-white my-5'>Biblioteca</h1>
                     <div className='my-auto'>
                         <form>
                             <LibraryFilter
@@ -36,7 +36,7 @@ export default function Library({ auth, titles }) {
                             />
                         </form>
                     </div>
-                    {loading ? <Spinner className='animate-spin h-5 w-5 my-auto' /> : ''}
+                    {loading ? <Spinner className='animate-spin h-5 w-5 mx-auto my-5 md:mx-0  md:my-auto' /> : ''}
                 </div>
                 <div>
                     {loading ? '' : <SearchResults data={filteredTitles} showNoResults={false} />}

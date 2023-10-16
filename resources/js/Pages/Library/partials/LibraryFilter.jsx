@@ -12,6 +12,8 @@ export default function LibraryFilter({...props}) {
         >
             <option value="newest">Más recientes</option>
             <option value="oldest">Más antiguos</option>
+            <option value="titles">Títulos</option>
+            <option value="playlists">Listas</option>
         </select>
     );
 }

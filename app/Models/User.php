@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\User_Has_Service;
 use App\Models\User_Has_Title;
+use App\Models\Playlist;
 
 class User extends Authenticatable
 {
@@ -55,6 +56,10 @@ class User extends Authenticatable
 
     public function titles(){
         return $this->hasMany(User_Has_Title::class, "user_id", "id");
-
     }
+
+    public function playlists(){
+        return $this->hasMany(Playlist::class, "user_id", "id");
+    }
+
 }

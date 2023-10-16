@@ -110,22 +110,7 @@ export default function Authenticated({ user, children, permissions, backgroundI
                         </div>
                     </div>
                 </nav>
-                <nav className="md:hidden bg-gray-900 text-gray-400 fixed bottom-0 w-full">
-                    <div className="flex justify-between gap-5 py-3 px-8">
-                        <Link href={route('home')}>
-                            <HomeIcon className={`w-8 h-8 ${route().current('home') ? 'text-white' : ''}`} />
-                        </Link>
-                        <Link href={route('search')}>
-                            <MagnifyingGlassIcon className={`w-8 h-8 ${route().current('search') ? 'text-white' : ''}`} />
-                        </Link>
-                        {permissions.includes('access dashboard') ?
-                            <Link href={route('dashboard')}><AdjustmentsVerticalIcon className={`w-8 h-8 ${route().current('dashboard') ? 'text-white' : ''}`} /></Link>
-                            : <Link href={route('search')}><Squares2X2Icon className={`w-8 h-8 ${route().current('library') ? 'text-white' : ''}`} /></Link>}
-                        <Link href={route('search')}>
-                            <UserCircleIcon className={`w-8 h-8 ${route().current('profile') ? 'text-white' : ''}`} />
-                        </Link>
-                    </div>
-                </nav>
+                
 
                 <main className="flex pb-20 md:pb-0">
                     <div className='max-w-7xl grow mx-auto'>
@@ -137,6 +122,22 @@ export default function Authenticated({ user, children, permissions, backgroundI
                 </div>
  
         </div>
+        <nav className="md:hidden bg-gray-900 text-gray-400 fixed bottom-0 w-full">
+            <div className="flex justify-between gap-5 py-3 px-8">
+                <Link href={route('home')}>
+                    <HomeIcon className={`w-8 h-8 ${route().current('home') ? 'text-white' : ''}`} />
+                </Link>
+                <Link href={route('search')}>
+                    <MagnifyingGlassIcon className={`w-8 h-8 ${route().current('search') ? 'text-white' : ''}`} />
+                </Link>
+                {permissions.includes('access dashboard') ?
+                    <Link href={route('dashboard')}><AdjustmentsVerticalIcon className={`w-8 h-8 ${route().current('dashboard') ? 'text-white' : ''}`} /></Link>
+                    : <Link href={route('library')}><Squares2X2Icon className={`w-8 h-8 ${route().current('library') ? 'text-white' : ''}`} /></Link>}
+                <Link href={route('search')}>
+                    <UserCircleIcon className={`w-8 h-8 ${route().current('profile') ? 'text-white' : ''}`} />
+                </Link>
+            </div>
+        </nav>
         <FooterWithLogo />
         </>
         

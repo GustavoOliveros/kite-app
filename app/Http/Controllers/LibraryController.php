@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Playlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -13,7 +14,7 @@ use Exception;
 class LibraryController extends Controller
 {
     public function show(){
-        $userTitles = $this->getUserTitles();
+        $userTitles = $this->getUserLibrary();
 
         return Inertia::render('Library/Library', ["titles" => $userTitles]);
     }
@@ -48,11 +49,10 @@ class LibraryController extends Controller
         try{
             $userTitle = User_Has_Title::where('user_id', Auth::user()->id)
                 ->where('title_id', $titleId)
-                ->first();
+                ->firstOrFail();
  
             $userTitle->delete();
 
-            $response['userTitle'] = $userTitle;
             $response['type'] = 'success';
             $response['message'] = 'Se ha eliminado con éxito de su biblioteca.';
         }catch(Exception $error){
@@ -61,16 +61,52 @@ class LibraryController extends Controller
             $response['obj'] = $error;
         }
 
-        return $response;
+        return response()->json($response);
     }
 
-    public function getUserTitles($filter = 'newest'){
+    public function getUserLibrary($filter = 'newest'){
         $response = [];
-        $filter = ($filter == 'newest') ? 'desc' : 'asc';
 
         $userTitles = User_Has_Title::
             where('user_id', Auth::user()->id)
-            ->orderBy('created_at', $filter)
+            ->with('title')
+            ->get();
+
+        $playlists = Playlist::
+            where('user_id', Auth::user()->id)
+            ->get();
+
+        if($userTitles && $playlists){
+            $combined = $userTitles->concat($playlists);
+
+            if($filter === 'newest'){
+                $sorted = $combined->sortByDesc(function($element ) {
+                    return $element->created_at;
+                });
+            }else{
+                $sorted = $combined->sortBy(function($element ) {
+                    return $element->created_at;
+                });
+            }
+
+            foreach($sorted as $element){
+                if(is_a($element, 'App\Models\User_Has_Title')){
+                    array_push($response, $element->title);
+                }else{
+                    array_push($response, $element);
+                }
+            }
+        }
+
+        return $response;
+    }
+
+    public function getUserTitles(){
+        $response = [];
+
+        $userTitles = User_Has_Title::
+            where('user_id', Auth::user()->id)
+            ->orderBy('created_at', 'desc')
             ->with('title')
             ->get();
 
@@ -83,8 +119,31 @@ class LibraryController extends Controller
         return $response;
     }
 
+    public function getUserPlaylists(){
+        $response = [];
+
+        $playlists = Playlist::
+            where('user_id', Auth::user()->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        if($playlists){
+            $response = $playlists;
+        }
+
+        return $response;
+    }
+
     public function filterLibrary($filter){
-        $response = $this->getUserTitles($filter);
+        $response = [];
+
+        if($filter == 'newest' || $filter == 'oldest'){
+            $response = $this->getUserLibrary($filter);
+        }elseif($filter == 'playlists'){
+            $response = $this->getUserPlaylists();
+        }else{
+            $response = $this->getUserTitles();
+        }
 
         return response()->json($response);
     }
