@@ -29,7 +29,6 @@ class TitleTableSeeder extends Seeder
                 "poster_path" => $title['poster_path'],
                 "backdrop_path" => $title['backdrop_path'],
                 "status" => 1,
-                "availability_status" => 1,
                 "overview" => $title['overview']
             ]);
         }

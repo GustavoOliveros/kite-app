@@ -12,6 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('title_on_service', function (Blueprint $table) {
+            $table->id();
+
             $table->unsignedBigInteger('service_id');
             $table->unsignedBigInteger('title_id');
             $table->string('quality');
@@ -19,8 +21,7 @@ return new class extends Migration
             $table->timestamp('leaving')->nullable();
             $table->timestamp('available_since')->nullable();  
             $table->timestamps();
-
-            $table->primary(['service_id', 'title_id']);
+            
             $table->foreign('title_id')
             ->references('id')
             ->on('titles');

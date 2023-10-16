@@ -3,6 +3,7 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import { Link } from '@inertiajs/react';
 import { FooterWithLogo } from './partials/Footer';
+import { useEffect, useState } from 'react';
 import { HomeIcon, UserCircleIcon, MagnifyingGlassIcon, Squares2X2Icon, AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 
 export default function Authenticated({ user, children, permissions, backgroundImagePath = "" }) {
@@ -10,6 +11,18 @@ export default function Authenticated({ user, children, permissions, backgroundI
         backgroundImage:
             `${backgroundImagePath === "" ? "" : "url(https://image.tmdb.org/t/p/w1280_and_h720_bestv2"+backgroundImagePath+")" }`
     }
+
+    const [navColor, setnavColor] = useState("transparent");
+
+    const listenScrollEvent = () => {
+        window.scrollY > 10 ? setnavColor("#18181B") : setnavColor("transparent");
+    };
+    useEffect(() => {
+        window.addEventListener("scroll", listenScrollEvent);
+        return () => {
+        window.removeEventListener("scroll", listenScrollEvent);
+        };
+    }, []);
 
     return (
         <>
@@ -20,7 +33,13 @@ export default function Authenticated({ user, children, permissions, backgroundI
             style={ divStyle }
         >
             <div className={`flex flex-col ${backgroundImagePath === "" ? '' : 'bg-zinc-900/90 backdrop-blur-2xl md:backdrop-blur-none'}`}>
-                <nav className="p-1 md:p-0 md:sticky md:top-0  z-20">
+                <nav
+                className="p-1 md:p-0 md:sticky md:top-0 z-20"
+                style=
+                {{
+                    backgroundColor: navColor,
+                    transition: "all 0.5s"
+                }}>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-center md:justify-between h-16">
                             <div className="flex">

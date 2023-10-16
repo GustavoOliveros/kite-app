@@ -19,7 +19,6 @@ class Title extends Model
         'poster_path',
         'backdrop_path',
         'status',
-        'availability_status',
         'overview',
         'disabled_at',
         'reason',

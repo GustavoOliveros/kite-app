@@ -13,7 +13,7 @@ class Title_On_Service extends Model
 
     protected $table = 'title_on_service';
 
-    protected $primaryKey = 'title_id,service_id';
+    protected $primaryKey = 'id';
 
     protected $fillable = ['title_id' , 'service_id', 'quality', 'link', 'leaving', 'available_since'];
 

@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_views_genre', function (Blueprint $table) {
+            $table->id();
+
             $table->unsignedBigInteger('genre_id');
             $table->unsignedBigInteger('user_id');
             $table->integer('view_count');
             $table->timestamps();
 
-            $table->primary(['genre_id', 'user_id']);
             $table->foreign('genre_id')
             ->references('id')
             ->on('genres');

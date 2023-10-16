@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Title;
 use Inertia\Inertia;
+use App\Models\User_Has_Title;
+use Illuminate\Support\Facades\Auth;
 
 class TitleController extends Controller
 {
@@ -43,7 +45,8 @@ class TitleController extends Controller
         $titleOnServices = $title->services;
         $services = [];
         $array = [];
-
+        $alreadySaved = false;
+        
         foreach($titleOnServices as $titleOnService){
             $array['service'] = $titleOnService->service;
             $array['title_on_service'] = $titleOnService;
@@ -51,7 +54,12 @@ class TitleController extends Controller
         }
 
         if($title){
-            return Inertia::render('Title/Title', ['title' => $title, 'services' => $services]);
+            $userTitle = User_Has_Title::
+                            where('user_id', Auth::user()->id)
+                            ->where('title_id', $id)->first();
+            $alreadySaved = ($userTitle) ? true : false;
+
+            return Inertia::render('Title/Title', ['title' => $title, 'services' => $services, 'alreadySaved' => $alreadySaved]);
         }
 
         return Inertia::render('Errors/Error', ['status' => 404]);

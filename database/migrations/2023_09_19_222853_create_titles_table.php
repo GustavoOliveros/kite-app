@@ -19,8 +19,7 @@ return new class extends Migration
             $table->string('year');
             $table->string('poster_path')->nullable();
             $table->string('backdrop_path')->nullable();
-            $table->boolean('status');
-            $table->boolean('availability_status');
+            $table->integer('status');
             $table->text('overview');
 
             $table->timestamp('disabled_at')->nullable();

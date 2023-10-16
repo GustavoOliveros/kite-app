@@ -58,6 +58,7 @@ Route::group(['middleware' => ['access app', 'auth']], function(){
     Route::get('/your-library', [LibraryController::class, 'show'])->name('library');
     Route::get('/your-library/{filter}', [LibraryController::class, 'filterLibrary'])->name('filterLibrary');
     Route::post('/your-library/save', [LibraryController::class, 'store'])->name('saveToLibrary');
+    Route::delete('/your-library/delete/{titleId}', [LibraryController::class, 'destroy'])->name('deleteFromLibrary');
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

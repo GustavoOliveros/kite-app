@@ -12,6 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('season_on_service', function (Blueprint $table) {
+            $table->id();
+
             $table->unsignedBigInteger('service_id');
             $table->unsignedBigInteger('season_id');
 
@@ -21,7 +23,6 @@ return new class extends Migration
             $table->timestamp('available_since');  
             $table->timestamps();
 
-            $table->primary(['service_id', 'season_id']);
             $table->foreign('service_id')
                 ->references('id')
                 ->on('services');

@@ -13,7 +13,7 @@ class User_Has_Title extends Model
 
     protected $table = 'user_has_title';
 
-    protected $primaryKey = 'user_id,title_id';
+    protected $primaryKey = 'id';
 
     protected $fillable = ['user_id' , 'title_id'];
 
