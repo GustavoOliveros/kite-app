@@ -16,7 +16,7 @@ class LibraryController extends Controller
     public function show(){
         $userTitles = $this->getUserLibrary();
 
-        return Inertia::render('Library/Library', ["titles" => $userTitles]);
+        return Inertia::render('Library/Library', ["titles" => $userTitles, 'success' => session('success')]);
     }
 
     public function store(Request $request){

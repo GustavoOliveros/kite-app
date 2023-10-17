@@ -2,10 +2,11 @@ import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import SearchResults from '../Search/partials/SearchResults';
 import LibraryFilter from './partials/LibraryFilter';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Spinner } from '@material-tailwind/react';
+import toast, { Toaster } from "react-hot-toast";
 
-export default function Library({ auth, titles }) {
+export default function Library({ auth, titles, errors, success }) {
     const [filteredTitles, setFilteredTitles] = useState(titles);
     const [loading, setLoading] = useState(false);
 
@@ -22,9 +23,21 @@ export default function Library({ auth, titles }) {
         fetchData(e.target.value);
     };
 
+    const checkMessages = () => {
+        if(errors[0]){
+            toast.error(errors[0]);
+        }else if(success){
+            toast.success(success);
+        }
+        
+    }
+
+    useEffect(() => {
+        checkMessages();
+     }, []);
+
     return (
         <>
-        {console.log(filteredTitles)}
             <Head title="Mi Biblioteca" />
             <AuthenticatedLayout user={auth.user} permissions={auth.permissions}>
                 <div className='flex flex-col md:flex-row md:gap-5 text-center md:text-start'>
@@ -42,6 +55,7 @@ export default function Library({ auth, titles }) {
                     {loading ? '' : <SearchResults data={filteredTitles} showNoResults={false} />}
                 </div>
             </AuthenticatedLayout>
+            <Toaster />
         </>
     );
 }

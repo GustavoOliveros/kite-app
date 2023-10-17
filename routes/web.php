@@ -11,7 +11,8 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TitleController;
 use App\Http\Controllers\LibraryController;
-
+use App\Http\Controllers\PlaylistController;
+use App\Models\Playlist;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,11 @@ Route::group(['middleware' => ['access app', 'auth']], function(){
     Route::get('/your-library/{filter}', [LibraryController::class, 'filterLibrary'])->name('filterLibrary');
     Route::post('/your-library/save', [LibraryController::class, 'store'])->name('saveToLibrary');
     Route::delete('/your-library/delete/{titleId}', [LibraryController::class, 'destroy'])->name('deleteFromLibrary');
+
+    // Playlist
+    Route::get('/playlist/{id}', [PlaylistController::class, 'show'])->name('playlist.show');
+    Route::get('/playlist/{id}/{filter}', [PlaylistController::class, 'filterPlaylist'])->name('filterPlaylist');
+    Route::delete('/playlist/{id}', [PlaylistController::class, 'destroy'])->name('playlist.destroy');
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
