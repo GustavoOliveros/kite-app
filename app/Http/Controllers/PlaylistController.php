@@ -14,9 +14,25 @@ class PlaylistController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(string $titleId)
     {
-        //
+        $response = [];
+        $playlists = Playlist::where('user_id', Auth::user()->id)->get();
+
+        if($playlists){
+            foreach ($playlists as $playlist) {
+                $playlistTitle = Playlist_Has_Title::where('playlist_id', $playlist->id)->where('title_id', $titleId)->first();
+    
+                $playlistResponse = [
+                    'playlist' => $playlist,
+                    'isSelected' => $playlistTitle !== null,
+                ];
+    
+                array_push($response, $playlistResponse);
+            }
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -133,5 +149,9 @@ class PlaylistController extends Controller
         }
 
         return response()->json($response);
+    }
+
+    public function savePlaylistSelection(Request $request){
+        dd($request);
     }
 }

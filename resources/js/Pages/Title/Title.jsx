@@ -5,14 +5,26 @@ import {
     PlayIcon,
     SquaresPlusIcon,
     CheckIcon,
+    PlusIcon
 } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { Spinner } from "@material-tailwind/react";
 import toast, { Toaster } from "react-hot-toast";
+import ListModal from "./partials/ListModal";
 
 export default function Title({ auth, title, services, alreadySaved }) {
     const [loading, setLoading] = useState(false);
     const [saved, setSaved] = useState(alreadySaved);
+
+    let [isOpen, setIsOpen] = useState(false)
+    
+    function openModal() {
+        setIsOpen(true)
+    }
+
+    function closeModal() {
+        setIsOpen(false)
+    }
 
     const callback = (response) => {
         if (response.data.type === "success") {
@@ -57,6 +69,7 @@ export default function Title({ auth, title, services, alreadySaved }) {
         setLoading(true);
         submit(title.id);
     };
+    
 
     return (
         <>
@@ -82,7 +95,7 @@ export default function Title({ auth, title, services, alreadySaved }) {
                         className="md:hidden"
                     />
                     <div className="w-full md:h-screen">
-                        <div className="flex flex-col w-full gap-3 px-3 md:h-screen md:py-28">
+                        <div className="flex flex-col w-full gap-3 md:h-screen md:py-28">
                             <h1 className="text-3xl my-4 text-center md:text-start">
                                 {title.title}{" "}
                                 <span className="text-sm text-gray-300">
@@ -105,6 +118,9 @@ export default function Title({ auth, title, services, alreadySaved }) {
                                         <SquaresPlusIcon className="h-4 w-4" />
                                     )}
                                     &nbsp; Biblioteca
+                                </Button>
+                                <Button onClick={openModal} className="bg-transparent border border-white text-white flex justify-center md:p-5">
+                                    <PlusIcon className="w-4 h-4" /> &nbsp; Lista
                                 </Button>
                             </div>
                             <p className="md:w-1/2 my-4">{title.overview}</p>
@@ -133,6 +149,7 @@ export default function Title({ auth, title, services, alreadySaved }) {
                 </div>
             </AuthenticatedLayout>
             <Toaster />
+            <ListModal isModalOpen={isOpen} closeModal={closeModal} titleId={title.id} />
         </>
     );
 }
