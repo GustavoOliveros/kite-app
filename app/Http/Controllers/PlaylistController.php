@@ -9,6 +9,8 @@ use App\Models\Playlist;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Playlist_Has_Title;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
+
 class PlaylistController extends Controller
 {
     /**
@@ -16,19 +18,19 @@ class PlaylistController extends Controller
      */
     public function index(string $titleId)
     {
-        $response = [];
-        $playlists = Playlist::where('user_id', Auth::user()->id)->get();
+        $response['playlists'] = [];
+        $response['selectedValues'] = [];
+        $playlists = Playlist::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
 
         if($playlists){
             foreach ($playlists as $playlist) {
                 $playlistTitle = Playlist_Has_Title::where('playlist_id', $playlist->id)->where('title_id', $titleId)->first();
-    
-                $playlistResponse = [
-                    'playlist' => $playlist,
-                    'isSelected' => $playlistTitle !== null,
-                ];
-    
-                array_push($response, $playlistResponse);
+
+                if($playlistTitle){
+                    $response['selectedValues'][] = $playlist->id;  
+                }
+
+                $response['playlists'][] = $playlist;
             }
         }
 
@@ -48,7 +50,26 @@ class PlaylistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $response = [];
+        $playlist = new Playlist();
+
+        $user = User::find(Auth::user()->id);
+        $playlist->user()->associate($user);
+
+        $playlist->title = $request->input('title');
+
+
+        try{
+            $playlist->save();
+            $response['type'] = 'success';
+            $response['message'] = 'Se ha guardado con éxito.';
+        }catch(Exception $error){
+            $response['type'] = 'error';
+            $response['message'] = 'Ocurrió un error. Inténtelo de nuevo más tarde.';
+            $response['obj'] = $error;
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -75,7 +96,7 @@ class PlaylistController extends Controller
             }
 
             if($playlist->user->id != Auth::user()->id){
-                throw new Exception('No tienes acceso a esta playlist.', 403);
+                throw new Exception('No tienes acceso a esta lista.', 403);
             }
         }catch(Exception $error){
 
@@ -111,6 +132,10 @@ class PlaylistController extends Controller
     public function destroy($id){
         try{
             DB::beginTransaction();
+            $playlist = Playlist::where('user_id', Auth::user()->id)
+                ->where('id', $id)
+                ->firstOrFail();
+
             $playlistTitles = Playlist_Has_Title::where('playlist_id', $id)->get();
 
             if($playlistTitles){
@@ -119,10 +144,6 @@ class PlaylistController extends Controller
                 }
             }
 
-            $playlist = Playlist::where('user_id', Auth::user()->id)
-                ->where('id', $id)
-                ->firstOrFail();
- 
             $playlist->delete();
             DB::commit();
         }catch(Exception $error){
@@ -151,7 +172,49 @@ class PlaylistController extends Controller
         return response()->json($response);
     }
 
+
     public function savePlaylistSelection(Request $request){
-        dd($request);
+        $response = [];
+        $selectedValues = $request->input('selectedValues');
+        $playlistTitles = Playlist_Has_Title::where('title_id', $request->input('titleId'))
+            ->whereHas('playlist', function($query) {
+                $query->where('user_id', Auth::user()->id);
+            })
+            ->get();
+
+        try{
+            if($selectedValues){
+                foreach($selectedValues as $selectedValue){
+                    $alreadyExists = $playlistTitles->where('playlist_id', $selectedValue)->first();
+                    
+                    if(!$alreadyExists){
+                        $newPlaylistTitle = new Playlist_Has_Title();
+                        $newPlaylistTitle->playlist_id = $selectedValue;
+                        $newPlaylistTitle->title_id = $request->input('titleId');
+                        $newPlaylistTitle->save();
+                    }
+    
+                    $playlistTitles = $playlistTitles->reject(function ($item) use ($selectedValue) {
+                        return $item->playlist_id == $selectedValue;
+                    });
+                }
+                foreach($playlistTitles as $playlistTitle){
+                    $playlistTitle->delete();
+                }
+            }else{
+                foreach($playlistTitles as $playlistTitle){
+                    $playlistTitle->delete();
+                }
+            }
+
+            $response['type'] = 'success';
+            $response['message'] = 'Se ha guardado con éxito.';
+        }catch(Exception $error){
+            $response['type'] = 'error';
+            $response['message'] = 'Ocurrió un error. Inténtelo de nuevo más tarde.';
+            $response['obj'] = $error;
+        }
+
+        return response()->json($response);
     }
 }
