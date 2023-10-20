@@ -101,4 +101,8 @@ class TitleController extends Controller
 
         return response()->json($response);
     }
+
+    public function saveHistory($titleId){
+        
+    }
 }

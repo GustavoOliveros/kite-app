@@ -69,6 +69,9 @@ Route::group(['middleware' => ['access app', 'auth']], function(){
     Route::post('/playlists/save', [PlaylistController::class, 'savePlaylistSelection'])->name('savePlaylistSelection');
     Route::delete('/playlist/{id}', [PlaylistController::class, 'destroy'])->name('playlist.destroy');
 
+    // History
+    Route::post('/title/watch', [TitleController::class, 'saveHistory'])->name('saveHistory');
+
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
