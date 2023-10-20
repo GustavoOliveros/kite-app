@@ -63,11 +63,11 @@ Route::group(['middleware' => ['access app', 'auth']], function(){
 
     // Playlist
     Route::get('/playlist/{id}', [PlaylistController::class, 'show'])->name('playlist.show');
-    Route::get('/playlist/{id}/{filter}', [PlaylistController::class, 'filterPlaylist'])->name('filterPlaylist');
-    Route::delete('/playlist/{id}', [PlaylistController::class, 'destroy'])->name('playlist.destroy');
     Route::get('/playlists/{titleId}', [PlaylistController::class, 'index'])->name('playlist.index');
-    Route::post('/playlists/save', [PlaylistController::class, 'savePlaylistSelection'])->name('savePlaylistSelection');
+    Route::get('/playlist/{id}/{filter}', [PlaylistController::class, 'filterPlaylist'])->name('filterPlaylist');
     Route::post('/playlist', [PlaylistController::class, 'store'])->name('playlist.store');
+    Route::post('/playlists/save', [PlaylistController::class, 'savePlaylistSelection'])->name('savePlaylistSelection');
+    Route::delete('/playlist/{id}', [PlaylistController::class, 'destroy'])->name('playlist.destroy');
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

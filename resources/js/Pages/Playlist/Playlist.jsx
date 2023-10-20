@@ -5,8 +5,7 @@ import { useState } from 'react';
 import { Spinner, Button } from '@material-tailwind/react';
 import axios from 'axios';
 import PlaylistFilter from './partials/PlaylistFilter';
-import { TrashIcon } from '@heroicons/react/24/solid';
-import TextInput from '@/Components/TextInput';
+import { TrashIcon, ListBulletIcon } from '@heroicons/react/24/solid';
 
 export default function Playlist({ auth, playlist, titles }) {
     const [filteredTitles, setFilteredTitles] = useState(titles);
@@ -39,16 +38,18 @@ export default function Playlist({ auth, playlist, titles }) {
             <Head title={playlist.title} />
             <AuthenticatedLayout user={auth.user} permissions={auth.permissions}>
                 <div className='flex flex-col md:flex-row md:gap-5 text-center md:text-start'>
-                    <h1 className='text-4xl text-white my-5'>{playlist.title}</h1>
-                    <div className='my-auto'>
-                        <PlaylistFilter
-                                onChange={submit}
-                        />
+                    <h1 className='text-4xl text-white my-5 flex items-center justify-center md:justify-start'><ListBulletIcon className='w-5 h-5 mx-2' />{playlist.title}</h1>
+                    <div className='flex justify-center gap-2'>
+                        <div className='my-auto'>
+                            <PlaylistFilter
+                                    onChange={submit}
+                            />
+                        </div>
+                        
+                        <Button onClick={deleteHandler} className='my-auto flex flex-row items-center justify-center md:justify-start gap-2 bg-white'>
+                            <TrashIcon className='w-5 h-5 text-red-600' /><span className='hidden md:block text-red-600'>Eliminar</span>
+                        </Button>
                     </div>
-                    
-                    <Button onClick={deleteHandler} className='my-auto flex flex-row items-center gap-2 bg-white'>
-                        <TrashIcon className='w-5 h-5 text-red-600' /><span className='text-red-600'>Eliminar</span>
-                    </Button>
                     
                     {loading ? <Spinner className='animate-spin h-5 w-5 mx-auto my-5 md:mx-0  md:my-auto' /> : ''}
                 </div>

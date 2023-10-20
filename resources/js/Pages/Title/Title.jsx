@@ -2,7 +2,6 @@ import { Head } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Button } from "@material-tailwind/react";
 import {
-    PlayIcon,
     SquaresPlusIcon,
     CheckIcon,
     PlusIcon
@@ -11,6 +10,7 @@ import { useState } from "react";
 import { Spinner } from "@material-tailwind/react";
 import toast, { Toaster } from "react-hot-toast";
 import ListModal from "./partials/ListModal";
+import PlayButton from "./partials/PlayButton";
 
 export default function Title({ auth, title, services, alreadySaved }) {
     const [loading, setLoading] = useState(false);
@@ -73,6 +73,7 @@ export default function Title({ auth, title, services, alreadySaved }) {
 
     return (
         <>
+        {console.log(services)}
             <Head title={"Ver " + title.title} />
             <AuthenticatedLayout
                 user={auth.user}
@@ -103,9 +104,10 @@ export default function Title({ auth, title, services, alreadySaved }) {
                                 </span>
                             </h1>
                             <div className="flex gap-3 flex-col md:flex-row">
-                                <Button className="bg-white text-black md:p-5 flex justify-center">
-                                    <PlayIcon className="w-4 h-4" /> &nbsp; Ver
-                                </Button>
+                                {/* PLAY BUTTON */}
+                                <PlayButton services={services} />
+
+                                {/* LIBRARY BUTTON */}
                                 <Button
                                     onClick={clickHandler}
                                     className="bg-transparent border border-white text-white flex justify-center md:p-5"
@@ -119,6 +121,8 @@ export default function Title({ auth, title, services, alreadySaved }) {
                                     )}
                                     &nbsp; Biblioteca
                                 </Button>
+
+                                {/* PLAYLIST BUTTON */}
                                 <Button onClick={openModal} className="bg-transparent border border-white text-white flex justify-center md:p-5">
                                     <PlusIcon className="w-4 h-4" /> &nbsp; Lista
                                 </Button>
@@ -140,7 +144,7 @@ export default function Title({ auth, title, services, alreadySaved }) {
                                     ))
                                 ) : (
                                     <p className="text-white">
-                                        No se encontraron resultados...
+                                        No está disponible en ningún servicio de streaming.
                                     </p>
                                 )}
                             </div>

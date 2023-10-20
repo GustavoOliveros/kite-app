@@ -1,8 +1,8 @@
-import { Link, Head } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import LinkButton from '@/Components/LinkButton';
 
-export default function LandingPage({ auth }) {
+export default function LandingPage({ }) {
     return (
         <>
             <Head title="Todo en un solo lugar" />

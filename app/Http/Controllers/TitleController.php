@@ -7,6 +7,7 @@ use App\Models\Title;
 use Inertia\Inertia;
 use App\Models\User_Has_Title;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class TitleController extends Controller
 {
@@ -41,7 +42,9 @@ class TitleController extends Controller
      */
     public function show(string $id)
     {
+        // ESTO TENDRIA QUE RETORNAR TMB UN BOOLEAN PARA SABER SI EL USUARIO TIENE CONTRATADO EL SERVICIO
         $title = Title::find($id);
+        $userServices = User::find(Auth::user()->id)->services->pluck('service_id')->toArray();
         $titleOnServices = $title->services;
         $services = [];
         $array = [];
@@ -50,6 +53,7 @@ class TitleController extends Controller
         foreach($titleOnServices as $titleOnService){
             $array['service'] = $titleOnService->service;
             $array['title_on_service'] = $titleOnService;
+            $array['isUserSubscribed'] = in_array($titleOnService->service->id, $userServices);
             array_push($services, $array);
         }
 
