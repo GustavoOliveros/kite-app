@@ -183,6 +183,7 @@ class PlaylistController extends Controller
             ->get();
 
         try{
+            DB::beginTransaction();
             if($selectedValues){
                 foreach($selectedValues as $selectedValue){
                     $alreadyExists = $playlistTitles->where('playlist_id', $selectedValue)->first();
@@ -198,18 +199,17 @@ class PlaylistController extends Controller
                         return $item->playlist_id == $selectedValue;
                     });
                 }
-                foreach($playlistTitles as $playlistTitle){
-                    $playlistTitle->delete();
-                }
-            }else{
-                foreach($playlistTitles as $playlistTitle){
-                    $playlistTitle->delete();
-                }
+            }
+
+            foreach($playlistTitles as $playlistTitle){
+                $playlistTitle->delete();
             }
 
             $response['type'] = 'success';
             $response['message'] = 'Se ha guardado con éxito.';
+            DB::commit();
         }catch(Exception $error){
+            DB::rollBack();
             $response['type'] = 'error';
             $response['message'] = 'Ocurrió un error. Inténtelo de nuevo más tarde.';
             $response['obj'] = $error;

@@ -9,6 +9,7 @@ use Database\Seeders\TitleTableSeeder;
 use Database\Seeders\ServiceTableSeeder;
 use Database\Seeders\RolesAndPermissionsSeeder;
 use Database\Seeders\UserTableSeeder;
+use Database\Seeders\GenreTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,5 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UserTableSeeder::class);
         $this->call(TitleTableSeeder::class);
         $this->call(ServiceTableSeeder::class);
+        $this->call(GenreTableSeeder::class);
     }
 }
