@@ -16,7 +16,7 @@ class User_Views_Title extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['user_id' , 'title_id', 'service_id', 'view_count'];
+    protected $fillable = ['user_id' , 'title_id', 'view_count'];
 
     public function user()
     {
@@ -26,9 +26,6 @@ class User_Views_Title extends Model
     {
         return $this->belongsTo(Title::class, 'title_id', 'id');
     }
-    public function service()
-    {
-        return $this->belongsTo(Service::class, 'service_id', 'id');
-    }
+
 
 }

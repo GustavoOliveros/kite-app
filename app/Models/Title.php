@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Title_On_Service;
+use App\Models\Title_Has_Genre;
 
 class Title extends Model
 {
@@ -26,5 +27,9 @@ class Title extends Model
 
     public function services(){
         return $this->hasMany(Title_On_Service::class, "title_id", "id");
+    }
+
+    public function genres(){
+        return $this->hasMany(Title_Has_Genre::class, "title_id", "id");
     }
 }

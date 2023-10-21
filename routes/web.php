@@ -70,7 +70,7 @@ Route::group(['middleware' => ['access app', 'auth']], function(){
     Route::delete('/playlist/{id}', [PlaylistController::class, 'destroy'])->name('playlist.destroy');
 
     // History
-    Route::post('/title/watch', [TitleController::class, 'saveHistory'])->name('saveHistory');
+    Route::get('/title/{id}/watch', [TitleController::class, 'saveHistory'])->name('saveHistory');
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

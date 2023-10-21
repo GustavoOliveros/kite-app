@@ -16,7 +16,6 @@ return new class extends Migration
 
             $table->unsignedBigInteger('title_id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('service_id');
             $table->integer('view_count');
             $table->timestamps();
         
@@ -26,9 +25,6 @@ return new class extends Migration
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
-            $table->foreign('service_id')
-                ->references('id')
-                ->on('services');
         });
     }
 
