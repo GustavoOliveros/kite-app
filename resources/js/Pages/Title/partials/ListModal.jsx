@@ -8,11 +8,16 @@ import TextInput from "@/Components/TextInput";
 import { Spinner } from "@material-tailwind/react";
 
 export default function ListModal({ onClose, titleId }) {
+    // HOOKS
+
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [selectedValues, setSelectedValues] = useState([]);
     const [isInputActive, setIsInputActive] = useState(false);
     const [newPlaylistName, setNewPlaylistName] = useState("");
+
+
+    // FETCH USER LISTS FUNCTION
 
     const fetchData = () => {
         return axios
@@ -28,6 +33,9 @@ export default function ListModal({ onClose, titleId }) {
                 console.error(error);
             });
     };
+
+    // HANDLE CHECKBOX CHANGES (PLAYLIST SELECTION)
+
     const handleCheckboxChange = (value) => {
         if (selectedValues.includes(value)) {
             setSelectedValues(selectedValues.filter((v) => v !== value));
@@ -35,6 +43,8 @@ export default function ListModal({ onClose, titleId }) {
             setSelectedValues([...selectedValues, value]);
         }
     };
+
+    // SAVE/DELETE PLAYLIST_HAS_TITLE FUNCTIONS
 
     const callback = (response) => {
         if (response.data.type === "success") {
@@ -64,6 +74,14 @@ export default function ListModal({ onClose, titleId }) {
             });
     };
 
+    const submit = (e) => {
+        e.preventDefault();
+        setLoading(true);
+        savePlaylistSelection(selectedValues);
+    };
+
+    // NEW PLAYLIST FUNCTION
+
     const saveNewPlaylist = (newPlaylistName) => {
         return axios
             .post(route("playlist.store", { title: newPlaylistName }))
@@ -80,17 +98,13 @@ export default function ListModal({ onClose, titleId }) {
             });
     };
 
-    const submit = (e) => {
-        e.preventDefault();
-        setLoading(true);
-        savePlaylistSelection(selectedValues);
-    };
-
     const submitNewPlaylist = (e) => {
         e.preventDefault();
         setLoading(true);
         saveNewPlaylist(newPlaylistName);
     };
+
+    // FETCH DATA ON LOAD
 
     useEffect(() => {
         setLoading(true);
@@ -99,15 +113,25 @@ export default function ListModal({ onClose, titleId }) {
 
     return (
         <div className="p-5">
+
+            {/* TITLE */}
+            
             <Dialog.Title
                 as="h3"
                 className="text-lg font-medium leading-6 text-gray-900"
             >
                 <div className="flex justify-center mb-2 gap-2">
-                    {loading ? <Spinner className="w-5 h-5 animate-spin" /> : <ListBulletIcon className="w-5 h-5" />} Listas
+                    {loading ? (
+                        <Spinner className="w-5 h-5 animate-spin" />
+                    ) : (
+                        <ListBulletIcon className="w-5 h-5" />
+                    )}{" "}
+                    Listas
                 </div>
                 <hr />
             </Dialog.Title>
+
+            {/* NEW PLAYLIST FORM */}
 
             <form onSubmit={submitNewPlaylist}>
                 {isInputActive ? (
@@ -130,7 +154,8 @@ export default function ListModal({ onClose, titleId }) {
                 )}
             </form>
 
-            {/* Contenido del Modal */}
+            {/* PLAYLIST SELECTION FORM */}
+            
             <form onSubmit={submit} id="list-form">
                 <div className="my-2 flex flex-col overflow-y-scroll h-48">
                     {data && data.length > 0 ? (
@@ -149,7 +174,11 @@ export default function ListModal({ onClose, titleId }) {
                     )}
                 </div>
             </form>
+
             <hr />
+
+            {/* FOOTER */}
+
             <div className="mt-4 flex gap-3 justify-center">
                 <button
                     type="submit"
