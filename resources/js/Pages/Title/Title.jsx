@@ -9,6 +9,7 @@ import Buttons from "./partials/Buttons";
 import ListModal from "./partials/ListModal";
 import PlayModal from "./partials/PlayModal";
 import ServicesTitle from "./partials/ServicesTitle";
+import AskModal from "./partials/AskModal";
 
 
 export default function Title({ auth, title, services, alreadySaved }) {
@@ -18,7 +19,8 @@ export default function Title({ auth, title, services, alreadySaved }) {
     const [loadingWatch, setLoadingWatch] = useState(false);
     const [saved, setSaved] = useState(alreadySaved);
     const [modalType, setModalType] = useState('watch');
-    let [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const [link, setLink] = useState('');
 
     // MODAL FUNCTIONS
     
@@ -34,6 +36,14 @@ export default function Title({ auth, title, services, alreadySaved }) {
     };
     const openWatchModal = (e) => {
         setModalType('watch');
+        openModal();
+    };
+    const openAskErrorModal = (e) => {
+        setModalType('askError');
+        openModal();
+    };
+    const openAskNoSubModal = (e) => {
+        setModalType('askNoSub');
         openModal();
     };
 
@@ -93,14 +103,15 @@ export default function Title({ auth, title, services, alreadySaved }) {
         } else {
             setLoadingWatch(false);
             toast.error(response.data.message);
-            // modal preguntando si quiere continuar de todos modos
+            setLink(link);
+            openAskErrorModal();
         }
     };
     const saveHistory = (link) => {
         return axios
             .get(
                 route("saveHistory", {
-                    id: services[0].title_on_service.title_id,
+                    id: title.id,
                 })
             )
             .then((response) => {
@@ -108,8 +119,9 @@ export default function Title({ auth, title, services, alreadySaved }) {
             })
             .catch((error) => {
                 setLoadingWatch(false);
-                // modal preguntando si quiere continuar de todos modos
                 toast.error("Ocurrió un error. Inténtelo de nuevo más tarde");
+                setLink(link);
+                openAskErrorModal();
             });
     };
 
@@ -117,9 +129,12 @@ export default function Title({ auth, title, services, alreadySaved }) {
         <>
             {/* LAYOUT */}
             <Head title={"Ver " + title.title} />
-            <AuthenticatedLayout user={auth.user} permissions={auth.permissions} backgroundImagePath={title.backdrop_path}>
+            <AuthenticatedLayout
+                user={auth.user}
+                permissions={auth.permissions}
+                backgroundImagePath={title.backdrop_path}
+            >
                 <div className="text-white">
-
                     {/* POSTER (MOBILE VERSION) */}
                     <img
                         src={
@@ -139,7 +154,6 @@ export default function Title({ auth, title, services, alreadySaved }) {
                     {/* TITLE INFO + BUTTONS */}
                     <div className="w-full md:h-screen">
                         <div className="flex flex-col w-full gap-3 md:h-screen md:py-28">
-
                             <TitleHeader title={title} />
 
                             <Buttons
@@ -157,13 +171,10 @@ export default function Title({ auth, title, services, alreadySaved }) {
                             <p className="md:w-1/2 my-4">{title.overview}</p>
 
                             <ServicesTitle services={services} />
-
                         </div>
                     </div>
-
                 </div>
             </AuthenticatedLayout>
-
 
             {/* OFF-LAYOUT (Modal & Toast) */}
             <Toaster />
@@ -175,9 +186,40 @@ export default function Title({ auth, title, services, alreadySaved }) {
                         saveHistory={saveHistory}
                         loadingWatch={loadingWatch}
                         setLoadingWatch={setLoadingWatch}
+                        openAskNoSubModal={openAskNoSubModal}
+                        setLink={setLink}
                     />
                 ) : (
+                    ""
+                )}
+                {modalType === "list" ? (
                     <ListModal onClose={closeModal} titleId={title.id} />
+                ) : (
+                    ""
+                )}
+                {modalType === "askError" ? (
+                    <AskModal
+                        modalType="askError"
+                        loadingWatch={loadingWatch}
+                        setLoadingWatch={setLoadingWatch}
+                        onClose={closeModal}
+                        link={link}
+                        saveHistory={saveHistory}
+                    />
+                ) : (
+                    ""
+                )}
+                {modalType === "askNoSub" ? (
+                    <AskModal
+                        modalType="askNoSub"
+                        loadingWatch={loadingWatch}
+                        setLoadingWatch={setLoadingWatch}
+                        onClose={closeModal}
+                        link={link}
+                        saveHistory={saveHistory}
+                    />
+                ) : (
+                    ""
                 )}
             </Modal>
         </>
