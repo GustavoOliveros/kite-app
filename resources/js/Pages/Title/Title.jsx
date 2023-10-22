@@ -6,15 +6,20 @@ import {
     CheckIcon,
     PlusIcon
 } from "@heroicons/react/24/solid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Spinner } from "@material-tailwind/react";
 import toast, { Toaster } from "react-hot-toast";
-import ListModal from "./partials/ListModal";
 import PlayButton from "./partials/PlayButton";
+import Modal from "@/Components/Modal";
+import ListModal from "./partials/ListModal";
+import WatchModal from "./partials/WatchModal";
 
 export default function Title({ auth, title, services, alreadySaved }) {
     const [loading, setLoading] = useState(false);
+    const [loadingWatch, setLoadingWatch] = useState(false);
     const [saved, setSaved] = useState(alreadySaved);
+    const [modalType, setModalType] = useState('watch');
+    const [link, setLink] = useState('');
 
     let [isOpen, setIsOpen] = useState(false)
     
@@ -65,15 +70,51 @@ export default function Title({ auth, title, services, alreadySaved }) {
             });
     };
 
-    const clickHandler = (e) => {
+    const openLibraryInput = (e) => {
         setLoading(true);
         submit(title.id);
     };
+
+    const openListModal = (e) => {
+        setModalType('list');
+        openModal();
+    };
+
+    const openWatchModal = (e) => {
+        setModalType('watch');
+        openModal();
+    };
     
+    const responseHandler = (response) => {
+        if (response.data.type === "success") {
+            toast.success(response.data.message);
+            window.location.href = services[0].title_on_service.link;
+        } else {
+            setLoadingWatch(false);
+            toast.error(response.data.message);
+            // modal preguntando si quiere continuar de todos modos
+        }
+    };
+
+    const saveHistory = () => {
+        return axios
+            .get(
+                route("saveHistory", {
+                    id: services[0].title_on_service.title_id,
+                })
+            )
+            .then((response) => {
+                responseHandler(response);
+            })
+            .catch((error) => {
+                setLoadingWatch(false);
+                // modal preguntando si quiere continuar de todos modos
+                toast.error("Ocurrió un error. Inténtelo de nuevo más tarde");
+            });
+    };
 
     return (
         <>
-        {console.log(services)}
             <Head title={"Ver " + title.title} />
             <AuthenticatedLayout
                 user={auth.user}
@@ -105,11 +146,17 @@ export default function Title({ auth, title, services, alreadySaved }) {
                             </h1>
                             <div className="flex gap-3 flex-col md:flex-row">
                                 {/* PLAY BUTTON */}
-                                <PlayButton services={services} />
+                                <PlayButton
+                                    services={services}
+                                    openModal={openWatchModal}
+                                    saveHistory={saveHistory}
+                                    loadingWatch={loadingWatch}
+                                    setLoadingWatch={setLoadingWatch}
+                                />
 
                                 {/* LIBRARY BUTTON */}
                                 <Button
-                                    onClick={clickHandler}
+                                    onClick={openLibraryInput}
                                     className="bg-transparent border border-white text-white flex justify-center md:p-5"
                                 >
                                     {loading ? (
@@ -123,8 +170,12 @@ export default function Title({ auth, title, services, alreadySaved }) {
                                 </Button>
 
                                 {/* PLAYLIST BUTTON */}
-                                <Button onClick={openModal} className="bg-transparent border border-white text-white flex justify-center md:p-5">
-                                    <PlusIcon className="w-4 h-4" /> &nbsp; Lista
+                                <Button
+                                    onClick={openListModal}
+                                    className="bg-transparent border border-white text-white flex justify-center md:p-5"
+                                >
+                                    <PlusIcon className="w-4 h-4" /> &nbsp;
+                                    Lista
                                 </Button>
                             </div>
                             <p className="md:w-1/2 my-4">{title.overview}</p>
@@ -144,7 +195,8 @@ export default function Title({ auth, title, services, alreadySaved }) {
                                     ))
                                 ) : (
                                     <p className="text-white">
-                                        No está disponible en ningún servicio de streaming.
+                                        No está disponible en ningún servicio de
+                                        streaming.
                                     </p>
                                 )}
                             </div>
@@ -153,7 +205,21 @@ export default function Title({ auth, title, services, alreadySaved }) {
                 </div>
             </AuthenticatedLayout>
             <Toaster />
-            <ListModal isModalOpen={isOpen} closeModal={closeModal} titleId={title.id} />
+            <Modal show={isOpen} onClose={closeModal} maxWidth="xl">
+                {modalType === "watch" ? (
+                    <WatchModal
+                        onClose={closeModal}
+                        services={services}
+                        saveHistory={saveHistory}
+                        loadingWatch={loadingWatch}
+                        setLoadingWatch={setLoadingWatch}
+                        link={link}
+                        setLink={setLink}
+                    />
+                ) : (
+                    <ListModal onClose={closeModal} titleId={title.id} />
+                )}
+            </Modal>
         </>
     );
 }
