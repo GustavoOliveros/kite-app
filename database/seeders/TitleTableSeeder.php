@@ -14,6 +14,7 @@ class TitleTableSeeder extends Seeder
      */
     public function run(): void
     {
+        // MOVIES
         $jsonPath = base_path('database/seeders/data/titles.json');
         $json = File::get($jsonPath);
 
@@ -26,6 +27,25 @@ class TitleTableSeeder extends Seeder
                 "original_title" => $title['original_title'],
                 "title" => $title['title'],
                 "year" =>  substr($title['release_date'], 0, 4),
+                "poster_path" => $title['poster_path'],
+                "backdrop_path" => $title['backdrop_path'],
+                "status" => 1,
+                "overview" => $title['overview']
+            ]);
+        }
+
+        $jsonPath = base_path('database/seeders/data/titlesTV.json');
+        $json = File::get($jsonPath);
+
+        $data = json_decode($json, true);
+
+        foreach($data['results'] as $title){
+            Title::create([
+                "id" => $title['id'],
+                "type" => 'TV',
+                "original_title" => $title['original_name'],
+                "title" => $title['name'],
+                "year" =>  substr($title['first_air_date'], 0, 4),
                 "poster_path" => $title['poster_path'],
                 "backdrop_path" => $title['backdrop_path'],
                 "status" => 1,

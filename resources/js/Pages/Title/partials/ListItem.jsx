@@ -6,7 +6,7 @@ export default function ListItem({data, onChange, selectedValues}) {
         <>
         <InputLabel
           htmlFor={data.id}
-          className="w-full py-2 hover:bg-gray-300 cursor-pointer flex flex-row justify-start gap-2"
+          className="w-full py-2 hover:bg-gray-900 cursor-pointer flex flex-row justify-start gap-2 text-white"
         >
             { selectedValues.includes(data.id) ? <CheckIcon className="h-5 w-5 mx-2" /> : <CheckIcon className="h-5 w-5 mx-2 text-transparent" /> }{data.title}
         </InputLabel>

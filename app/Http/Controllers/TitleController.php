@@ -46,28 +46,31 @@ class TitleController extends Controller
      */
     public function show(string $id)
     {
-        // ESTO TENDRIA QUE RETORNAR TMB UN BOOLEAN PARA SABER SI EL USUARIO TIENE CONTRATADO EL SERVICIO
         $title = Title::find($id);
-        $userServices = User::find(Auth::user()->id)->services->pluck('service_id')->toArray();
-        $titleOnServices = $title->services;
-        $services = [];
-        $array = [];
-        $alreadySaved = false;
-        
-        foreach($titleOnServices as $titleOnService){
-            $array['service'] = $titleOnService->service;
-            $array['title_on_service'] = $titleOnService;
-            $array['isUserSubscribed'] = in_array($titleOnService->service->id, $userServices);
-            array_push($services, $array);
-        }
 
         if($title){
-            $userTitle = User_Has_Title::
-                            where('user_id', Auth::user()->id)
-                            ->where('title_id', $id)->first();
-            $alreadySaved = ($userTitle) ? true : false;
-
-            return Inertia::render('Title/Title', ['title' => $title, 'services' => $services, 'alreadySaved' => $alreadySaved]);
+            $userServices = User::find(Auth::user()->id)->services->pluck('service_id')->toArray();
+            
+            $titleOnServices = $title->services;
+            $services = [];
+            $array = [];
+            $alreadySaved = false;
+            
+            foreach($titleOnServices as $titleOnService){
+                $array['service'] = $titleOnService->service;
+                $array['title_on_service'] = $titleOnService;
+                $array['isUserSubscribed'] = in_array($titleOnService->service->id, $userServices);
+                array_push($services, $array);
+            }
+    
+            if($title){
+                $userTitle = User_Has_Title::
+                                where('user_id', Auth::user()->id)
+                                ->where('title_id', $id)->first();
+                $alreadySaved = ($userTitle) ? true : false;
+    
+                return Inertia::render('Title/Title', ['title' => $title, 'services' => $services, 'alreadySaved' => $alreadySaved]);
+            }
         }
 
         return Inertia::render('Errors/Error', ['status' => 404]);

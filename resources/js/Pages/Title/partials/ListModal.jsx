@@ -118,7 +118,7 @@ export default function ListModal({ onClose, titleId }) {
             
             <Dialog.Title
                 as="h3"
-                className="text-lg font-medium leading-6 text-gray-900"
+                className="text-lg font-medium leading-6 text-white"
             >
                 <div className="flex justify-center mb-2 gap-2">
                     {loading ? (
@@ -144,7 +144,7 @@ export default function ListModal({ onClose, titleId }) {
                     />
                 ) : (
                     <div
-                        className="w-full mt-2 py-2 hover:bg-gray-300 cursor-pointer text-center"
+                        className="w-full mt-2 py-2 hover:bg-gray-900 cursor-pointer text-white text-center"
                         onClick={() => {
                             setIsInputActive(true);
                         }}
@@ -184,14 +184,14 @@ export default function ListModal({ onClose, titleId }) {
                     type="submit"
                     disabled={loading}
                     form="list-form"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-gray-800 hover:bg-gray-700 px-4 py-2 text-sm text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-800 focus-visible:ring-offset-2"
+                    className="inline-flex justify-center rounded-md border border-transparent bg-white px-4 py-2 text-sm text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-800 focus-visible:ring-offset-2"
                     onClick={onClose}
                 >
                     Guardar
                 </button>
                 <button
                     type="button"
-                    className="inline-flex justify-center rounded-md border border-black bg-white border-gray-800 px-4 py-2 text-sm text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-800 focus-visible:ring-offset-2"
+                    className="inline-flex justify-center rounded-md border border-black border-white px-4 py-2 text-sm text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-800 focus-visible:ring-offset-2"
                     onClick={onClose}
                 >
                     Cerrar

@@ -14,18 +14,24 @@ class Title_Has_GenreTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $jsonPath = base_path('database/seeders/data/titles.json');
-        $json = File::get($jsonPath);
-
-        $data = json_decode($json, true);
-
-        foreach($data['results'] as $title){
-            foreach($title['genre_ids'] as $genre){
+        $jsonPathMovie = base_path('database/seeders/data/titles.json');
+        $jsonMovie = File::get($jsonPathMovie);
+        $dataMovie = json_decode($jsonMovie, true);
+        
+        $jsonPathTV = base_path('database/seeders/data/titlesTV.json');
+        $jsonTV = File::get($jsonPathTV);
+        $dataTV = json_decode($jsonTV, true);
+        
+        // Combine data from both JSON files into a single array
+        $combinedData = array_merge($dataTV['results'], $dataMovie['results']);
+        
+        foreach ($combinedData as $title) {
+            foreach ($title['genre_ids'] as $genre) {
                 Title_Has_Genre::create([
                     'genre_id' => $genre,
                     'title_id' => $title['id'],
                 ]);
             }
-        }
+        }        
     }
 }

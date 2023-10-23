@@ -46,9 +46,7 @@ Route::group(['middleware' => ['access app', 'auth']], function(){
         ->name('home');
 
     // Search
-    Route::get('/search', function () {
-        return Inertia::render('Search/Search');
-    })->name('search');
+    Route::get('/search', [SearchController::class, 'show'])->name('search');
     Route::get('/search/{query}', [SearchController::class, 'perform'])
         ->name('search-term');
 

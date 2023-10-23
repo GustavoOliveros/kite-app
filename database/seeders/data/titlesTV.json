@@ -1,0 +1,389 @@
+{
+    "page": 1,
+    "results": [
+      {
+        "backdrop_path": "/q3jHCb4dMfYF6ojikKuHd6LscxC.jpg",
+        "first_air_date": "2021-06-09",
+        "genre_ids": [
+          18,
+          10765
+        ],
+        "id": 84958,
+        "name": "Loki",
+        "origin_country": [
+          "US"
+        ],
+        "original_language": "en",
+        "original_name": "Loki",
+        "overview": "Loki es llevado ante la misteriosa organización llamada AVT (Autoridad de Variación Temporal) después de los acontecimientos  ocurridos en  \"Avengers: Endgame (2019)\" y  se le da a elegir  enfrentarse a ser borrado de la existencia debido a que es una \"variante de tiempo\" o ayudar a arreglar la línea de tiempo y detener una amenaza mayor.",
+        "popularity": 3265.515,
+        "poster_path": "/53aonG0QS3ynbYuuwhPtyoOwTDD.jpg",
+        "vote_average": 8.2,
+        "vote_count": 10325
+      },
+      {
+        "backdrop_path": "/9xxLWtnFxkpJ2h1uthpvCRK6vta.jpg",
+        "first_air_date": "1999-09-20",
+        "genre_ids": [
+          80,
+          18,
+          9648
+        ],
+        "id": 2734,
+        "name": "La Ley y el Orden: Unidad de Víctimas Especiales",
+        "origin_country": [
+          "US"
+        ],
+        "original_language": "en",
+        "original_name": "Law & Order: Special Victims Unit",
+        "overview": "Serie surgida a la sombra de \"Law & Order\". Una unidad especial de la policía de Nueva York se dedica a investigar delitos de carácter sexual: violaciones, pedofilia y malos tratos infantiles.",
+        "popularity": 2312.715,
+        "poster_path": "/uCM7F376UCIs5y6fMg2UyVGOmfr.jpg",
+        "vote_average": 8,
+        "vote_count": 3407
+      },
+      {
+        "backdrop_path": "/8CXw90lEmnJQeUvkgSnl5bEjbQI.jpg",
+        "first_air_date": "2013-12-02",
+        "genre_ids": [
+          16,
+          35,
+          10765,
+          10759
+        ],
+        "id": 60625,
+        "name": "Rick y Morty",
+        "origin_country": [
+          "US"
+        ],
+        "original_language": "en",
+        "original_name": "Rick and Morty",
+        "overview": "Rick Sánchez es un genio científico alcohólico que se ha mudado con la familia de su hija Beth. Él pasa el tiempo con su nieto adolescente Morty (y en ocasiones con otros miembros de la familia) en aventuras peligrosas y surrealistas a través del espacio y universos paralelos.",
+        "popularity": 2247.738,
+        "poster_path": "/5Yiep9EwcQgLolg013ETBVqHxuD.jpg",
+        "vote_average": 8.7,
+        "vote_count": 8658
+      },
+      {
+        "backdrop_path": "/oOce9hLMVFubjAJliau4kiSNPnW.jpg",
+        "first_air_date": "1990-09-13",
+        "genre_ids": [
+          80,
+          18
+        ],
+        "id": 549,
+        "name": "La Ley y el Orden",
+        "origin_country": [
+          "US"
+        ],
+        "original_language": "en",
+        "original_name": "Law & Order",
+        "overview": "Serie sobre la investigación de crímenes en la ciudad de Nueva York. Policías y jueces son los principales protagonistas.",
+        "popularity": 1788.167,
+        "poster_path": "/nyziFvpO4Ua3hT6rAeu9sbNLqwV.jpg",
+        "vote_average": 7.5,
+        "vote_count": 460
+      },
+      {
+        "backdrop_path": "/218ZehBKlH8efPRRccmB7bu0oLQ.jpg",
+        "first_air_date": "2023-09-25",
+        "genre_ids": [
+          35,
+          9648,
+          10766,
+          18
+        ],
+        "id": 219109,
+        "name": "Elas por Elas",
+        "origin_country": [
+          "BR"
+        ],
+        "original_language": "pt",
+        "original_name": "Elas por Elas",
+        "overview": "",
+        "popularity": 1621.31,
+        "poster_path": "/hCSH5KvSqShWXhFiXr88wtJXwlO.jpg",
+        "vote_average": 9.5,
+        "vote_count": 4
+      },
+      {
+        "backdrop_path": "/2eIlCirgcvEwmCSYh2wDfz5Sxvz.jpg",
+        "first_air_date": "2013-09-23",
+        "genre_ids": [
+          18,
+          80,
+          9648
+        ],
+        "id": 46952,
+        "name": "The Blacklist",
+        "origin_country": [
+          "US"
+        ],
+        "original_language": "en",
+        "original_name": "The Blacklist",
+        "overview": "El criminal más buscado del mundo, Thomas Raymond Reddington (James Spader), se entrega misteriosamente y se ofrece a delatar a todos los que alguna vez han colaborado con él. Su única condición: sólo colaborará con Elisabeth Keen (Megan Boone), una nueva agente del FBI, con quien parece tener alguna conexión que ella desconoce.",
+        "popularity": 1613.224,
+        "poster_path": "/2jDYeTaDSIYnVOS4BD3d17JBkfP.jpg",
+        "vote_average": 7.6,
+        "vote_count": 2848
+      },
+      {
+        "backdrop_path": "/hwUQsL1cWt0bmbTxzCompqqvTH9.jpg",
+        "first_air_date": "2004-01-22",
+        "genre_ids": [
+          10764
+        ],
+        "id": 82250,
+        "name": "Gran hermano VIP",
+        "origin_country": [
+          "ES"
+        ],
+        "original_language": "es",
+        "original_name": "Gran hermano VIP",
+        "overview": "",
+        "popularity": 1543.217,
+        "poster_path": "/9269PATr0bmEXKjkpR88mzGmNYI.jpg",
+        "vote_average": 4,
+        "vote_count": 7
+      },
+      {
+        "backdrop_path": "/gmECX1DvFgdUPjtio2zaL8BPYPu.jpg",
+        "first_air_date": "2020-10-03",
+        "genre_ids": [
+          16,
+          10759,
+          10765
+        ],
+        "id": 95479,
+        "name": "Jujutsu Kaisen",
+        "origin_country": [
+          "JP"
+        ],
+        "original_language": "ja",
+        "original_name": "呪術廻戦",
+        "overview": "Dificultades, arrepentimiento, vergüenza… Los sentimientos negativos de los humanos se convierten en Maldiciones que nos acechan en nuestra vida diaria. Las Maldiciones campan a sus anchas por todo el mundo, y pueden llevar a las personas a sufrir terribles desgracias e incluso dirigirlas a su muerte. Y lo que es peor: solo una Maldición puede exorcizar otra Maldición.",
+        "popularity": 1525.159,
+        "poster_path": "/ZhFzMk2UvUZMvWEsCW5lKXn9tN.jpg",
+        "vote_average": 8.6,
+        "vote_count": 2833
+      },
+      {
+        "backdrop_path": "/xXRsKNJHTOGrs5wfYAxkbM2RiyT.jpg",
+        "first_air_date": "2017-09-25",
+        "genre_ids": [
+          18
+        ],
+        "id": 71712,
+        "name": "The Good Doctor",
+        "origin_country": [
+          "US"
+        ],
+        "original_language": "en",
+        "original_name": "The Good Doctor",
+        "overview": "La serie sigue a Shaun Murphy, un joven cirujano con autismo y síndrome del sabio de una pequeña ciudad, donde tuvo una infancia problemática. Él se traslada para unirse al prestigioso departamento de cirugía en San José St. Bonaventure Hospital.",
+        "popularity": 1484.565,
+        "poster_path": "/eCvGVqmxXcNvLMJxLAJeBZ2cUnM.jpg",
+        "vote_average": 8.5,
+        "vote_count": 11798
+      },
+      {
+        "backdrop_path": "/wU1y7snEVYiJBpZ2k1DjIpHgJbx.jpg",
+        "first_air_date": "1999-01-31",
+        "genre_ids": [
+          16,
+          35
+        ],
+        "id": 1434,
+        "name": "Padre de Familia",
+        "origin_country": [
+          "US"
+        ],
+        "original_language": "en",
+        "original_name": "Family Guy",
+        "overview": "La serie se centra en los Griffin, una familia disfuncional cuyos componentes son: los padres Peter y Lois; sus hijos Meg, Chris, y Stewie; y su perro antropomorfo Brian.",
+        "popularity": 1439.267,
+        "poster_path": "/oalgdH3vglKvg1SB4OaMyoJ29sx.jpg",
+        "vote_average": 7.3,
+        "vote_count": 3905
+      },
+      {
+        "backdrop_path": "/sLFzswJzWUBwTNnLaQ7EOikR1He.jpg",
+        "first_air_date": "2023-10-07",
+        "genre_ids": [
+          18
+        ],
+        "id": 233076,
+        "name": "问心",
+        "origin_country": [
+          "CN"
+        ],
+        "original_language": "zh",
+        "original_name": "问心",
+        "overview": "",
+        "popularity": 1432.859,
+        "poster_path": "/sEyJgrm80Lad7MRMchh6ZrdoAAi.jpg",
+        "vote_average": 9,
+        "vote_count": 2
+      },
+      {
+        "backdrop_path": "/xl1wGwaPZInJo1JAnpKqnFozWBE.jpg",
+        "first_air_date": "2014-02-17",
+        "genre_ids": [
+          35,
+          10767
+        ],
+        "id": 59941,
+        "name": "The Tonight Show Starring Jimmy Fallon",
+        "origin_country": [
+          "US"
+        ],
+        "original_language": "en",
+        "original_name": "The Tonight Show Starring Jimmy Fallon",
+        "overview": "",
+        "popularity": 1386.944,
+        "poster_path": "/g4amxJvtpnY79J77xeamnAEUO8r.jpg",
+        "vote_average": 6,
+        "vote_count": 235
+      },
+      {
+        "backdrop_path": "/ds1n5P0Y92cTh6UpbcA89hxM96a.jpg",
+        "first_air_date": "2005-03-27",
+        "genre_ids": [
+          18
+        ],
+        "id": 1416,
+        "name": "Anatomía según Grey",
+        "origin_country": [
+          "US"
+        ],
+        "original_language": "en",
+        "original_name": "Grey's Anatomy",
+        "overview": "La vida de Meredith Grey no es nada fácil. Intenta tomar las riendas de su vida, aunque su trabajo sea de esos que te hacen la vida imposible. Meredith es una cirujana interna de primer año en el Hospital Grace de Seattle, el programa de prácticas más duro de la Facultad de Medicina de Harvard. Y ella lo va a comprobar. Pero no estará sola. Un elenco de compañeros de promoción tendrán que superar la misma prueba. Ahora están en el mundo real, son doctores del hospital. Y en un mundo donde la experiencia en el trabajo puede ser un factor de vida o muerte, todos ellos tendrán que lidiar con los altibajos de sus vidas personales.",
+        "popularity": 1363.772,
+        "poster_path": "/jPzW61WlkyHVdvm8dCQZveTvmgW.jpg",
+        "vote_average": 8.3,
+        "vote_count": 9555
+      },
+      {
+        "backdrop_path": "/ScaVfT5IkwVC3Edhmxqyl0GbK0.jpg",
+        "first_air_date": "2023-09-28",
+        "genre_ids": [
+          10765,
+          10759,
+          18
+        ],
+        "id": 205715,
+        "name": "Gen V",
+        "origin_country": [
+          "US"
+        ],
+        "original_language": "en",
+        "original_name": "Gen V",
+        "overview": "En la única universidad para superhéroes de Estados Unidos, los estudiantes superdotados ponen a prueba sus límites morales, compitiendo por la clasificación más alta de la universidad y la oportunidad de unirse a The Seven, el equipo de élite de superhéroes de Vought International. Cuando los oscuros secretos de la escuela salen a la luz, deben decidir en qué tipo de héroes quieren convertirse.",
+        "popularity": 1302.605,
+        "poster_path": "/8XQNhJ3y8LT8guh7wwbzUgzuAi3.jpg",
+        "vote_average": 8.2,
+        "vote_count": 186
+      },
+      {
+        "backdrop_path": "/2N4LXvTkUwPRkbvyzdmzvtnCHgR.jpg",
+        "first_air_date": "2023-07-25",
+        "genre_ids": [],
+        "id": 225660,
+        "name": "Pira-Pirasong Paraiso",
+        "origin_country": [
+          "PH"
+        ],
+        "original_language": "tl",
+        "original_name": "Pira-Pirasong Paraiso",
+        "overview": "",
+        "popularity": 1279.559,
+        "poster_path": "/gELcO56G9EsUj6LSjaDq8VvI8De.jpg",
+        "vote_average": 6.5,
+        "vote_count": 20
+      },
+      {
+        "backdrop_path": "/gNPWlhUXhyWiHv9qxr57tvT0WwS.jpg",
+        "first_air_date": "2014-10-07",
+        "genre_ids": [
+          18,
+          10765
+        ],
+        "id": 60735,
+        "name": "The Flash",
+        "origin_country": [
+          "US"
+        ],
+        "original_language": "en",
+        "original_name": "The Flash",
+        "overview": "Sigue las veloces aventuras de Barry Allen, un joven común y corriente con el deseo latente de ayudar a los demás. Cuando una inesperada partícula aceleradora golpea por accidente a Barry, de pronto se encuentra cargado de un increíble poder para moverse a increíbles velocidades. Mientras Barry siempre ha tenido el alma de un héroe, sus nuevos poderes le han dado la capacidad de actuar como tal.",
+        "popularity": 1252.017,
+        "poster_path": "/7ci4qqkBJorLxSBwTj28vwh0bU.jpg",
+        "vote_average": 7.8,
+        "vote_count": 10655
+      },
+      {
+        "backdrop_path": "/6s3ftX4a1kECPCb1Ewq3GLhVFnn.jpg",
+        "first_air_date": "2003-09-23",
+        "genre_ids": [
+          80,
+          18,
+          10759
+        ],
+        "id": 4614,
+        "name": "NCIS: Criminología Naval",
+        "origin_country": [
+          "US"
+        ],
+        "original_language": "en",
+        "original_name": "NCIS",
+        "overview": "Un equipo de agentes especiales del Servicio de Investigación Criminal de la Marina de los Estados Unidos, liderados por el agente especial Leroy Jethro Gibbs (Mark Harmon), investiga los crímenes que se cometen dentro del Cuerpo de la Marina. Entre los casos está la muerte del ayudante del maletín nuclear del presidente, una situación explosiva a bordo de un buque de guerra de la Armada y la muerte de un famoso durante un show de televisión en una base del cuerpo de marines... La serie nació como un spin-off de algunos personajes presentados previamente en la serie \"JAG: Alerta roja\".",
+        "popularity": 1227.101,
+        "poster_path": "/rkWK3hcCiFwtIhLYnTPKjcZwTTN.jpg",
+        "vote_average": 7.6,
+        "vote_count": 2056
+      },
+      {
+        "backdrop_path": "/aDBRtunw49UF4XmqfyNuD9nlYIu.jpg",
+        "first_air_date": "2016-01-25",
+        "genre_ids": [
+          80,
+          10765
+        ],
+        "id": 63174,
+        "name": "Lucifer",
+        "origin_country": [
+          "US"
+        ],
+        "original_language": "en",
+        "original_name": "Lucifer",
+        "overview": "La serie se centra en Lucifer (Tom Ellis) quien, aburrido e infeliz como el Señor del Infierno, dimite de su trono y abandona su reino para trasladarse a la ciudad de Los Angeles y abrir un lujoso piano-bar llamado Lux. Una vez allí ayudará a la policía a castigar a los más peligrosos criminales de la ciudad.",
+        "popularity": 1215.781,
+        "poster_path": "/wQh2ytX0f8IfC3b2mKpDGOpGTXS.jpg",
+        "vote_average": 8.5,
+        "vote_count": 13910
+      },
+      {
+        "backdrop_path": "/gMMnf8VRg3Z98WaFmOLr9Jk8pIs.jpg",
+        "first_air_date": "2015-09-08",
+        "genre_ids": [
+          35,
+          10767
+        ],
+        "id": 63770,
+        "name": "The Late Show with Stephen Colbert",
+        "origin_country": [
+          "US"
+        ],
+        "original_language": "en",
+        "original_name": "The Late Show with Stephen Colbert",
+        "overview": "",
+        "popularity": 1212.965,
+        "poster_path": "/9jkThAGYj2yp8jsS6Nriy5mzKFT.jpg",
+        "vote_average": 6.5,
+        "vote_count": 209
+      }
+    ],
+    "total_pages": 7891,
+    "total_results": 157809
+  }
