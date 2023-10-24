@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Title_On_Service;
 use App\Models\Title_Has_Genre;
+use App\Models\Genre;
 
 class Title extends Model
 {
@@ -31,5 +32,10 @@ class Title extends Model
 
     public function genres(){
         return $this->hasMany(Title_Has_Genre::class, "title_id", "id");
+    }
+
+    public function genresDirect()
+    {
+        return $this->belongsToMany(Genre::class, 'Title_Has_Genre', 'title_id', 'genre_id');
     }
 }

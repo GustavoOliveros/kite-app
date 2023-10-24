@@ -3,6 +3,7 @@ import { Head } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import toast, { Toaster } from "react-hot-toast";
 import Modal from "@/Components/Modal";
+import { Link } from "@inertiajs/react";
 
 import TitleHeader from "./partials/TitleHeader";
 import Buttons from "./partials/Buttons";
@@ -12,7 +13,7 @@ import ServicesTitle from "./partials/ServicesTitle";
 import AskModal from "./partials/AskModal";
 
 
-export default function Title({ auth, title, services, alreadySaved }) {
+export default function Title({ auth, title, services, alreadySaved, genres }) {
     // HOOKS
 
     const [loading, setLoading] = useState(false);
@@ -127,6 +128,7 @@ export default function Title({ auth, title, services, alreadySaved }) {
 
     return (
         <>
+            {console.log(genres)}
             {/* LAYOUT */}
             <Head title={"Ver " + title.title} />
             <AuthenticatedLayout
@@ -169,6 +171,18 @@ export default function Title({ auth, title, services, alreadySaved }) {
                             />
 
                             <p className="md:w-1/2 my-4">{title.overview}</p>
+                            <div className="flex flex-col md:flex-row gap-2 mb-4">
+                                {genres &&
+                                    genres.map((element, index) => (
+                                        <Link
+                                            href={route('genres.show', {id : element.id})}
+                                            className="text-sm text-white text-center border-2 p-2 rounded-lg"
+                                            key={index}
+                                        >
+                                            {element.name}
+                                        </Link>
+                                    ))}
+                            </div>
 
                             <ServicesTitle services={services} />
                         </div>

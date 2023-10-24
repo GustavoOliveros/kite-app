@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import Checkbox from '@/Components/Checkbox';
 import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
@@ -6,33 +5,83 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
+import toast, { Toaster } from "react-hot-toast";
+import { useEffect } from 'react';
 
-export default function Login({ status, canResetPassword }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
+export default function Login({ status, canResetPassword, success }) {
+    const { data, setData, post, processing, errors, setError, clearErrors } = useForm({
         login: '',
         password: '',
         remember: false,
     });
 
-    useEffect(() => {
-        return () => {
-            reset('password');
-        };
-    }, []);
-
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('login'));
+        if(validate('login', data.login) && validate('password', data.password)){
+            post(route('login'))
+        }else{
+            toast.error('Tiene errores en el formulario.')
+        }
+
+        
     };
 
+    const validationRules = {
+        login: {
+            required: true,
+            regex: /^.{3,50}$/,
+        },
+        password: {
+            required: true,
+            regex: /^.{3,50}$/,
+        },
+    };
+
+    // /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+
+    const messages = {
+        login: {
+            required: 'El correo o usuario es obligatorio.',
+            regex: 'El correo o usuario debe contener entre 3 y 50 caracteres',
+        },
+        password: {
+            required: 'La contraseña es obligatoria.',
+            regex: "La contraseña debe tener al menos 8 caracteres, incluir una letra y un número.",
+        },
+    };
+
+    const validate = (field, value) => {
+        let isValid = false;
+        const rules = validationRules[field];
+
+        if (rules.required && value === "") {
+            setError(field, messages[field].required);
+        } else if (rules.regex && !rules.regex.test(value)) {
+            setError(field, messages[field].regex);
+        } else {
+            isValid = true;
+            clearErrors(field);
+        }
+
+        return isValid;
+    };
+
+    useEffect(() => {
+        if(success){
+            toast.success(success)
+        }
+    }, [])
+
+
     return (
+        <>
         <GuestLayout>
             <Head title="Iniciar Sesión" />
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} noValidate>
                 <div>
                     <InputLabel htmlFor="login" value="Nombre de usuario o Correo" />
 
@@ -45,6 +94,7 @@ export default function Login({ status, canResetPassword }) {
                         autoComplete="username"
                         isFocused={true}
                         onChange={(e) => setData('login', e.target.value)}
+                        onInput={(e) => validate('login', e.target.value)}
                     />
 
                     <InputError message={errors.login} className="mt-2" />
@@ -61,6 +111,7 @@ export default function Login({ status, canResetPassword }) {
                         className="mt-1 block w-full"
                         autoComplete="current-password"
                         onChange={(e) => setData('password', e.target.value)}
+                        onInput={(e) => validate('password', e.target.value)}
                     />
 
                     <InputError message={errors.password} className="mt-2" />
@@ -93,5 +144,7 @@ export default function Login({ status, canResetPassword }) {
                 </div>
             </form>
         </GuestLayout>
+        <Toaster />
+        </>
     );
 }

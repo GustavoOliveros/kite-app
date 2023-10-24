@@ -11,6 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 use App\Models\User_Has_Service;
 use App\Models\User_Has_Title;
 use App\Models\Playlist;
+use App\Models\Title;
 
 class User extends Authenticatable
 {
@@ -60,6 +61,10 @@ class User extends Authenticatable
 
     public function playlists(){
         return $this->hasMany(Playlist::class, "user_id", "id");
+    }
+
+    public function watchedTitles(){
+        return $this->belongsToMany(Title::class, 'User_Views_Title', 'user_id', 'title_id');
     }
 
 }

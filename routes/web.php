@@ -13,6 +13,9 @@ use App\Http\Controllers\TitleController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\PlaylistController;
 use App\Models\Playlist;
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\HistoryController;
+use Psy\Command\HistoryCommand;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,8 +70,12 @@ Route::group(['middleware' => ['access app', 'auth']], function(){
     Route::post('/playlists/save', [PlaylistController::class, 'savePlaylistSelection'])->name('savePlaylistSelection');
     Route::delete('/playlist/{id}', [PlaylistController::class, 'destroy'])->name('playlist.destroy');
 
+    // Genres
+    Route::get('/genre/{id}', [GenreController::class, 'show'])->name('genres.show');
+
     // History
-    Route::get('/title/{id}/watch', [TitleController::class, 'saveHistory'])->name('saveHistory');
+    Route::get('/title/{id}/watch', [HistoryController::class, 'saveHistory'])->name('saveHistory');
+    Route::get('/your-history', [HistoryController::class, 'show'])->name('history');
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

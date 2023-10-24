@@ -65,7 +65,7 @@ export default function Search({ auth, genres }) {
                   <div className='grid grid-cols-1 md:grid-cols-5 gap-3'>
                   {showGenres
                       ? genres.map((element, index) => (
-                            <Link key={index} className="text-white text-xl bg-zinc-900 min-h-max py-10 text-center rounded-lg flex items-center justify-center" href="#">
+                            <Link key={index} href={route('genres.show', {id : element.value})} className="text-white text-xl bg-zinc-900 min-h-max py-10 text-center rounded-lg flex items-center justify-center">
                                 {element.label}
                             </Link>
                         ))

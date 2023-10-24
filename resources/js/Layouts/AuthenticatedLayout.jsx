@@ -32,7 +32,7 @@ export default function Authenticated({ user, children, permissions, backgroundI
                 'bg-gradient-to-b from-gray-800 to-gray-900' : 'bg-cover'}`}
             style={ divStyle }
         >
-            <div className={`flex flex-col ${backgroundImagePath === "" ? '' : 'bg-zinc-900/90 backdrop-blur-2xl md:backdrop-blur-none'}`}>
+            <div className={`flex flex-col ${backgroundImagePath === "" ? '' : 'bg-zinc-900/95 backdrop-blur-2xl md:backdrop-blur-none'}`}>
                 <nav
                 className="p-1 md:p-0 md:sticky md:top-0 z-20"
                 style=
@@ -98,8 +98,10 @@ export default function Authenticated({ user, children, permissions, backgroundI
 
                                         <Dropdown.Content>
                                             {permissions.includes('access dashboard') ?
-                                                <Dropdown.Link href={route('dashboard')}>Dashboard</Dropdown.Link> : ''}
+                                                <><Dropdown.Link href={route('dashboard')}>Dashboard</Dropdown.Link><hr /></> : ''}
                                             <Dropdown.Link href={route('profile.edit')}>Perfil</Dropdown.Link>
+                                            <Dropdown.Link href={route('history')}>Historial</Dropdown.Link>
+                                            <hr />
                                             <Dropdown.Link href={route('logout')} method="post" as="button" className='text-red-600'>
                                                 Cerrar sesión
                                             </Dropdown.Link>

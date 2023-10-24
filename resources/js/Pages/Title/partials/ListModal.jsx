@@ -168,7 +168,7 @@ export default function ListModal({ onClose, titleId }) {
                             />
                         ))
                     ) : (
-                        <p className="text-black">
+                        <p className="text-white">
                             No ha creado ninguna lista...
                         </p>
                     )}
