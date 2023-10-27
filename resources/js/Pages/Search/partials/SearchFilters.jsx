@@ -2,8 +2,9 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import { Button } from "@material-tailwind/react";
 import Select from "react-select";
+import { useState } from "react";
 
-export default function SearchFilters({ genres }) {
+export default function SearchFilters({ genres, setSelectedGenres, setSelectedType, setFormData }) {
     // anio de lanzamiento
     // categoria
     // rango de reseñas
@@ -15,6 +16,7 @@ export default function SearchFilters({ genres }) {
         { value: "TV", label: "Serie" },
     ];
 
+
     return (
         <>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -24,7 +26,7 @@ export default function SearchFilters({ genres }) {
                         htmlFor="type"
                         value="Tipo"
                     />
-                    <Select options={typeOptions} name="type" id="type" isClearable={true} />
+                    <Select options={typeOptions} name="type" id="type" onChange={setSelectedType} isClearable={true} placeholder='Seleccione...' />
                 </div>
 
                 <div className="">
@@ -42,7 +44,8 @@ export default function SearchFilters({ genres }) {
                             step="1"
                             name="yearFrom"
                             className="w-full"
-                            required
+                            onChange={(e) => {setFormData('yearFrom', e.target.value)}}
+                            
                         />
                         <span className="text-white">-</span>
                         <TextInput
@@ -53,7 +56,9 @@ export default function SearchFilters({ genres }) {
                             step="1"
                             name="yearUntil"
                             className="w-full"
-                            required
+                            onChange={(e) => {setFormData('yearUntil', e.target.value)}}
+
+                            
                         />
                     </div>
                 </div>
@@ -71,6 +76,7 @@ export default function SearchFilters({ genres }) {
                         options={genres}
                         className="basic-multi-select"
                         classNamePrefix="select"
+                        onChange={setSelectedGenres}
                     />
                 </div>
 
@@ -89,7 +95,9 @@ export default function SearchFilters({ genres }) {
                             step="1"
                             name="reviewFrom"
                             className="w-full"
-                            required
+                            onChange={(e) => {setFormData('reviewFrom', e.target.value)}}
+
+                            
                         />
                         <span className="text-white">-</span>
                         <TextInput
@@ -100,7 +108,9 @@ export default function SearchFilters({ genres }) {
                             step="1"
                             name="reviewUntil"
                             className="w-full"
-                            required
+                            onChange={(e) => {setFormData('reviewUntil', e.target.value)}}
+
+                            
                         />
                     </div>
                 </div>

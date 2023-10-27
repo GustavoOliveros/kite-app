@@ -20,6 +20,7 @@ class Title extends Model
         'year',
         'poster_path',
         'backdrop_path',
+        'rating',
         'status',
         'overview',
         'disabled_at',

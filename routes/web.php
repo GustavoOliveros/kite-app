@@ -50,7 +50,7 @@ Route::group(['middleware' => ['access app', 'auth']], function(){
 
     // Search
     Route::get('/search', [SearchController::class, 'show'])->name('search');
-    Route::get('/search/{query}', [SearchController::class, 'perform'])
+    Route::post('/search', [SearchController::class, 'perform'])
         ->name('search-term');
 
     // Title

@@ -128,7 +128,6 @@ export default function Title({ auth, title, services, alreadySaved, genres }) {
 
     return (
         <>
-            {console.log(genres)}
             {/* LAYOUT */}
             <Head title={"Ver " + title.title} />
             <AuthenticatedLayout

@@ -14,8 +14,7 @@ export default function SearchInput({ ...props }) {
                         placeholder="Buscar..."
                         className="mt-5 block w-full bg-zinc-900 border-0 border-b-4 focus:border-b-4 focus:ring-0 text-white h-20 text-xl"
                         isFocused={true}
-                        minLength="2"
-                        required
+                        minLength="2" 
                         {...props}
                     />
             </div>

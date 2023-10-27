@@ -26,13 +26,52 @@ class SearchController extends Controller
 
 
     // Makes a search
-    public function perform($query){
+    public function perform(Request $request){
         $response = [];
 
-        $response = Title::where('title', 'LIKE', '%'.$query.'%')
-            ->orWhere('original_title', 'LIKE', '%'.$query.'%')
-            ->get();
+        $response = Title::where(function ($query) use ($request) {
+            if(!empty($request->input('formData')['query'])){
+                $query->where('title', 'LIKE', '%' . $request->input('formData')['query'] . '%')
+                  ->orWhere('original_title', 'LIKE', '%' . $request->input('formData')['query'] . '%');
+            }
+        
+            if (!empty($request->input('formData')['yearFrom'])) {
+                $query->where('year', '>=', $request->input('formData')['yearFrom']);
+            }
+        
+            if (!empty($request->input('formData')['yearUntil'])) {
+                $query->where('year', '<=', $request->input('formData')['yearUntil']);
+            }
+        
+            if (!empty($request->input('formData')['reviewFrom'])) {
+                $query->where('rating', '>=', $request->input('formData')['reviewFrom']);
+            }
+        
+            if (!empty($request->input('formData')['reviewUntil'])) {
+                $query->where('rating', '<=', $request->input('formData')['reviewUntil']);
+            }
 
+            if (!empty($request->input('selectedType'))) {
+                $query->where('type', '=', $request->input('selectedType')['value']);
+            }
+        
+            if (!empty($request->input('selectedGenres'))) {
+                $genreValues = array_map(function ($genre) {
+                    return $genre['value'];
+                }, $request->input('selectedGenres'));
+        
+                foreach($genreValues as $genreValue){
+                    $query->whereHas('genres', function ($innerQuery) use ($genreValue) {
+                        $innerQuery->where('genre_id', $genreValue);
+                    });
+                }
+            }
+
+            dd($query);
+        })->get();
+        
+        
+        
 
         return response()->json($response);
     }
