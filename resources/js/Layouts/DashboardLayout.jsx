@@ -15,7 +15,7 @@ export default function Dashboard({ auth, title, children }) {
 
            
             {/* falta responsive xd */}
-            <div className="text-white w-full md:ps-5 md:ms-[calc(100%-20rem)]">
+            <div className="text-white w-full md:ps-5 md:ms-[20rem]">
                 <Link href={route('home')}>
                     <Button className="mb-5 bg-gray-800 shadow-none">
                         <ArrowLeftIcon className="h-5 w-5 pe-2 inline" /> Volver a Kite
