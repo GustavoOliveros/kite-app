@@ -30,11 +30,13 @@ class SearchController extends Controller
         $response = [];
 
         $response = Title::where(function ($query) use ($request) {
-            if(!empty($request->input('formData')['query'])){
-                $query->where('title', 'LIKE', '%' . $request->input('formData')['query'] . '%')
-                  ->orWhere('original_title', 'LIKE', '%' . $request->input('formData')['query'] . '%');
+            if (!empty($request->input('formData')['query'])) {
+                $query->where(function ($subquery) use ($request) {
+                    $subquery->where('title', 'LIKE', '%' . $request->input('formData')['query'] . '%')
+                            ->orWhere('original_title', 'LIKE', '%' . $request->input('formData')['query'] . '%');
+                });
             }
-        
+            
             if (!empty($request->input('formData')['yearFrom'])) {
                 $query->where('year', '>=', $request->input('formData')['yearFrom']);
             }
@@ -66,8 +68,6 @@ class SearchController extends Controller
                     });
                 }
             }
-
-            dd($query);
         })->get();
         
         

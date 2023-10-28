@@ -11,11 +11,11 @@ export default function Dashboard({ auth, title, children }) {
     return (
         <div className="min-h-screen bg-zinc-900 flex p-5">
             <Sidebar />
-            {/*  w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 rounded-lg bg-gray-800 text-white hidden md:block */}
+            {/*  w-full max-w-[20rem] fixed top-0 left-0 h-screen p-4 shadow-xl shadow-blue-gray-900/5 rounded-none bg-gray-800 text-white hidden md:block */}
 
            
             {/* falta responsive xd */}
-            <div className="text-white w-full md:ps-5">
+            <div className="text-white w-full md:ps-5 md:ms-[calc(100%-20rem)]">
                 <Link href={route('home')}>
                     <Button className="mb-5 bg-gray-800 shadow-none">
                         <ArrowLeftIcon className="h-5 w-5 pe-2 inline" /> Volver a Kite

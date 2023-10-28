@@ -2,15 +2,8 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import { Button } from "@material-tailwind/react";
 import Select from "react-select";
-import { useState } from "react";
 
 export default function SearchFilters({ genres, setSelectedGenres, setSelectedType, setFormData }) {
-    // anio de lanzamiento
-    // categoria
-    // rango de reseñas
-    // servicios contratados o en general
-    // tipo
-
     const typeOptions = [
         { value: "movie", label: "Película" },
         { value: "TV", label: "Serie" },
@@ -26,7 +19,15 @@ export default function SearchFilters({ genres, setSelectedGenres, setSelectedTy
                         htmlFor="type"
                         value="Tipo"
                     />
-                    <Select options={typeOptions} name="type" id="type" onChange={setSelectedType} isClearable={true} placeholder='Seleccione...' />
+                    <Select
+                        options={typeOptions}
+                        name="type"
+                        id="type"
+                        onChange={setSelectedType}
+                        isClearable={true}
+                        placeholder="Seleccione uno..."
+                        noOptionsMessage={() => {return ('No se encontraron coincidencias...')}}
+                    />
                 </div>
 
                 <div className="">
@@ -41,11 +42,13 @@ export default function SearchFilters({ genres, setSelectedGenres, setSelectedTy
                             type="number"
                             min="1900"
                             max="2099"
+                            placeholder="1900"
                             step="1"
                             name="yearFrom"
-                            className="w-full"
-                            onChange={(e) => {setFormData('yearFrom', e.target.value)}}
-                            
+                            className="w-full focus:border-skyblue focus:ring-skyblue pb-1"
+                            onChange={(e) => {
+                                setFormData("yearFrom", e.target.value);
+                            }}
                         />
                         <span className="text-white">-</span>
                         <TextInput
@@ -53,12 +56,13 @@ export default function SearchFilters({ genres, setSelectedGenres, setSelectedTy
                             type="number"
                             min="1900"
                             max="2099"
+                            placeholder="2099"
                             step="1"
                             name="yearUntil"
-                            className="w-full"
-                            onChange={(e) => {setFormData('yearUntil', e.target.value)}}
-
-                            
+                            className="w-full focus:border-skyblue focus:ring-skyblue pb-1"
+                            onChange={(e) => {
+                                setFormData("yearUntil", e.target.value);
+                            }}
                         />
                     </div>
                 </div>
@@ -72,7 +76,7 @@ export default function SearchFilters({ genres, setSelectedGenres, setSelectedTy
                     <Select
                         isMulti
                         name="genres"
-                        placeholder="Seleccione..."
+                        placeholder="Seleccione una o más..."
                         options={genres}
                         className="basic-multi-select"
                         classNamePrefix="select"
@@ -94,10 +98,11 @@ export default function SearchFilters({ genres, setSelectedGenres, setSelectedTy
                             max="5"
                             step="1"
                             name="reviewFrom"
-                            className="w-full"
-                            onChange={(e) => {setFormData('reviewFrom', e.target.value)}}
-
-                            
+                            placeholder="1"
+                            className="w-full focus:border-skyblue focus:ring-skyblue pb-1"
+                            onChange={(e) => {
+                                setFormData("reviewFrom", e.target.value);
+                            }}
                         />
                         <span className="text-white">-</span>
                         <TextInput
@@ -106,19 +111,30 @@ export default function SearchFilters({ genres, setSelectedGenres, setSelectedTy
                             min="1"
                             max="5"
                             step="1"
+                            placeholder="5"
                             name="reviewUntil"
-                            className="w-full"
-                            onChange={(e) => {setFormData('reviewUntil', e.target.value)}}
-
-                            
+                            className="w-full focus:border-skyblue focus:ring-skyblue pb-1"
+                            onChange={(e) => {
+                                setFormData("reviewUntil", e.target.value);
+                            }}
                         />
                     </div>
                 </div>
 
                 <div className="flex items-center gap-3"></div>
                 <div className="flex justify-end gap-3">
-                    <Button className="bg-black text-white w-full md:w-auto" type="reset">Borrar</Button>
-                    <Button className="bg-white text-black w-full md:w-auto" type="submit">Buscar...</Button>
+                    <Button
+                        className="bg-transparent shadow-none border-2 text-white w-full md:w-auto"
+                        type="reset"
+                    >
+                        Borrar
+                    </Button>
+                    <Button
+                        className="bg-white text-black w-full md:w-auto"
+                        type="submit"
+                    >
+                        Buscar...
+                    </Button>
                 </div>
             </div>
         </>

@@ -15,8 +15,12 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'skyblue': '#2686ff'
+            }
         },
     },
 
     plugins: [forms],
+    
 };

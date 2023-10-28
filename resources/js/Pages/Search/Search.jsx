@@ -15,6 +15,7 @@ export default function Search({ auth, genres }) {
     const [showGenres, setShowGenres] = useState(true);
     const [selectedGenres, setSelectedGenres] = useState([]);
     const [selectedType, setSelectedType] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const { data: formData, setData: setFormData } = useForm({
         query: "",
@@ -39,12 +40,14 @@ export default function Search({ auth, genres }) {
 
         return axios
             .post(route("search-term", formDataAux))
-            .then((response) => setData(response.data));
+            .then((response) => {setData(response.data);setLoading(false);})
+            .catch((error) => {setData([]);setLoading(false)});
     };
 
     const submit = (e) => {
         e.preventDefault();
         setShowGenres(false);
+        setLoading(true);
         
         fetchData();
     };
@@ -60,6 +63,7 @@ export default function Search({ auth, genres }) {
                     <SearchInput
                         value={formData.query}
                         onChange={(e) => setFormData("query", e.target.value)}
+                        loading={loading}
                     />
                     <div className="flex flex-col justify-center my-5">
                         <Button
@@ -80,7 +84,7 @@ export default function Search({ auth, genres }) {
                 </form>
 
                 <div className="flex flex-col justify-center my-5">
-                    <SearchResults data={data} showNoResults={showNoResults} />
+                    {loading ? '' : <SearchResults data={data} showNoResults={showNoResults} />}
 
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
                         {showGenres

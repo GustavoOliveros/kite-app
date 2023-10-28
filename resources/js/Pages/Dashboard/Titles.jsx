@@ -2,7 +2,7 @@ import Dashboard from "@/Layouts/DashboardLayout";
 import { Head } from "@inertiajs/react";
 import DataTable from "react-data-table-component";
 import { createTheme } from "react-data-table-component";
-import PrimaryButton from "@/Components/PrimaryButton";
+import { Button } from "@material-tailwind/react";
 import TextInput from "@/Components/TextInput";
 import { useState } from "react";
 import { PencilSquareIcon, MinusCircleIcon } from "@heroicons/react/24/solid";
@@ -45,9 +45,9 @@ export default function Titles({ titles, auth }) {
     const renderEditButton = () => {
         if (auth.permissions.includes('edit titles')) {
             return (
-                <PrimaryButton className="bg-yellow-600" onClick={openModal}>
-                    <PencilSquareIcon className="w-5 h-5" />
-                </PrimaryButton>
+                <span className="flex items-center justify-center cursor-pointer" onClick={openModal}>
+                    <PencilSquareIcon className="w-5 h-5 text-yellow-600" />
+                </span>
             );
         }
 
@@ -57,9 +57,9 @@ export default function Titles({ titles, auth }) {
     const renderDeleteButton = () => {
         if (auth.permissions.includes('disable titles')) {
             return (
-                <PrimaryButton className="bg-red-600" onClick={openModal}>
-                    <MinusCircleIcon className="w-5 h-5" />
-                </PrimaryButton>
+                <span className="flex items-center justify-center cursor-pointer" onClick={openModal}>
+                    <MinusCircleIcon className="w-5 h-5 text-red-600" />
+                </span>
             );
         }
 
@@ -71,28 +71,33 @@ export default function Titles({ titles, auth }) {
             name: 'Id',
             selector: row => row.id,
             sortable: true,
+            grow: true,
         },
         {
             name: 'Tipo',
             selector: row => row.type,
             sortable: true,
+            grow: true,
         },
         {
             name: 'Título',
             selector: row => row.title,
+
         },
         {
             name: 'Estado',
             selector: row => row.disabled_at ? 'Deshabilitado' : 'Activo',
             sortable: true,
+            grow: true,
         },
         {
             name: 'Acción',
             selector: row =>
-                <div className="flex gap-2">
+                <div className="grid grid-cols-2 gap-3">
                     {renderEditButton()}
                     {renderDeleteButton()}
                 </div>,
+                
         },
     ];
 
@@ -115,7 +120,7 @@ export default function Titles({ titles, auth }) {
                     href={'https://image.tmdb.org/t/p/w600_and_h900_bestv2' + data.poster_path}
                     target="_blank"
                 >
-                    <PrimaryButton className="bg-green-600">Ver</PrimaryButton>
+                    <Button className="bg-green-600">Ver</Button>
                 </a>
             </p>
             <p>Fondo:&nbsp;&nbsp;
@@ -123,7 +128,7 @@ export default function Titles({ titles, auth }) {
                     href={'https://image.tmdb.org/t/p/w1280_and_h720_bestv2' + data.backdrop_path}
                     target="_blank"
                 >
-                    <PrimaryButton className="bg-green-600">Ver</PrimaryButton>
+                    <Button className="bg-green-600">Ver</Button>
                 </a>
             </p>
         </div>;
@@ -135,12 +140,12 @@ export default function Titles({ titles, auth }) {
             <Head title="Títulos" />
             <Dashboard title="Títulos">
 
-                <div className="flex justify-between">
-                    <PrimaryButton className="my-3" onClick={openModal}>Crear Título</PrimaryButton>
+                <div className="md:flex justify-between">
+                    <Button className="mt-2 md:my-3 bg-gray-800  w-full md:w-auto" onClick={openModal}>Crear Título</Button>
                     <div>
                         <form>
                             <TextInput
-                                className="my-3 text-black"
+                                className="my-2 md:my-3 text-black  w-full md:w-auto"
                                 id="userFilter"
                                 name="userFilter"
                                 placeholder="Buscar..."
