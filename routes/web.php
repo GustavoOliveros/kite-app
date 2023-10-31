@@ -55,6 +55,7 @@ Route::group(['middleware' => ['access app', 'auth']], function(){
 
     // Title
     Route::get('/title/{id}', [TitleController::class, 'show'])->name('title.show');
+    Route::get('/titles/{query}/API', [TitleController::class, 'getTitlesFromAPI'])->name('getTitlesFromAPI');
 
     // Library
     Route::get('/your-library', [LibraryController::class, 'show'])->name('library');
@@ -94,6 +95,12 @@ Route::group(['middleware' => ['access app', 'auth']], function(){
         // TITLES
         Route::get('/titles', [TitleController::class, 'index'])
             ->middleware(['can:see titles'])->name('titles');
+
+        Route::post('/titles', [TitleController::class, 'store'])
+            ->middleware(['can:add titles'])->name('title.store');
+
+        Route::get('/titles/all', [TitleController::class, 'getAllLocalTitles'])
+            ->middleware(['can:see titles'])->name('getAllLocalTitles');
     });
 });
 

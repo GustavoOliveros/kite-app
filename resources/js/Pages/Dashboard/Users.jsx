@@ -5,9 +5,10 @@ import { createTheme } from "react-data-table-component";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { useState } from "react";
-import { PencilSquareIcon, MinusCircleIcon } from "@heroicons/react/24/solid";
+import { PencilSquareIcon, MinusCircleIcon, PlusIcon } from "@heroicons/react/24/solid";
+import { Button } from "@material-tailwind/react";
 
-export default function Users(users) {
+export default function Users({users, auth}) {
     createTheme('dark', {
         text: {
             primary: '#FFFFFF',
@@ -31,7 +32,7 @@ export default function Users(users) {
     }, 'dark');
 
     const renderEditButton = () => {
-        if (users.auth.permissions.includes('edit users')) {
+        if (auth.permissions.includes('edit users')) {
             return (
                 <PrimaryButton className="bg-yellow-600">
                     <PencilSquareIcon className="w-5 h-5" />
@@ -43,7 +44,7 @@ export default function Users(users) {
     };
 
     const renderDeleteButton = () => {
-        if (users.auth.permissions.includes('disable users')) {
+        if (auth.permissions.includes('disable users')) {
             return (
                 <PrimaryButton className="bg-red-600">
                     <MinusCircleIcon className="w-5 h-5" />
@@ -59,6 +60,7 @@ export default function Users(users) {
             name: 'Id',
             selector: row => row.id,
             sortable: true,
+            grow: true,
         },
         {
             name: 'Usuario',
@@ -72,6 +74,7 @@ export default function Users(users) {
             name: 'Estado',
             selector: row => row.disabled_at ? 'Deshabilitado' : 'Activo',
             sortable: true,
+            grow: true,
         },
         {
             name: 'Acción',
@@ -84,7 +87,7 @@ export default function Users(users) {
     ];
 
     const [filterText, setFilterText] = useState('');
-    const filteredItems = users.users.filter(
+    const filteredItems = users.filter(
         item => item.username && item.username.toLowerCase().includes(filterText.toLowerCase()),
     );
 
@@ -95,12 +98,19 @@ export default function Users(users) {
 
     return (
         <>
-            {console.log(users.auth.permissions)}
+            {console.log(auth.permissions)}
             <Head title="Usuarios" />
             <Dashboard title="Usuarios">
 
                 <div className="md:flex md:justify-between">
-                    <PrimaryButton className="md:my-3">Crear Usuario</PrimaryButton>
+                    {auth.permissions.includes("add users") ? (
+                        <Button
+                            className="mt-2 md:my-3 bg-gray-800  w-full md:w-auto flex items-center gap-2"
+                        >
+                            <PlusIcon className="w-5 h-5 pe-2 inline" />
+                            Crear Usuario
+                        </Button>
+                    ) : null}
                     <div>
                         <form>
                             <TextInput

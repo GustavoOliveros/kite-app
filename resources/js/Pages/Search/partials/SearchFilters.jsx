@@ -6,7 +6,7 @@ import Select from "react-select";
 export default function SearchFilters({ genres, setSelectedGenres, setSelectedType, setFormData }) {
     const typeOptions = [
         { value: "movie", label: "Película" },
-        { value: "TV", label: "Serie" },
+        { value: "tv", label: "Serie" },
     ];
 
 

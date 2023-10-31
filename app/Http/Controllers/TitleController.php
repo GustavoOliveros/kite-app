@@ -8,7 +8,10 @@ use Inertia\Inertia;
 use App\Models\User_Has_Title;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-
+use Exception;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Client\RequestException;
 
 class TitleController extends Controller
 {
@@ -17,7 +20,7 @@ class TitleController extends Controller
      */
     public function index()
     {
-        $titles = Title::all();
+        $titles = Title::orderBy('created_at', 'desc')->get();
 
         return Inertia::render('Dashboard/Titles', ['titles' => $titles]);
     }
@@ -35,8 +38,48 @@ class TitleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $response = [];
+
+        try{
+            DB::beginTransaction();
+
+            // Create a new instance of the Title model
+            $title = new Title();
+
+            // Set the attributes based on the data in the request
+            $title->id = $request->input('id');
+            $title->type = $request->input('media_type');
+            $title->title = $request->input('title') ?? $request->input('name');
+            $title->original_title = $request->input('original_title') ?? $request->input('original_name');
+            $title->year = $request->input('release_date') ? substr($request->input('release_date'), 0, 4) : substr($request->input('first_air_date'), 0, 4);
+            $title->poster_path = $request->input('poster_path') ?? '';
+            $title->backdrop_path = $request->input('backdrop_path') ?? '';
+            $title->overview = $request->input('overview') ?? '';
+            $title->status = 1;
+
+            // Save the newly created resource to the database
+            $title->save();
+
+            // Attach the genres to the title
+            $genreIds = $request->input('genre_ids');
+            $title->genresDirect()->attach($genreIds);
+
+            DB::commit();
+
+            $response['type'] = 'success';
+            $response['message'] = 'Se guardó con éxito.';
+        }catch(Exception $error){
+            DB::rollBack();
+            $response['type'] = 'error';
+            $response['message'] = 'Ocurrió un error. Inténtelo de nuevo más tarde.';
+            $response['obj'] = $error;
+        }
+
+        // Optionally, you can return a response or redirect to a specific page
+        // For example, to redirect back to a list of titles:
+        return response()->json($response);
     }
+
 
     /**
      * Display the specified resource.
@@ -105,5 +148,36 @@ class TitleController extends Controller
         $response = Title::take(10)->get();
 
         return response()->json($response);
+    }
+
+    public function getTitlesFromAPI(string $query)
+    {
+        try {
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYzA1OTYzYjA4OWUwZjJkOGI1MzNjZTkwMjBkZjlmNCIsInN1YiI6IjYyY2UxMzVlZDc1YmQ2MDBjMTRlMjY2MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.moP3Mbp3610Cv5GUbgLVUVOYl7KUMD_7iRHqWezNjP0', // Replace with your actual API key
+                'accept' => 'application/json'
+            ])->get("https://api.themoviedb.org/3/search/multi?query={$query}&include_adult=false&language=es-MX&page=1");
+
+            if ($response->successful()) {
+                // API request was successful
+                $data = $response->json();
+                return response()->json($data);
+            } else {
+                // Handle non-successful response (e.g., 404 Not Found, 500 Internal Server Error)
+                return response()->json(['type' => 'error', 'message'  => 'Ocurrió un error. Inténtelo de nuevo más tarde.']);
+            }
+        } catch (RequestException $e) {
+            // Handle HTTP request exceptions
+            return response()->json(['type' => 'error', 'message'  => 'Ocurrió un error. Inténtelo de nuevo más tarde.']);
+        } catch (\Exception $e) {
+            // Handle other exceptions
+            return response()->json(['type' => 'error', 'message'  => 'Ocurrió un error. Inténtelo de nuevo más tarde.']);
+        }
+    }
+
+    public function getAllLocalTitles(){
+        $titles = Title::orderBy('created_at', 'desc')->get();
+
+        return response()->json($titles);
     }
 }

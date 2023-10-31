@@ -5,8 +5,10 @@ import { createTheme } from "react-data-table-component";
 import { Button } from "@material-tailwind/react";
 import TextInput from "@/Components/TextInput";
 import { useState } from "react";
-import { PencilSquareIcon, MinusCircleIcon } from "@heroicons/react/24/solid";
+import { PencilSquareIcon, MinusCircleIcon, PlusIcon, ArrowPathIcon } from "@heroicons/react/24/solid";
 import CreateTitleModal from "./partials/CreateTitleModal";
+import { Toaster } from "react-hot-toast";
+import axios from "axios";
 
 
 export default function Titles({ titles, auth }) {
@@ -46,7 +48,7 @@ export default function Titles({ titles, auth }) {
         if (auth.permissions.includes('edit titles')) {
             return (
                 <span className="flex items-center justify-center cursor-pointer" onClick={openModal}>
-                    <PencilSquareIcon className="w-5 h-5 text-yellow-600" />
+                    <PencilSquareIcon className="w-5 h-5 text-white" />
                 </span>
             );
         }
@@ -58,7 +60,7 @@ export default function Titles({ titles, auth }) {
         if (auth.permissions.includes('disable titles')) {
             return (
                 <span className="flex items-center justify-center cursor-pointer" onClick={openModal}>
-                    <MinusCircleIcon className="w-5 h-5 text-red-600" />
+                    <MinusCircleIcon className="w-5 h-5 text-white" />
                 </span>
             );
         }
@@ -101,8 +103,10 @@ export default function Titles({ titles, auth }) {
         },
     ];
 
+    const [titlesAux, setTitlesAux] = useState(titles);
     const [filterText, setFilterText] = useState('');
-    const filteredItems = titles.filter(
+    const [processing, setProcessing] = useState(false);
+    const filteredItems = titlesAux.filter(
         item => item.title && item.title.toLowerCase().includes(filterText.toLowerCase()),
     );
 
@@ -120,7 +124,7 @@ export default function Titles({ titles, auth }) {
                     href={'https://image.tmdb.org/t/p/w600_and_h900_bestv2' + data.poster_path}
                     target="_blank"
                 >
-                    <Button className="bg-green-600">Ver</Button>
+                    <Button className="bg-white text-black">Ver</Button>
                 </a>
             </p>
             <p>Fondo:&nbsp;&nbsp;
@@ -128,10 +132,15 @@ export default function Titles({ titles, auth }) {
                     href={'https://image.tmdb.org/t/p/w1280_and_h720_bestv2' + data.backdrop_path}
                     target="_blank"
                 >
-                    <Button className="bg-green-600">Ver</Button>
+                    <Button className="bg-white text-black">Ver</Button>
                 </a>
             </p>
         </div>;
+
+    const fetchData = () => {
+        setProcessing(true);
+        return axios.get(route('getAllLocalTitles')).then((response) => {setProcessing(false);setTitlesAux(response.data)})
+    }
 
 
 
@@ -139,9 +148,19 @@ export default function Titles({ titles, auth }) {
         <>
             <Head title="Títulos" />
             <Dashboard title="Títulos">
-
-                <div className="md:flex justify-between">
-                    <Button className="mt-2 md:my-3 bg-gray-800  w-full md:w-auto" onClick={openModal}>Crear Título</Button>
+                <div className="flex flex-col md:flex-row md:justify-between">
+                    <div className="flex justify-between gap-2">
+                    {auth.permissions.includes("add titles") ? (
+                        <Button
+                            className="mt-2 md:my-3 bg-gray-800 w-full md:w-auto  flex justify-center gap-2"
+                            onClick={openModal}
+                        >
+                            <PlusIcon className="w-5 h-5 pe-2 inline" />
+                            Crear Título
+                        </Button>
+                    ) : null}
+                    <Button onClick={fetchData} className="bg-gray-800 mt-2 md:my-3  flex justify-center"><ArrowPathIcon className="w-5 h-5" /></Button>
+                    </div>
                     <div>
                         <form>
                             <TextInput
@@ -162,13 +181,13 @@ export default function Titles({ titles, auth }) {
                     pagination
                     expandableRows
                     expandableRowsComponent={ExpandedComponent}
+                    progressPending={processing}
+                    progressComponent={<h2 className="text-xl my-5">Cargando...</h2>}
                 />
-
             </Dashboard>
 
-            {console.log(isOpen)}
-            <CreateTitleModal isModalOpen={isOpen} closeModal={closeModal} />
-
+            <CreateTitleModal isModalOpen={isOpen} closeModal={closeModal} updateTable={fetchData} />
+            <Toaster />
         </>
     );
 }

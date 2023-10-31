@@ -22,8 +22,10 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'disable users']); // allows you to disable an user (can be enabled again)
 
         // create permissions - admin
+        Permission::create(['name' => 'add users']);
         Permission::create(['name' => 'edit users']);
         Permission::create(['name' => 'see titles']); // allows you to see the titles table
+        Permission::create(['name' => 'add titles']);
         Permission::create(['name' => 'edit titles']);
         Permission::create(['name' => 'disable titles']);
 
