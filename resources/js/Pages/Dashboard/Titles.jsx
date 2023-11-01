@@ -1,5 +1,5 @@
 import Dashboard from "@/Layouts/DashboardLayout";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import DataTable from "react-data-table-component";
 import { createTheme } from "react-data-table-component";
 import { Button } from "@material-tailwind/react";
@@ -71,7 +71,7 @@ export default function Titles({ titles, auth }) {
     const columns = [
         {
             name: 'Id',
-            selector: row => row.id,
+            selector: row => <Link href={route('title.show', {id:row.id})} target="_blank" className="underline">{row.id}</Link>,
             sortable: true,
             grow: true,
         },

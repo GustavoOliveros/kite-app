@@ -25,7 +25,7 @@ class ServiceTableSeeder extends Seeder
                 "id_name" => $service['id'],
                 "homepage" => $service['homePage'],
                 "logo_path" => $service['images']['darkThemeImage'],
-                "price" => 0,
+                "price" => $service['price'],
             ]);
         }
     }

@@ -17,7 +17,7 @@ export default function PlayModal({onClose, services, saveHistory, loadingWatch,
         <div className="p-5">
             <Dialog.Title
                 as="h3"
-                className="text-lg font-medium leading-6 font-light text-white"
+                className="text-lg leading-6 font-light text-white"
             >
                 <div className="flex justify-center mb-2 gap-2">
                     {loadingWatch ? <Spinner className="animate-spin w-5 h-5" /> : <FilmIcon className="w-5 h-5" />} Servicios disponibles
@@ -45,7 +45,7 @@ export default function PlayModal({onClose, services, saveHistory, loadingWatch,
                             </Button>
 
                             <span className='text-white text-xs mt-2'>{element.isUserSubscribed ? 'Contratado' : <>Desde ${Number(element.service.price).toFixed(2)}</>}</span>
-                            <span className="text-white text-xs">{element.title_on_service.quality}</span>
+                            <span className="text-white text-xs">{element.title_on_service.quality.toUpperCase()}</span>
                         </div>
                     ))
                 ) : (
@@ -59,7 +59,7 @@ export default function PlayModal({onClose, services, saveHistory, loadingWatch,
             <div className="mt-8 flex gap-3 justify-center">
                 <button
                     type="button"
-                    className="inline-flex justify-center rounded-md border border-black text-white border-white px-4 py-2 text-sm text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-800 focus-visible:ring-offset-2"
+                    className="inline-flex justify-center rounded-md border border-white px-4 py-2 text-sm text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-800 focus-visible:ring-offset-2"
                     onClick={onClose}
                 >
                     Cerrar

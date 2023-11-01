@@ -16,7 +16,8 @@
                 "free": false,
                 "rent": true,
                 "subscription": true
-            }  
+            },
+            "price": "6.99"
         },
         {
             "id": "disney",
@@ -34,7 +35,8 @@
               "free": false,
               "rent": false,
               "subscription": true
-            }
+            },
+            "price": "799"
         },
         {
             "id": "hbo",
@@ -53,7 +55,8 @@
             "rent": false,
             "subscription": true
             },
-            "addons": {}
+            "addons": {},
+            "price": "699"
         },
         {
             "id": "netflix",
@@ -72,7 +75,8 @@
             "rent": false,
             "subscription": true
             },
-            "addons": {}
+            "addons": {},
+            "price": "1649"
         },
         {
             "id": "paramount",
@@ -91,7 +95,8 @@
             "rent": false,
             "subscription": true
             },
-            "addons": {}
+            "addons": {},
+            "price": "599"
         },
         {
             "id": "prime",
@@ -110,7 +115,8 @@
               "rent": false,
               "subscription": true
             },
-            "addons": {}
+            "addons": {},
+            "price": "1149"
         }
     ]
 }

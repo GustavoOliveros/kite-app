@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Models\Title;
 use Inertia\Inertia;
@@ -12,6 +13,7 @@ use Exception;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Client\RequestException;
+use App\Models\Title_On_Service;
 
 class TitleController extends Controller
 {
@@ -42,7 +44,6 @@ class TitleController extends Controller
 
         try{
             DB::beginTransaction();
-
             // Create a new instance of the Title model
             $title = new Title();
 
@@ -64,8 +65,33 @@ class TitleController extends Controller
             $genreIds = $request->input('genre_ids');
             $title->genresDirect()->attach($genreIds);
 
-            DB::commit();
+            $services = $this->getStreamingData($request->input('id'), $request->input('media_type'));
 
+            if(isset($services['result']['streamingInfo']['ar']) && count($services['result']['streamingInfo']['ar']) > 0){
+                $services = $services['result']['streamingInfo']['ar'];
+
+                foreach($services as $service){
+                    if($service['streamingType'] == 'subscription'){
+                        $titleService = new Title_On_Service();
+
+                        $title = Title::find($request->input('id'));
+                        $titleService->title()->associate($title);
+    
+                        $localService = Service::where('id_name', $service['service'])->first();
+                        $titleService->service()->associate($localService);
+    
+                        $titleService->quality = $service['quality'];
+                        $titleService->link = $service['link'];
+                        $titleService->available_since = date("Y-m-d H:i:s", $service['availableSince']);
+                        $titleService->leaving = isset($service['leaving']) && intval($service['leaving']) < 1919748376 ? date("Y-m-d H:i:s", $service['leaving']) : null;
+                        $titleService->save();
+                    }
+                }
+
+            }
+
+
+            DB::commit();
             $response['type'] = 'success';
             $response['message'] = 'Se guardó con éxito.';
         }catch(Exception $error){
@@ -179,5 +205,20 @@ class TitleController extends Controller
         $titles = Title::orderBy('created_at', 'desc')->get();
 
         return response()->json($titles);
+    }
+
+    public function getStreamingData($id, $type){
+        $response = [];
+
+        $httpResponse = Http::withHeaders([
+            'X-RapidAPI-Host' => 'streaming-availability.p.rapidapi.com',
+            'X-RapidAPI-Key' => '68f1c519afmsh507f4877cb61cb3p15befejsn6aa174d81f5a',
+        ])->get("https://streaming-availability.p.rapidapi.com/get?output_language=es&tmdb_id={$type}%2F{$id}");
+
+        if ($httpResponse->successful()) {
+            $response = $httpResponse->json();
+        }
+
+        return $response;
     }
 }
