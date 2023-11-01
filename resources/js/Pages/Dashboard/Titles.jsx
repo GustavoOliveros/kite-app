@@ -152,7 +152,7 @@ export default function Titles({ titles, auth }) {
                     <div className="flex justify-between gap-2">
                     {auth.permissions.includes("add titles") ? (
                         <Button
-                            className="mt-2 md:my-3 bg-gray-800 w-full md:w-auto  flex justify-center gap-2"
+                            className="mt-2 md:my-3 bg-gray-800 w-full md:w-auto"
                             onClick={openModal}
                         >
                             <PlusIcon className="w-5 h-5 pe-2 inline" />

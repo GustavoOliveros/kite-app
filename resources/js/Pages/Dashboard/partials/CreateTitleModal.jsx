@@ -33,13 +33,18 @@ export default function CreateTitleModal({isModalOpen, closeModal, updateTable})
                 setLoading(false);
                 closeModal();
                 updateTable();
+                setSelectedValue([]);
                 callback(response);
                 console.log(response);
             })
             .catch((error) => {
                 setLoading(false);
-                toast.error("Ocurrió un error. Inténtelo de nuevo más tarde.");
-                console.error(error);
+                if(error.response.status === 422){
+                    toast.error("Ocurrió un error o estás intentando registrar un título preexistente.");
+                }else{
+                    toast.error("Ocurrió un error. Inténtelo de nuevo más tarde.");
+                }
+                console.log(error);
             });
     }
 

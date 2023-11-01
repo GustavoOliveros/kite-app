@@ -31,6 +31,9 @@ use Psy\Command\HistoryCommand;
 // Everyone
 Route::get('/popular', [TitleController::class, 'popular']);
 
+// Test
+Route::get('/test/{id}/{type}', [TitleController::class, 'getStreamingData']);
+
 // Guests
 Route::get('/', [HomeController::class, 'index']);
 
