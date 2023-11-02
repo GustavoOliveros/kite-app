@@ -91,7 +91,9 @@ class LibraryController extends Controller
 
             foreach($sorted as $element){
                 if(is_a($element, 'App\Models\User_Has_Title')){
-                    array_push($response, $element->title);
+                    if($element->title->status === 1){
+                        array_push($response, $element->title);
+                    }
                 }else{
                     array_push($response, $element);
                 }
@@ -112,7 +114,9 @@ class LibraryController extends Controller
 
         if($userTitles && count($userTitles) > 0){
             foreach($userTitles as $userTitle){
-                array_push($response, $userTitle['title']);
+                if($userTitle['title']['status'] === 1){
+                    array_push($response, $userTitle['title']);
+                }
             }
         }
 

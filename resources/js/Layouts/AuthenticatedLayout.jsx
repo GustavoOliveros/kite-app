@@ -4,7 +4,7 @@ import NavLink from '@/Components/NavLink';
 import { Link } from '@inertiajs/react';
 import { FooterWithLogo } from './partials/Footer';
 import { useEffect, useState } from 'react';
-import { HomeIcon, UserCircleIcon, MagnifyingGlassIcon, Squares2X2Icon, AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
+import { HomeIcon, UserCircleIcon, MagnifyingGlassIcon, Squares2X2Icon, AdjustmentsVerticalIcon, PlusIcon } from '@heroicons/react/24/solid';
 
 export default function Authenticated({ user, children, permissions, backgroundImagePath = "" }) {
     const divStyle = {
@@ -65,6 +65,12 @@ export default function Authenticated({ user, children, permissions, backgroundI
                                     <NavLink href={route('library')} active={route().current('library')} className='text-white flex align-center justify-center'>
                                         <Squares2X2Icon className="w-4 h-4 me-3" />
                                         Biblioteca
+                                    </NavLink>
+                                </div>
+                                <div className="hidden space-x-8 md:-my-px md:ml-10 md:flex">
+                                    <NavLink href={route('showAddTitle')} active={route().current('showAddTitle')} className='text-white flex align-center justify-center'>
+                                        <PlusIcon className="w-4 h-4 me-3" />
+                                        Agregar título
                                     </NavLink>
                                 </div>
                             </div>

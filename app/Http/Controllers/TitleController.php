@@ -118,7 +118,7 @@ class TitleController extends Controller
     {
         $title = Title::find($id);
 
-        if($title){
+        if($title && $title->status === 1){
             $userServices = User::find(Auth::user()->id)->services->pluck('service_id')->toArray();
             
             $titleOnServices = $title->services;
@@ -226,5 +226,115 @@ class TitleController extends Controller
         }
 
         return $response;
+    }
+
+    public function showAddTitle(){
+        return Inertia::render('AddTitle/AddTitle');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function storeUser(TitleRequest $request)
+    {
+        $response = [];
+
+        try{
+            DB::beginTransaction();
+            // Create a new instance of the Title model
+            $title = new Title();
+
+            // Set the attributes based on the data in the request
+            $title->id = $request->input('id');
+            $title->type = $request->input('media_type');
+            $title->title = $request->input('title') ?? $request->input('name');
+            $title->original_title = $request->input('original_title') ?? $request->input('original_name');
+            $title->year = $request->input('release_date') ? substr($request->input('release_date'), 0, 4) : substr($request->input('first_air_date'), 0, 4);
+            $title->poster_path = $request->input('poster_path');
+            $title->backdrop_path = $request->input('backdrop_path');
+            $title->overview = $request->input('overview') ?? '';
+            $title->status = 0;
+
+            // Save the newly created resource to the database
+            $title->save();
+
+            // Attach the genres to the title
+            $genreIds = $request->input('genre_ids');
+            $title->genresDirect()->attach($genreIds);
+
+            DB::commit();
+
+            $response['type'] = 'success';
+            $response['message'] = 'Se guardó la solicitud con éxito. Queda en espera de aprobación.';
+        }catch(Exception $error){
+            DB::rollBack();
+            $response['type'] = 'error';
+            $response['message'] = 'Ocurrió un error. Inténtelo de nuevo más tarde.';
+            $response['obj'] = $error;
+        }
+
+        // Optionally, you can return a response or redirect to a specific page
+        // For example, to redirect back to a list of titles:
+        return response()->json($response);
+    }
+
+    public function accept(string $id){
+
+        $response = [];
+
+
+        try{
+            DB::beginTransaction();
+            $title = Title::findOrFail($id);
+
+            $title->status = 1;
+
+            $title->save();
+
+            // Get streaming data
+            $services = $this->getStreamingData($title->id, $title->type);
+        
+            // Attach streaming data
+            if(isset($services['result']['streamingInfo']['ar']) && count($services['result']['streamingInfo']['ar']) > 0){
+                $services = $services['result']['streamingInfo']['ar'];
+
+                foreach($services as $service){
+                    if($service['streamingType'] == 'subscription'){
+                        $titleService = new Title_On_Service();
+
+                        $titleService->title()->associate($title);
+    
+                        $localService = Service::where('id_name', $service['service'])->first();
+                        $titleService->service()->associate($localService);
+    
+                        $titleService->link = $service['link'];
+
+                        $titleService->quality = $service['quality'] ?? 'HD';
+                        $titleService->available_since = isset($service['available_since']) ? date("Y-m-d H:i:s", $service['availableSince']) : null;
+                        $titleService->leaving = isset($service['leaving']) && intval($service['leaving']) < 1919748376 ? date("Y-m-d H:i:s", $service['leaving']) : null;
+                        $titleService->save();
+                    }
+                }
+            }
+
+
+            DB::commit();
+
+            $response['type'] = 'success';
+            $response['message'] = 'La solicitud fue aprobada.';
+        }catch(Exception $error){
+            DB::rollBack();
+            $response['type'] = 'error';
+            $response['message'] = 'Ocurrió un error. Inténtelo de nuevo más tarde.';
+            $response['obj'] = $error;
+        }
+
+        // Optionally, you can return a response or redirect to a specific page
+        // For example, to redirect back to a list of titles:
+        return response()->json($response);
+    }
+
+    public function deny(){
+        
     }
 }

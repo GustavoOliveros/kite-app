@@ -30,6 +30,8 @@ class SearchController extends Controller
         $response = [];
 
         $response = Title::where(function ($query) use ($request) {
+            $query->where('status', 1);
+
             if (!empty($request->input('formData')['query'])) {
                 $query->where(function ($subquery) use ($request) {
                     $subquery->where('title', 'LIKE', '%' . $request->input('formData')['query'] . '%')

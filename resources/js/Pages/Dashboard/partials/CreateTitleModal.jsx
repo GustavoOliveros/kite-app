@@ -4,22 +4,15 @@ import { Dialog, Transition } from '@headlessui/react';
 import axios from 'axios';
 import { useState, Fragment } from "react";
 import toast from 'react-hot-toast';
-import { PlusIcon } from '@heroicons/react/24/solid';
+import { PlusIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/solid';
 import { Spinner } from '@material-tailwind/react';
 
-export default function CreateTitleModal({isModalOpen, closeModal, updateTable}) {
+export default function CreateTitleModal({isModalOpen, closeModal, updateTable, callback}) {
     const [query, setQuery] = useState('');
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [selectedValue, setSelectedValue] = useState([]);
 
-    const callback = (response) => {
-        if (response.data.type === "success") {
-            toast.success(response.data.message);
-        } else {
-            toast.error(response.data.message);
-        }
-    };
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -127,13 +120,13 @@ export default function CreateTitleModal({isModalOpen, closeModal, updateTable})
                                         </form>
                                     </div>
                                     <div>
-                                        <h1>Su elección</h1>
+                                        <h1 className='font-bold'>Su elección</h1>
                                         <ul>
                                             <li
                                                 className={
                                                     selectedValue.id
-                                                        ? ""
-                                                        : "text-transparent"
+                                                        ? "flex gap-2 justify-center"
+                                                        : "text-transparent flex gap-2 justify-center"
                                                 }
                                             >
                                                 {selectedValue.title
@@ -153,6 +146,7 @@ export default function CreateTitleModal({isModalOpen, closeModal, updateTable})
                                                       )
                                                     : null}
                                                 )
+                                                <a href={`https://www.themoviedb.org/${selectedValue.media_type}/${selectedValue.id}`} target="_blank"><ArrowTopRightOnSquareIcon className="w-5 h-5 cursor-pointer" /></a>
                                             </li>
                                         </ul>
                                     </div>

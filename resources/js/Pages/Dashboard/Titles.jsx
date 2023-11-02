@@ -1,13 +1,13 @@
 import Dashboard from "@/Layouts/DashboardLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head } from "@inertiajs/react";
 import DataTable from "react-data-table-component";
 import { createTheme } from "react-data-table-component";
 import { Button } from "@material-tailwind/react";
 import TextInput from "@/Components/TextInput";
 import { useState } from "react";
-import { PencilSquareIcon, MinusCircleIcon, PlusIcon, ArrowPathIcon } from "@heroicons/react/24/solid";
+import { PencilSquareIcon, MinusCircleIcon, PlusIcon, ArrowPathIcon, CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import CreateTitleModal from "./partials/CreateTitleModal";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 
@@ -47,7 +47,7 @@ export default function Titles({ titles, auth }) {
     const renderEditButton = () => {
         if (auth.permissions.includes('edit titles')) {
             return (
-                <span className="flex items-center justify-center cursor-pointer" onClick={openModal}>
+                <span className="flex items-center justify-center cursor-pointer">
                     <PencilSquareIcon className="w-5 h-5 text-white" />
                 </span>
             );
@@ -59,7 +59,7 @@ export default function Titles({ titles, auth }) {
     const renderDeleteButton = () => {
         if (auth.permissions.includes('disable titles')) {
             return (
-                <span className="flex items-center justify-center cursor-pointer" onClick={openModal}>
+                <span className="flex items-center justify-center cursor-pointer">
                     <MinusCircleIcon className="w-5 h-5 text-white" />
                 </span>
             );
@@ -68,10 +68,23 @@ export default function Titles({ titles, auth }) {
         return null;
     };
 
+    const renderAcceptDenyButtons = (id) => {
+        if(auth.permissions.includes('edit titles')){
+            return (
+                <>
+                    <span className="flex items-center justify-center cursor-pointer" onClick={() => accept(id)} >
+                        <CheckIcon className="w-5 h-5 text-white" />
+                    </span>
+                    
+                </>
+            );
+        }
+    }
+
     const columns = [
         {
             name: 'Id',
-            selector: row => <Link href={route('title.show', {id:row.id})} target="_blank" className="underline">{row.id}</Link>,
+            selector: row => <a href={route('title.show', {id:row.id})} target="_blank" className="underline">{row.id}</a>,
             sortable: true,
             grow: true,
         },
@@ -88,16 +101,16 @@ export default function Titles({ titles, auth }) {
         },
         {
             name: 'Estado',
-            selector: row => row.disabled_at ? 'Deshabilitado' : 'Activo',
+            selector: row => row.status ? 'Activo' : 'Deshabilitado',
             sortable: true,
-            grow: true,
         },
         {
             name: 'Acción',
             selector: row =>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="flex gap-3">
+                    {!row.status ? renderAcceptDenyButtons(row.id) : ''}
                     {renderEditButton()}
-                    {renderDeleteButton()}
+                    {row.status ? renderDeleteButton() : ''}
                 </div>,
                 
         },
@@ -137,9 +150,37 @@ export default function Titles({ titles, auth }) {
             </p>
         </div>;
 
+
+    const callback = (response) => {
+        if (response.data.type === "success") {
+            toast.success(response.data.message);
+        } else {
+            toast.error(response.data.message);
+        }
+    };
+
+
     const fetchData = () => {
         setProcessing(true);
         return axios.get(route('getAllLocalTitles')).then((response) => {setProcessing(false);setTitlesAux(response.data)})
+    }
+
+    const accept = (id) => {
+        const toastLoading = toast.loading('Procesando...');
+
+        return axios
+            .get(route("acceptTitle", {id:id}))
+            .then((response) => {
+                toast.dismiss(toastLoading);
+                callback(response);
+                fetchData();
+                console.log(response);
+            })
+            .catch((error) => {
+                toast.dismiss(toastLoading);
+                toast.error("Ocurrió un error. Inténtelo de nuevo más tarde.");
+                console.log(error);
+            });
     }
 
 
@@ -186,7 +227,7 @@ export default function Titles({ titles, auth }) {
                 />
             </Dashboard>
 
-            <CreateTitleModal isModalOpen={isOpen} closeModal={closeModal} updateTable={fetchData} />
+            <CreateTitleModal isModalOpen={isOpen} closeModal={closeModal} updateTable={fetchData} callback={callback} />
             <Toaster />
         </>
     );

@@ -24,7 +24,7 @@ class HistoryController extends Controller
 
         if($userTitles){
             foreach($userTitles as $userTitle){
-                $titles[] = $userTitle->title;
+                array_push($titles, $userTitle->title);
             }
         }
 

@@ -50,7 +50,9 @@ class GenreController extends Controller
         if($titleGenres){
             foreach($titleGenres as $titleGenre){
                 $title = $titleGenre->title;
-                array_push($titles, $title);
+                if($title->status === 1){
+                    array_push($titles, $title);
+                }
             }
         }
 

@@ -91,7 +91,9 @@ class PlaylistController extends Controller
 
             if($playlistTitles){
                 foreach($playlistTitles as $playlistTitle){
-                    array_push($titles, $playlistTitle->title);
+                    if($playlistTitle->title->status === 1){
+                        array_push($titles, $playlistTitle->title);
+                    }
                 }
             }
 
