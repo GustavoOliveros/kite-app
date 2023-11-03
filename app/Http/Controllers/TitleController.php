@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Client\RequestException;
 use App\Models\Title_On_Service;
 use App\Http\Requests\TitleRequest;
+use App\Notifications\ApprovalNotification;
 
 class TitleController extends Controller
 {
@@ -255,12 +256,18 @@ class TitleController extends Controller
             $title->overview = $request->input('overview') ?? '';
             $title->status = 0;
 
+            // Attach user
+            $user = User::find(Auth::user()->id);
+            $title->user()->associate($user);
+
             // Save the newly created resource to the database
             $title->save();
 
             // Attach the genres to the title
             $genreIds = $request->input('genre_ids');
             $title->genresDirect()->attach($genreIds);
+
+            
 
             DB::commit();
 
@@ -328,6 +335,13 @@ class TitleController extends Controller
             $response['message'] = 'Ocurrió un error. Inténtelo de nuevo más tarde.';
             $response['obj'] = $error;
         }
+
+
+        $user = $title->user; // Assuming you have a relationship set up
+        $user->notify(new ApprovalNotification($user, $title));
+
+        // Rest of your code
+
 
         // Optionally, you can return a response or redirect to a specific page
         // For example, to redirect back to a list of titles:

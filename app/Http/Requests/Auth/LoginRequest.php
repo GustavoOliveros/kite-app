@@ -60,6 +60,12 @@ class LoginRequest extends FormRequest
             ]);
         }
 
+        // if(is_null($user->email_verified_at)){
+        //     throw ValidationException::withMessages([
+        //         'login' => 'Su correo aún no está verificado. Por favor, revise su bandeja de entrada y spam.',
+        //     ]);
+        // }
+
         Auth::login($user,$this->boolean('remember'));
         RateLimiter::clear($this->throttleKey());
     }

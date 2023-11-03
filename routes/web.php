@@ -38,7 +38,7 @@ Route::get('/test/{id}/{type}', [TitleController::class, 'getStreamingData']);
 Route::get('/', [HomeController::class, 'index']);
 
 // Users without services
-Route::group(['middleware' => ['no access app', 'auth']], function(){
+Route::group(['middleware' => ['no access app', 'auth', 'verified']], function(){
     // Service selection
     Route::get('/services', [ServiceController::class, 'index'])->name('services');
     Route::post('/services-selection', [UserController::class,'addServices'])
@@ -46,7 +46,7 @@ Route::group(['middleware' => ['no access app', 'auth']], function(){
 });
 
 // All users, except those who have not selected their streaming services
-Route::group(['middleware' => ['access app', 'auth']], function(){
+Route::group(['middleware' => ['access app', 'auth', 'verified']], function(){
     // Home
     Route::get('/home', [HomeController::class, 'indexHomepage'])
         ->name('home');

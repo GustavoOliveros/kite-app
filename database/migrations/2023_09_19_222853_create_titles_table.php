@@ -23,6 +23,11 @@ return new class extends Migration
             $table->text('overview');
             $table->float('rating')->nullable();
 
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
+
             $table->timestamp('disabled_at')->nullable();
             $table->string('reason')->nullable();
             $table->timestamps();

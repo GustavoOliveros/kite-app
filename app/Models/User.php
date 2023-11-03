@@ -12,8 +12,9 @@ use App\Models\User_Has_Service;
 use App\Models\User_Has_Title;
 use App\Models\Playlist;
 use App\Models\Title;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
