@@ -24,7 +24,7 @@ class UserFactory extends Factory
         return [
             'username' => fake()->unique()->userName(),
             'email' => fake()->unique()->safeEmail(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => '$2y$10$VGxO7Ga0wiRabn3uPdJ.EOOLB.zi7lmW9bfsefUggId6kUX3A4Esu', // password
             'profile_path' => null,
             'disabled_at' => $disabled,
             'reason' => $reason,

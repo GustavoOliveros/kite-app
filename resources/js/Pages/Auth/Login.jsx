@@ -34,11 +34,9 @@ export default function Login({ status, canResetPassword, success }) {
         },
         password: {
             required: true,
-            regex: /^.{3,50}$/,
+            regex: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
         },
     };
-
-    // /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
 
     const messages = {
         login: {

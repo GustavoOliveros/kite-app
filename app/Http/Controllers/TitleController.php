@@ -337,8 +337,12 @@ class TitleController extends Controller
         }
 
 
-        $user = $title->user; // Assuming you have a relationship set up
-        $user->notify(new ApprovalNotification($user, $title));
+        // try{
+        //     $user = $title->user; // Assuming you have a relationship set up
+        //     $user->notify(new ApprovalNotification($user, $title));
+        // }catch(Exception $error){
+            
+        // }
 
         // Rest of your code
 
