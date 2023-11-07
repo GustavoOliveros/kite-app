@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Client\RequestException;
 use App\Models\Title_On_Service;
 use App\Http\Requests\TitleRequest;
-use App\Notifications\ApprovalNotification;
+use App\Http\Controllers\CountryFlagController;
 
 class TitleController extends Controller
 {
@@ -59,6 +59,12 @@ class TitleController extends Controller
             $title->backdrop_path = $request->input('backdrop_path');
             $title->overview = $request->input('overview') ?? '';
             $title->status = 1;
+
+            // Set origin countries
+            $originCountry = $request->input('origin_country');
+            if($originCountry){
+                $title->origin_country = $originCountry[0];
+            }
 
             // Save the newly created resource to the database
             $title->save();
@@ -106,8 +112,6 @@ class TitleController extends Controller
             $response['obj'] = $error;
         }
 
-        // Optionally, you can return a response or redirect to a specific page
-        // For example, to redirect back to a list of titles:
         return response()->json($response);
     }
 
@@ -119,8 +123,19 @@ class TitleController extends Controller
     {
         $title = Title::find($id);
 
+
+
         if($title && $title->status === 1){
             $userServices = User::find(Auth::user()->id)->services->pluck('service_id')->toArray();
+
+            $originCountry = $title->origin_country;
+
+            if($originCountry){
+                $flagUrl = CountryFlagController::getFlag($originCountry);
+            }else{
+                $flagUrl = "";
+            }
+
             
             $titleOnServices = $title->services;
             $services = [];
@@ -141,7 +156,7 @@ class TitleController extends Controller
                                 ->where('title_id', $id)->first();
                 $alreadySaved = ($userTitle) ? true : false;
     
-                return Inertia::render('Title/Title', ['title' => $title, 'services' => $services, 'alreadySaved' => $alreadySaved, 'genres' => $genres]);
+                return Inertia::render('Title/Title', ['title' => $title, 'services' => $services, 'alreadySaved' => $alreadySaved, 'genres' => $genres, 'flag' => $flagUrl]);
             }
         }
 

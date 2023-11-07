@@ -13,7 +13,7 @@ import ServicesTitle from "./partials/ServicesTitle";
 import AskModal from "./partials/AskModal";
 
 
-export default function Title({ auth, title, services, alreadySaved, genres }) {
+export default function Title({ auth, title, services, alreadySaved, genres, flag }) {
     // HOOKS
 
     const [loading, setLoading] = useState(false);
@@ -155,7 +155,7 @@ export default function Title({ auth, title, services, alreadySaved, genres }) {
                     {/* TITLE INFO + BUTTONS */}
                     <div className="w-full md:h-screen">
                         <div className="flex flex-col w-full gap-3 md:h-screen md:py-28">
-                            <TitleHeader title={title} />
+                            <TitleHeader title={title} flag={flag} />
 
                             <Buttons
                                 services={services}

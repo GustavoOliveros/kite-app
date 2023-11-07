@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('status');
             $table->text('overview');
             $table->float('rating')->nullable();
+            $table->string('origin_country')->nullable();
 
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')
