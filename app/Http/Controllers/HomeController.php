@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -20,7 +21,9 @@ class HomeController extends Controller
             return redirect()->route('home');
         }
 
-        return Inertia::render('LandingPage');
+        $services = Service::all();
+
+        return Inertia::render('LandingPage', ['services' => $services]);
     }
 
     public function indexHomepage(){
