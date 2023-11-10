@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Notifications\UsernameEmailChangeNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,13 +31,15 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+        $request->user()->notify(new UsernameEmailChangeNotification);
+
         $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+        $request->user()->email_verified_at = null;
 
         $request->user()->save();
+
+        $request->user()->sendEmailVerificationNotification();
 
         return Redirect::route('profile.edit');
     }

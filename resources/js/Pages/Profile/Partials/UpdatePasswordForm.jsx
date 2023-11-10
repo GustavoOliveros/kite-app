@@ -5,50 +5,102 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
+import toast from 'react-hot-toast';
+
 
 export default function UpdatePasswordForm({ className = '' }) {
     const passwordInput = useRef();
     const currentPasswordInput = useRef();
 
-    const { data, setData, errors, put, reset, processing, recentlySuccessful } = useForm({
+    const { data, setData, errors, put, reset, processing, recentlySuccessful, setError, clearErrors } = useForm({
         current_password: '',
         password: '',
         password_confirmation: '',
     });
 
+    const validationRules = {
+        current_password: {
+            required: true,
+            regex: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+        },
+        password: {
+            required: true,
+            regex: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+        },
+        password_confirmation: {
+            mustBeEqualTo: 'password'
+        }
+    };
+
+    const messages = {
+        current_password: {
+            required: 'La contraseña es obligatoria.',
+            regex: "La contraseña debe tener al menos 8 caracteres, incluir una letra y un número.",
+        },
+        password: {
+            required: 'La contraseña es obligatoria.',
+            regex: "La contraseña debe tener al menos 8 caracteres, incluir una letra y un número.",
+        },
+        password_confirmation: {
+            mustBeEqualTo: 'Los campos no coinciden.'
+        }
+    };
+
+    const validate = (field, value) => {
+        let isValid = false;
+        const rules = validationRules[field];
+    
+        if (rules.required && value === "") {
+            setError(field, messages[field].required);
+        } else if (rules.regex && !rules.regex.test(value)) {
+            setError(field, messages[field].regex);
+        } else if (rules.mustBeEqualTo && value !== data[rules.mustBeEqualTo]) {
+            setError(field, messages[field].mustBeEqualTo);
+        } else {
+            isValid = true;
+            clearErrors(field);
+        }
+    
+        return isValid;
+    };
+
     const updatePassword = (e) => {
         e.preventDefault();
 
-        put(route('password.update'), {
-            preserveScroll: true,
-            onSuccess: () => reset(),
-            onError: (errors) => {
-                if (errors.password) {
-                    reset('password', 'password_confirmation');
-                    passwordInput.current.focus();
-                }
+        if(validate('current_password', data.current_password) && validate('password', data.password) && validate('password_confirmation', data.password_confirmation)){
+            put(route('password.update'), {
+                preserveScroll: true,
+                onSuccess: () => reset(),
+                onError: (errors) => {
+                    if (errors.password) {
+                        reset('password', 'password_confirmation');
+                        passwordInput.current.focus();
+                    }
+    
+                    if (errors.current_password) {
+                        reset('current_password');
+                        currentPasswordInput.current.focus();
+                    }
+                },
+            });
+        }else{
+            toast.error('Hay errores el formulario.');
+        }
 
-                if (errors.current_password) {
-                    reset('current_password');
-                    currentPasswordInput.current.focus();
-                }
-            },
-        });
+
+       
     };
 
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">Update Password</h2>
+                <h2 className="text-lg font-medium text-gray-900">Cambiar contraseña</h2>
 
-                <p className="mt-1 text-sm text-gray-600">
-                    Ensure your account is using a long, random password to stay secure.
-                </p>
             </header>
 
             <form onSubmit={updatePassword} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="current_password" value="Current Password" />
+                    <InputLabel htmlFor="current_password" value="Contraseña actual" />
 
                     <TextInput
                         id="current_password"
@@ -58,13 +110,14 @@ export default function UpdatePasswordForm({ className = '' }) {
                         type="password"
                         className="mt-1 block w-full"
                         autoComplete="current-password"
+                        onInput={(e) => validate('current_password', e.target.value)}
                     />
 
                     <InputError message={errors.current_password} className="mt-2" />
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="password" value="New Password" />
+                    <InputLabel htmlFor="password" value="Nueva contraseña" />
 
                     <TextInput
                         id="password"
@@ -74,13 +127,14 @@ export default function UpdatePasswordForm({ className = '' }) {
                         type="password"
                         className="mt-1 block w-full"
                         autoComplete="new-password"
+                        onInput={(e) => validate('password', e.target.value)}
                     />
 
                     <InputError message={errors.password} className="mt-2" />
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
+                    <InputLabel htmlFor="password_confirmation" value="Confirme su nueva contraseña" />
 
                     <TextInput
                         id="password_confirmation"
@@ -89,13 +143,14 @@ export default function UpdatePasswordForm({ className = '' }) {
                         type="password"
                         className="mt-1 block w-full"
                         autoComplete="new-password"
+                        onInput={(e) => validate('password_confirmation', e.target.value)}
                     />
 
                     <InputError message={errors.password_confirmation} className="mt-2" />
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
+                    <PrimaryButton disabled={processing}>Guardar</PrimaryButton>
 
                     <Transition
                         show={recentlySuccessful}
@@ -104,7 +159,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                         leave="transition ease-in-out"
                         leaveTo="opacity-0"
                     >
-                        <p className="text-sm text-gray-600">Saved.</p>
+                        <p className="text-sm text-gray-600">Guardado.</p>
                     </Transition>
                 </div>
             </form>

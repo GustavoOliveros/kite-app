@@ -83,10 +83,7 @@ Route::group(['middleware' => ['access app', 'auth', 'verified']], function(){
     Route::get('/title/{id}/watch', [HistoryController::class, 'saveHistory'])->name('saveHistory');
     Route::get('/your-history', [HistoryController::class, 'show'])->name('history');
 
-    // Profile
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+   
 
     // Dashboard (admins & moderators)
     Route::group(['middleware' => ['can:access dashboard']], function(){
