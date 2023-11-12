@@ -1,8 +1,7 @@
-import { Link, Head } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import SearchResults from '../Search/partials/SearchResults';
 import SelectService from './partials/SelectService';
-import { CarouselHome } from './partials/CarouselHome';
+import SearchResults from '../Search/partials/SearchResults';
 
 export default function Home({ auth, services, titles }) {
     return (
