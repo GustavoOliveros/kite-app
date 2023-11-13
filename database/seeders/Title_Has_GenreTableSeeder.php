@@ -14,6 +14,8 @@ class Title_Has_GenreTableSeeder extends Seeder
      */
     public function run(): void
     {
+        $i = 1;
+
         $jsonPathMovie = base_path('database/seeders/data/titles.json');
         $jsonMovie = File::get($jsonPathMovie);
         $dataMovie = json_decode($jsonMovie, true);
@@ -23,15 +25,16 @@ class Title_Has_GenreTableSeeder extends Seeder
         $dataTV = json_decode($jsonTV, true);
         
         // Combine data from both JSON files into a single array
-        $combinedData = array_merge($dataTV['results'], $dataMovie['results']);
+        $combinedData = array_merge($dataMovie['results'], $dataTV['results']);
         
         foreach ($combinedData as $title) {
             foreach ($title['genre_ids'] as $genre) {
                 Title_Has_Genre::create([
                     'genre_id' => $genre,
-                    'title_id' => $title['id'],
+                    'title_id' => $i,
                 ]);
             }
+            $i++;
         }        
     }
 }

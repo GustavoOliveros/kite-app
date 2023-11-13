@@ -16,6 +16,7 @@ use App\Models\Playlist;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\HistoryController;
 use Psy\Command\HistoryCommand;
+use App\Http\Controllers\ChangesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +61,7 @@ Route::group(['middleware' => ['access app', 'auth', 'verified']], function(){
     Route::get('/title/{id}', [TitleController::class, 'show'])->name('title.show');
     Route::get('/titles/{query}/API', [TitleController::class, 'getTitlesFromAPI'])->name('getTitlesFromAPI');
     Route::get('/add-title', [TitleController::class, 'showAddTitle'])->name('showAddTitle');
-    Route::post('add-title', [TitleController::class, 'storeUser'])->name('storeUser');
+    Route::post('/add-title', [TitleController::class, 'storeUser'])->name('storeUser');
 
     // Library
     Route::get('/your-library', [LibraryController::class, 'show'])->name('library');
@@ -105,6 +106,13 @@ Route::group(['middleware' => ['access app', 'auth', 'verified']], function(){
             ->middleware(['can:see titles'])->name('getAllLocalTitles');
         Route::get('/titles/{id}/accept', [TitleController::class, 'accept'])
             ->middleware(['can:edit titles'])->name('acceptTitle');
+
+        // CHANGES
+        Route::get('/changes/perform', [ChangesController::class, 'perform'])
+            ->middleware(['can:perform changes'])->name('performChanges');
+
+        Route::get('/changes', [ChangesController::class, 'show'])
+            ->middleware(['can:see changes log'])->name('changes.show');
     });
 });
 

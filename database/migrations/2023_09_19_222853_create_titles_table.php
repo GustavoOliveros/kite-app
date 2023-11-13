@@ -24,6 +24,8 @@ return new class extends Migration
             $table->float('rating')->nullable();
             $table->string('origin_country')->nullable();
 
+            $table->string('tmdb_id')->unique();
+
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')
                 ->references('id')

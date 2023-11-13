@@ -22,7 +22,7 @@ class TitleTableSeeder extends Seeder
 
         foreach($data['results'] as $title){
             Title::create([
-                "id" => $title['id'],
+                "tmdb_id" => 'movie/' . $title['id'],
                 "type" => 'movie',
                 "original_title" => $title['original_title'],
                 "title" => $title['title'],
@@ -41,7 +41,7 @@ class TitleTableSeeder extends Seeder
 
         foreach($data['results'] as $title){
             Title::create([
-                "id" => $title['id'],
+                "tmdb_id" => 'tv/' . $title['id'],
                 "type" => 'tv',
                 "original_title" => $title['original_name'],
                 "title" => $title['name'],

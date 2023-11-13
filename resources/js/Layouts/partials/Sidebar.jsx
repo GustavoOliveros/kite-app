@@ -10,6 +10,7 @@ import {
     PowerIcon,
     UserIcon,
     FilmIcon,
+    NewspaperIcon
   } from "@heroicons/react/24/solid";
 import { Link } from "@inertiajs/react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
@@ -45,6 +46,14 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
                 <FilmIcon className="h-5 w-5 pe-2" />
               </ListItemPrefix>
               Títulos
+            </ListItem>
+          </Link>
+          <Link href={route('changes.show')}>
+            <ListItem className="hover:bg-gray-900">
+              <ListItemPrefix>
+                <NewspaperIcon className="h-5 w-5 pe-2" />
+              </ListItemPrefix>
+              Cambios
             </ListItem>
           </Link>
           <hr className="my-2 border-blue-gray-50" />
