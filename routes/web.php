@@ -113,6 +113,12 @@ Route::group(['middleware' => ['access app', 'auth', 'verified']], function(){
 
         Route::get('/changes', [ChangesController::class, 'show'])
             ->middleware(['can:see changes log'])->name('changes.show');
+
+        Route::get('/changes/all', [ChangesController::class, 'index'])
+            ->middleware(['can:see changes log'])->name('changes.index');
+
+        Route::get('/changes/{id}', [ChangesController::class, 'showBody'])
+            ->middleware(['can:see changes log'])->name('changes.showbody');
     });
 });
 
