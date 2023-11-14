@@ -183,26 +183,6 @@ export default function Titles({ titles, auth }) {
             });
     }
 
-    const changes = () => {
-        const toastLoading = toast.loading('Procesando...');
-
-        return axios
-            .get(route('performChanges'))
-            .then((response) => {
-                toast.dismiss(toastLoading);
-                callback(response);
-                fetchData();
-                console.log(response.data);
-            })
-            .catch((error) => {
-                toast.dismiss(toastLoading);
-                toast.error("Ocurrió un error. Inténtelo de nuevo más tarde.");
-                console.log(error);
-            });
-    }
-
-
-
     return (
         <>
             <Head title="Títulos" />
@@ -219,7 +199,6 @@ export default function Titles({ titles, auth }) {
                         </Button>
                     ) : null}
                     <Button onClick={fetchData} className="bg-gray-800 mt-2 md:my-3  flex justify-center"><ArrowPathIcon className="w-5 h-5" /></Button>
-                    <Button onClick={changes} className="bg-gray-800 mt-2 md:my-3  flex gap-2 justify-center items-center"><ArrowDownTrayIcon className="w-5 h-5" />Cambios</Button>
                     </div>
                     <div>
                         <form>

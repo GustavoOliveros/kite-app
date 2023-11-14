@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('title_id');
             $table->integer('star_number');
-            $table->string('review_text')->nullable();
+            $table->text('review_text')->nullable();
             $table->timestamp('disabled_at')->nullable();
             $table->string('reason')->nullable();
             $table->timestamps();

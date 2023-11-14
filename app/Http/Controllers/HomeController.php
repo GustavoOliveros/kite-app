@@ -30,7 +30,14 @@ class HomeController extends Controller
         //  check if user has services
         $user = User::where('id',Auth::user()->id)->first();
         $services = $user->services;
-        $titles = Title::where('status', 1)->get()->take(20);
+        $titles = Title::where('status', 1)->take(20)->get()->map(function ($title) {
+            return [
+                'id' => $title->id,
+                'title' => $title->title,
+                'poster_path' => $title->poster_path,
+                'type' => $title->type
+            ];
+        });
         $servicesObjCol = [];
         
         foreach($services as $service){

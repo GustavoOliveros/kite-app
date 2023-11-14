@@ -11,9 +11,10 @@ import ListModal from "./partials/ListModal";
 import PlayModal from "./partials/PlayModal";
 import ServicesTitle from "./partials/ServicesTitle";
 import AskModal from "./partials/AskModal";
+import Reviews from "./partials/Reviews";
 
 
-export default function Title({ auth, title, services, alreadySaved, genres, flag }) {
+export default function Title({ auth, title, services, alreadySaved, genres, flag, reviews }) {
     // HOOKS
 
     const [loading, setLoading] = useState(false);
@@ -186,6 +187,8 @@ export default function Title({ auth, title, services, alreadySaved, genres, fla
                             <ServicesTitle services={services} />
                         </div>
                     </div>
+                    <Reviews reviews={reviews} titleId={title.id} />
+
                 </div>
             </AuthenticatedLayout>
 

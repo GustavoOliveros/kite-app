@@ -29,7 +29,7 @@ export default function Authenticated({ user, children, permissions, backgroundI
         <div
             className=
             {`min-h-screen ${backgroundImagePath === "" ?
-                'bg-gradient-to-b from-gray-800 to-gray-900' : 'bg-cover'}`}
+                'bg-gradient-to-b from-gray-800 to-gray-900' : 'bg-no-repeat bg-cover bg-fixed'}`}
             style={ divStyle }
         >
             <div className={`flex flex-col ${backgroundImagePath === "" ? '' : 'bg-zinc-900/95 backdrop-blur-2xl md:backdrop-blur-none'}`}>

@@ -9,7 +9,9 @@ import { useRef } from "react";
 
 export default function LandingPage({ services }) {
     const ref1 = useRef();
+    const ref2 = useRef();
     const isVisible1 = useIsVisible(ref1);
+    const isVisible2 = useIsVisible(ref2);
 
     return (
         <>
@@ -74,7 +76,7 @@ export default function LandingPage({ services }) {
                 </div>
 
                 {/* Features Part 2 (advanced) */}
-                <div className="w-full  bg-zinc-900 text-white flex justify-center">
+                {/* <div className="w-full  bg-zinc-900 text-white flex justify-center">
                     <div className="flex items-center flex-col w-full max-w-7xl gap-3 my-10">
                         <div className="p-10 w-full text-center">
                             <h2 className="text-3xl font-bold mb-3">
@@ -97,7 +99,7 @@ export default function LandingPage({ services }) {
                                 ))}
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 {/* What are you waiting for? */}
                 <div
@@ -108,11 +110,11 @@ export default function LandingPage({ services }) {
                     }}
                 >
                     <div className="bg-black/90 w-full flex justify-center">
-                        <div className="flex justify-center flex-col max-w-7xl gap-3 my-10">
-                            <h2 className="text-xl font-bold text-center">
+                        <div ref={ref2} className={`flex justify-center flex-col max-w-7xl gap-3 my-10 transition-opacity ease-in duration-1000 ${isVisible2 ? "opacity-100" : "opacity-0"}`}>
+                            <h2 className="text-4xl font-bold text-center">
                                 ¿Qué esperas?
                             </h2>
-                            <Link href={route("register")}>
+                            <Link href={route("register")} className="text-center">
                                 <Button className="bg-white border-2 border-black rounded-3xl text-black mt-2">
                                     Crear Cuenta
                                 </Button>

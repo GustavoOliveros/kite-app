@@ -16,6 +16,7 @@ use Illuminate\Http\Client\RequestException;
 use App\Models\Title_On_Service;
 use App\Http\Requests\TitleRequest;
 use App\Http\Controllers\CountryFlagController;
+use App\Http\Controllers\ReviewController;
 
 class TitleController extends Controller
 {
@@ -154,8 +155,22 @@ class TitleController extends Controller
                                 where('user_id', Auth::user()->id)
                                 ->where('title_id', $id)->first();
                 $alreadySaved = ($userTitle) ? true : false;
+
+                $reviews = new ReviewController;
+
+                $reviews = $reviews->show($id);
     
-                return Inertia::render('Title/Title', ['title' => $title, 'services' => $services, 'alreadySaved' => $alreadySaved, 'genres' => $genres, 'flag' => $flagUrl]);
+                return Inertia::render
+                ('Title/Title',
+                        [
+                        'title' => $title,
+                        'services' => $services,
+                        'alreadySaved' => $alreadySaved,
+                        'genres' => $genres,
+                        'flag' => $flagUrl,
+                        'reviews' => $reviews
+                        ]
+                );
             }
         }
 

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('status');
             $table->text('overview');
             $table->float('rating')->nullable();
+            $table->integer('rating_amount')->default(0);
             $table->string('origin_country')->nullable();
 
             $table->string('tmdb_id')->unique();

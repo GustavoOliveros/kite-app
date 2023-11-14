@@ -137,7 +137,7 @@ class ChangesController extends Controller
             print_r($httpResponse->body(), true);
             $log->save();
         }
-
+        
         return $response;
     }
 

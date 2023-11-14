@@ -7,7 +7,7 @@ export default function ServicesTitle({ services }) {
                         key={index}
                         className="w-10"
                         src={element.service.logo_path}
-                        alt={"Logo de " + element.service.name}
+                        alt={element.service.name}
                     />
                 ))
             ) : (

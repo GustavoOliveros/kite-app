@@ -17,6 +17,7 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\HistoryController;
 use Psy\Command\HistoryCommand;
 use App\Http\Controllers\ChangesController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,6 +84,10 @@ Route::group(['middleware' => ['access app', 'auth', 'verified']], function(){
     // History
     Route::get('/title/{id}/watch', [HistoryController::class, 'saveHistory'])->name('saveHistory');
     Route::get('/your-history', [HistoryController::class, 'show'])->name('history');
+
+    // Reviews
+    Route::post('/review', [ReviewController::class, 'store'])->name('review.store');
+    Route::get('/reviews/{titleId}', [ReviewController::class, 'getReviews'])->name('getReviews');
 
    
 

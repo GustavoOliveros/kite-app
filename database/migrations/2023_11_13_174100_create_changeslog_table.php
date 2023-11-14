@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('changeslog', function (Blueprint $table) {
             $table->id();
             $table->string('type'); // success OR error
-            $table->mediumText('body');
+            $table->text('body');
 
             $table->timestamps();
         });
