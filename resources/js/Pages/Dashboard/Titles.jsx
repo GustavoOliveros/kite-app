@@ -130,6 +130,7 @@ export default function Titles({ titles, auth }) {
     // data provides access to your row data
     const ExpandedComponent = ({ data }) =>
         <div className="p-5 flex flex-col gap-3">
+            <p>TMDb ID: {data.tmdb_id}</p>
             <p>Título Original: {data.original_title}</p>
             <p>Año de lanzamiento: {data.year}</p>
             <p>Póster:&nbsp;&nbsp;

@@ -120,6 +120,7 @@ export default function Changes({ changes, auth }) {
                 <DataTable
                     columns={columns}
                     data={changesAux}
+                    noDataComponent={<p className="my-5">No hay cambios para mostrar...</p>}
                     theme="dark"
                     pagination
                     progressPending={processing}

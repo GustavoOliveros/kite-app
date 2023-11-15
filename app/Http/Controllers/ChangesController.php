@@ -126,6 +126,7 @@ class ChangesController extends Controller
             'since' => time() - 21600
         ]);
 
+
         if ($httpResponse->successful()) {
             $response = $httpResponse->json();
         }else{

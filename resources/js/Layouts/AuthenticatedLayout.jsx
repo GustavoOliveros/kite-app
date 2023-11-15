@@ -133,16 +133,19 @@ export default function Authenticated({ user, children, permissions, backgroundI
         <nav className="md:hidden bg-gray-900 text-gray-400 fixed bottom-0 w-full">
             <div className="flex justify-between gap-5 py-3 px-8">
                 <Link href={route('home')}>
-                    <HomeIcon className={`w-8 h-8 ${route().current('home') ? 'text-white' : ''}`} />
+                    <HomeIcon className={`w-7 h-7 ${route().current('home') ? 'text-white' : ''}`} />
                 </Link>
                 <Link href={route('search')}>
-                    <MagnifyingGlassIcon className={`w-8 h-8 ${route().current('search') ? 'text-white' : ''}`} />
+                    <MagnifyingGlassIcon className={`w-7 h-7 ${route().current('search') ? 'text-white' : ''}`} />
+                </Link>
+                <Link href={route('showAddTitle')}>
+                    <PlusIcon className={`w-7 h-7 ${route().current('showAddTitle') ? 'text-white' : ''}`} />
                 </Link>
                 {permissions.includes('access dashboard') ?
-                    <Link href={route('dashboard')}><AdjustmentsVerticalIcon className={`w-8 h-8 ${route().current('dashboard') ? 'text-white' : ''}`} /></Link>
-                    : <Link href={route('library')}><Squares2X2Icon className={`w-8 h-8 ${route().current('library') ? 'text-white' : ''}`} /></Link>}
-                <Link href={route('search')}>
-                    <UserCircleIcon className={`w-8 h-8 ${route().current('profile') ? 'text-white' : ''}`} />
+                    <Link href={route('dashboard')}><AdjustmentsVerticalIcon className={`w-7 h-7 ${route().current('dashboard') ? 'text-white' : ''}`} /></Link>
+                    : <Link href={route('library')}><Squares2X2Icon className={`w-7 h-7 ${route().current('library') ? 'text-white' : ''}`} /></Link>}
+                <Link href={route('profile.edit')}>
+                    <UserCircleIcon className={`w-7 h-7 ${route().current('profile.edit') ? 'text-white' : ''}`} />
                 </Link>
             </div>
         </nav>
