@@ -2,7 +2,11 @@ import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
 
 /** @type {import('tailwindcss').Config} */
-export default {
+
+const withMT = require("@material-tailwind/react/utils/withMT");
+const colors = require('tailwindcss/colors')
+
+export default withMT({
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
@@ -16,6 +20,7 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
+                ...colors,
                 'skyblue': '#2686ff'
             }
         },
@@ -23,4 +28,4 @@ export default {
 
     plugins: [forms],
     
-};
+});

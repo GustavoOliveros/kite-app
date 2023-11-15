@@ -18,6 +18,7 @@ use App\Http\Controllers\HistoryController;
 use Psy\Command\HistoryCommand;
 use App\Http\Controllers\ChangesController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\AnalyticsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -124,6 +125,10 @@ Route::group(['middleware' => ['access app', 'auth', 'verified']], function(){
 
         Route::get('/changes/{id}', [ChangesController::class, 'showBody'])
             ->middleware(['can:see changes log'])->name('changes.showbody');
+
+        // ANALYTICS
+        Route::get('/analytics', [AnalyticsController::class, 'index'])
+            ->middleware(['can:analytics'])->name('analytics');
     });
 });
 

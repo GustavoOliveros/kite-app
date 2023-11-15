@@ -30,6 +30,7 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'disable titles']);
         Permission::create(['name' => 'perform changes']);
         Permission::create(['name' => 'see changes log']);
+        Permission::create(['name' => 'analytics']);
 
 
         // create roles and assign created permissions
