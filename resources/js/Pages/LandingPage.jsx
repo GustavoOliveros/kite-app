@@ -1,8 +1,6 @@
 import { Head, Link } from "@inertiajs/react";
-import ApplicationLogo from "@/Components/ApplicationLogo";
-import LinkButton from "@/Components/LinkButton";
 import Landing from "@/Layouts/LandingLayout";
-import { Square2StackIcon } from "@heroicons/react/24/solid";
+import { Square2StackIcon, StarIcon, BookmarkIcon } from "@heroicons/react/24/solid";
 import { Button } from "@material-tailwind/react";
 import { useIsVisible } from "@/Hooks/useIsVisible";
 import { useRef } from "react";
@@ -10,8 +8,15 @@ import { useRef } from "react";
 export default function LandingPage({ services }) {
     const ref1 = useRef();
     const ref2 = useRef();
+    const ref3 = useRef();
+    const ref4 = useRef();
+    const ref5 = useRef();
     const isVisible1 = useIsVisible(ref1);
     const isVisible2 = useIsVisible(ref2);
+    const isVisible3 = useIsVisible(ref3);
+    const isVisible4 = useIsVisible(ref4);
+    const isVisible5 = useIsVisible(ref5);
+
 
     return (
         <>
@@ -19,31 +24,31 @@ export default function LandingPage({ services }) {
             <Landing>
                 {/* Features */}
                 <div className="w-full  bg-zinc-900  text-white flex justify-center">
-                    <div className="flex items-center justify-evenly max-w-7xl gap-3 my-10">
-                        <div className="bg-zinc-700 rounded-lg p-10">
+                    <div className="md:grid md:grid-cols-3 md:items-center max-w-7xl md:space-x-3 my-10 space-y-3 px-2 md:px-0 md:space-y-0">
+                        <div ref={ref3} className={`bg-zinc-700 rounded-lg p-10 md:h-full transition-opacity ease-in duration-1000 ${isVisible3 ? "opacity-100" : "opacity-0"}`}>
                             <Square2StackIcon className="w-10 h-10" />
                             <h2 className="text-xl font-bold">COMBINADO</h2>
                             <p>
-                                Navega los catalogos de todos tus servicios de
+                                <strong>Navegue</strong> los catalogos de <strong>todos sus servicios</strong> de
                                 streaming en un solo lugar.
                             </p>
                         </div>
-                        <div className="bg-zinc-700 rounded-lg p-10">
-                            <Square2StackIcon className="w-10 h-10" />
+                        <div ref={ref4} className={`bg-zinc-700 rounded-lg p-10 md:h-full transition-opacity ease-in duration-1000 ${isVisible4 ? "opacity-100" : "opacity-0"}`}>
+                            <StarIcon className="w-10 h-10" />
 
-                            <h2 className="text-xl font-bold">COMBINADO</h2>
+                            <h2 className="text-xl font-bold">REVIEWS</h2>
                             <p>
-                                Navega los catalogos de todos tus servicios de
-                                streaming en un solo lugar.
+                                <strong>Comparta su opinión</strong> sobre las películas o series que vea.
+                                Otros usuarios podrán verlas e interactuar.
                             </p>
                         </div>
-                        <div className="bg-zinc-700 rounded-lg p-10">
-                            <Square2StackIcon className="w-10 h-10" />
+                        <div ref={ref5} className={`bg-zinc-700 rounded-lg p-10 md:h-full transition-opacity ease-in duration-1000 ${isVisible5 ? "opacity-100" : "opacity-0"}`}>
+                            <BookmarkIcon className="w-10 h-10" />
 
-                            <h2 className="text-xl font-bold">COMBINADO</h2>
+                            <h2 className="text-xl font-bold">BIBLIOTECA Y LISTAS</h2>
                             <p>
-                                Navega los catalogos de todos tus servicios de
-                                streaming en un solo lugar.
+                                <strong>Organice</strong> noche de películas, maratones y más <strong>con la función
+                                de crear listas de reproducción.</strong>
                             </p>
                         </div>
                     </div>
@@ -54,21 +59,21 @@ export default function LandingPage({ services }) {
                     <div ref={ref1} className={`flex items-center flex-col w-full max-w-7xl gap-3 my-10 transition-opacity ease-in duration-1000 ${isVisible1 ? "opacity-100" : "opacity-0"}`}>
                         <div className="p-10 w-full text-center">
                             <h2 className="text-3xl font-bold mb-3">
-                                Tus servicios favoritos
+                                Sus servicios favoritos
                             </h2>
                             <p>
-                                Kite soporta los principales servicios de
-                                streaming en Argentina.
+                                Kite soporta los <strong>principales servicios de
+                                streaming</strong> en Argentina.
                             </p>
                         </div>
-                        <div className="p-10 w-full flex justify-evenly">
-                            {console.log(services)}
+                        <div className="p-10 w-full grid grid-cols-2 justify-center items-center md:flex md:justify-evenly">
                             {services &&
                                 services.map((element, index) => (
                                     <img
                                         src={element.logo_path}
                                         alt={element.name}
-                                        className="fill-white"
+                                        className="fill-white p-2 mx-auto"
+                                        key={index}
                                     />
                                 ))}
                         </div>
@@ -112,7 +117,7 @@ export default function LandingPage({ services }) {
                     <div className="bg-black/90 w-full flex justify-center">
                         <div ref={ref2} className={`flex justify-center flex-col max-w-7xl gap-3 my-10 transition-opacity ease-in duration-1000 ${isVisible2 ? "opacity-100" : "opacity-0"}`}>
                             <h2 className="text-4xl font-bold text-center">
-                                ¿Qué esperas?
+                                ¿Qué espera?
                             </h2>
                             <Link href={route("register")} className="text-center">
                                 <Button className="bg-white border-2 border-black rounded-3xl text-black mt-2">

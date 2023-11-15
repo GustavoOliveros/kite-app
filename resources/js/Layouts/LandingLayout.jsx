@@ -28,13 +28,13 @@ export default function Landing({ children }) {
                 }}
             >
                 <nav
-                    className="p-1 md:p-0 md:fixed md:top-0 w-screen z-20 bg-gray"
+                    className="p-1 md:p-0 hidden md:block md:fixed md:top-0 w-screen z-20 bg-gray"
                     style={{
                         backgroundColor: navColor,
                         transition: "all 0.5s",
                     }}
                 >
-                    <div className="max-w-7xl mx-auto flex justify-center md:justify-between h-16 items-center">
+                    <div className="max-w-7xl mx-auto hidden md:flex justify-center md:justify-between h-16 items-center">
                         <div className="flex items-center text-white gap-2">
                             <Link href="/">
                                 <ApplicationLogo className="block h-10 w-auto fill-current text-gray-800" />
@@ -55,16 +55,16 @@ export default function Landing({ children }) {
                     </div>
                 </nav>
                 <div className=" text-white w-full max-w-7xl flex items-center">
-                    <div className="">
+                    <div className="text-center md:text-start">
                         <h1 className="text-xl font-bold">
-                            Kite - <span className="text-sm">v0.75</span>
+                            Kite - <span className="text-sm">v1.0</span>
                         </h1>
                         <h2 className="text-3xl font-bold mb-2">
                             Todo en un solo lugar
                         </h2>
                         <h3>
-                            Navega el catalogo de todos tus servicios de
-                            streaming juntos.
+                            <strong>Navegá</strong> el catalogo de <strong>todos tus servicios</strong> de
+                            streaming <strong>juntos</strong>.
                         </h3>
                         <Link href={route("register")}>
                             <Button className="bg-white border-2 border-black rounded-3xl text-black mt-2">
@@ -76,7 +76,7 @@ export default function Landing({ children }) {
 
             </div>
             <main>{children}</main>
-            <FooterWithLogo />
+            <FooterWithLogo mobile={true} />
         </>
     );
 }

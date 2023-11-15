@@ -55,7 +55,7 @@ export default function ForgotPassword({ status }) {
     return (
         <>
         <GuestLayout>
-            <Head title="Forgot Password" />
+            <Head title="Recuperar contraseña" />
 
             <div className="mb-4 text-sm text-gray-600">
                 ¿Olvidó su contraseña? No hay problema. Indique su correo electronico y le enviaremos un enlace

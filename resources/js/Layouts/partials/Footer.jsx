@@ -1,6 +1,7 @@
-export function FooterWithLogo() {
+export function FooterWithLogo({mobile = false}) {
+    
     return (
-        <section className="bg-zinc-900 mt-auto hidden md:block">
+        <section className={`bg-zinc-900 mt-auto  md:block ${mobile ? '' : 'hidden'} `}>
             <div className="max-w-screen-xl px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
                 <div className="flex justify-center space-x-6">
                     <a href="#" className="text-gray-400 hover:text-gray-500">
