@@ -1,20 +1,13 @@
 import { Stepper, Step, Button } from "@material-tailwind/react";
 import { useState } from "react";
  
-export default function AnalyticsStepper() {
-  const [activeStep, setActiveStep] = useState(0);
-  const [isLastStep, setIsLastStep] = useState(false);
-  const [isFirstStep, setIsFirstStep] =useState(false);
- 
-  const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1);
-  const handlePrev = () => !isFirstStep && setActiveStep((cur) => cur - 1);
+export default function AnalyticsStepper({activeStep}) {
+
  
   return (
     <div className="w-full py-4 px-8">
       <Stepper
         activeStep={activeStep}
-        isLastStep={(value) => setIsLastStep(value)}
-        isFirstStep={(value) => setIsFirstStep(value)}
         activeLineClassName="bg-green-600"
         lineClassName="bg-gray-800"
       >

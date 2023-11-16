@@ -127,7 +127,7 @@ export default function AddTitle({ auth }) {
                         </li>
                     </ul>
                 </div>
-                <div className="bg-zinc-900 h-60 my-5 overflow-y-scroll">
+                <div className="bg-zinc-900 h-60 my-5 overflow-y-scroll rounded-lg">
                     <form onSubmit={submitHandler} id="store-form">
                         {data &&
                             data.length > 0 &&

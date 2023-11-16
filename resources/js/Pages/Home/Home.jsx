@@ -11,17 +11,17 @@ export default function Home({ auth, services, titles }) {
             <AuthenticatedLayout user={auth.user} permissions={auth.permissions}>
                 {/* <h1 className="text-2xl text-white text-center mt-8">¡Bienvenid@, {auth.user.username}!<br />¿Qué deseas ver?</h1> */}
                 <div className='pt-5'>
-                    <CarouselHome />
+                    <CarouselHome titles={titles} />
                 </div>
 
                 
 
 
-                <div className="flex-wrap justify-center gap-4 my-10 hidden md:flex">
+                <div className="flex-wrap justify-center gap-4 my-2 hidden md:flex">
                     {services && services.length > 0 ? (
                         services.map((element, index) => <SelectService key={index} service={element}  />)
                     ) : (
-                        <p className="text-white">Ocurrió un error. Intente más tarde...</p>
+                        <p className="text-white"></p>
                     )}
                 </div>
                 <div>

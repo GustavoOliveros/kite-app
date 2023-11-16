@@ -26,7 +26,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
         </div>
         <List>
           <Link href={route('dashboard')} className="">
-              <ListItem className="hover:bg-gray-900  text-white">
+              <ListItem className="hover:bg-gray-900 hover:text-white text-white">
                 <ListItemPrefix>
                   <PresentationChartBarIcon className="h-5 w-5 pe-2" />
                 </ListItemPrefix>
@@ -34,7 +34,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
               </ListItem>
           </Link>
           <Link href={route('users')}>
-            <ListItem className="hover:bg-gray-900 text-white">
+            <ListItem className="hover:bg-gray-900 hover:text-white text-white">
               <ListItemPrefix>
                 <UserIcon className="h-5 w-5 pe-2" />
               </ListItemPrefix>
@@ -42,7 +42,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
             </ListItem>
           </Link>
           <Link href={route('titles')}>
-            <ListItem className="hover:bg-gray-900 text-white">
+            <ListItem className="hover:bg-gray-900 hover:text-white text-white">
               <ListItemPrefix>
                 <FilmIcon className="h-5 w-5 pe-2" />
               </ListItemPrefix>
@@ -50,7 +50,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
             </ListItem>
           </Link>
           <Link href={route('changes.show')}>
-            <ListItem className="hover:bg-gray-900 text-white">
+            <ListItem className="hover:bg-gray-900 hover:text-white text-white">
               <ListItemPrefix>
                 <NewspaperIcon className="h-5 w-5 pe-2" />
               </ListItemPrefix>
@@ -58,7 +58,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
             </ListItem>
           </Link>
           <Link href={route('analytics')}>
-            <ListItem className="hover:bg-gray-900 text-white">
+            <ListItem className="hover:bg-gray-900 hover:text-white text-white">
               <ListItemPrefix>
                 <PresentationChartLineIcon className="h-5 w-5 pe-2" />
               </ListItemPrefix>
@@ -66,8 +66,8 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
             </ListItem>
           </Link>
           <hr className="my-2 border-blue-gray-50" />
-          <Link href="/">
-            <ListItem className="hover:bg-gray-900 text-white">
+          <Link href={route('profile.edit')}>
+            <ListItem className="hover:bg-gray-900 hover:text-white text-white">
               <ListItemPrefix>
                 <UserCircleIcon className="h-5 w-5 pe-2" />
               </ListItemPrefix>
@@ -75,7 +75,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo";
             </ListItem>
           </Link>
           <Link method="post" href={route('logout')} as="button">
-            <ListItem className="hover:bg-gray-900 text-white">
+            <ListItem className="hover:bg-gray-900 hover:text-white text-white">
               <ListItemPrefix>
                 <PowerIcon className="h-5 w-5 pe-2" />
               </ListItemPrefix>

@@ -1,23 +1,34 @@
 import { Carousel } from "@material-tailwind/react";
- 
-export function CarouselHome() {
-  return (
-    <Carousel className="rounded-xl">
-      <img
-        src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
-        alt="image 1"
-        className="h-full w-full object-cover"
-      />
-      <img
-        src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
-        alt="image 2"
-        className="h-full w-full object-cover"
-      />
-      <img
-        src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
-        alt="image 3"
-        className="h-full w-full object-cover"
-      />
-    </Carousel>
-  );
+
+export function CarouselHome({ titles }) {
+    return (
+        <>
+            <Carousel className="rounded-xl aspect-[95/26] z-0" loop={true} autoplay={true}>
+                <img
+                    src={
+                        "https://image.tmdb.org/t/p/w1280_and_h720_bestv2" +
+                        titles[0].backdrop_path
+                    }
+                    alt={titles[0].title}
+                    className="h-full w-full object-cover"
+                />
+                <img
+                    src={
+                        "https://image.tmdb.org/t/p/w1280_and_h720_bestv2" +
+                        titles[1].backdrop_path
+                    }
+                    alt={titles[1].title}
+                    className="h-full w-full object-cover"
+                />
+                <img
+                    src={
+                        "https://image.tmdb.org/t/p/w1280_and_h720_bestv2" +
+                        titles[2].backdrop_path
+                    }
+                    alt={titles[2].title}
+                    className="h-full w-full object-cover"
+                />
+            </Carousel>
+        </>
+    );
 }

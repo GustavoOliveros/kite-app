@@ -4,69 +4,41 @@ import Select from "react-select";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import AnalyticsStepper from "./partials/AnalyticsStepper";
+import { useState } from "react";
+import AnalyticsForm from "./partials/AnalyticsForm";
+import { Spinner } from "@material-tailwind/react";
+import AnalyticsResult from "./partials/AnalyticsResult";
 
 export default function Analytics({ auth }) {
-    const mediaTypeOptions = [
-        { value: "movies", label: "Películas" },
-        { value: "tv", label: "Series" },
-        { value: "show", label: "Películas y series" },
-        { value: "services", label: "Servicios" },
-    ];
+    const [activeStep, setActiveStep] = useState(0);
+    const [isLastStep, setIsLastStep] = useState(false);
+    const [isFirstStep, setIsFirstStep] = useState(false);
 
-    const typeOptions = [
-        { value: "mostviewed", label: "Más vistos" },
-        { value: "mostreviewed", label: "Más calificados" },
-    ];
-
-    const submitHandler = (e) => {
-        e.preventDefault();
-    };
+    const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1);
+    const reset = () => setActiveStep(0);
 
     return (
         <>
             <Head title="Generar Reporte" />
             <Dashboard title="Generar Reporte">
-            <AnalyticsStepper />
+                <AnalyticsStepper activeStep={activeStep} />
+                {activeStep === 0 ? (
+                    <AnalyticsForm handleNext={handleNext} />
+                ) : (
+                    ""
+                )}
+                {activeStep === 1 ? (
+                    <div className="flex items-center justify-center space-x-2 py-4">
+                        <Spinner className="w-5 h-5" />
+                        <h3 className="text-3xl text-center">Procesando...</h3>
+                    </div>
+                ) : (
+                    ""
+                )}
+                {activeStep === 2 ? <AnalyticsResult /> : ""}
 
-                <form onSubmit={submitHandler}>
-                    <div className="md:grid md:grid-cols-2 md:space-x-2">
-                    <div className="text-black">
-                        <InputLabel
-                            className="text-white my-3"
-                            htmlFor="mediaType"
-                            value="Tipo de contenido"
-                        />
-                        <Select
-                            options={mediaTypeOptions}
-                            name="mediaType"
-                            id="mediaType"
-                            isClearable={true}
-                            placeholder="Seleccione uno..."
-                            noOptionsMessage={() => {
-                                return "No se encontraron coincidencias...";
-                            }}
-                        />
-                    </div>
-                    <div className="text-black ">
-                        <InputLabel
-                            className="text-white my-3"
-                            htmlFor="type"
-                            value="Tipo de solicitud"
-                        />
-                        <Select
-                            options={typeOptions}
-                            name="type"
-                            id="type"
-                            isClearable={true}
-                            placeholder="Seleccione uno..."
-                            noOptionsMessage={() => {
-                                return "No se encontraron coincidencias...";
-                            }}
-                        />
-                    </div>
-                    </div>
-                    <PrimaryButton type="submit" className="mt-4">Generar</PrimaryButton>
-                </form>
+                <button onClick={handleNext}>sig</button><br />
+                <button onClick={reset}>reset</button>
             </Dashboard>
         </>
     );

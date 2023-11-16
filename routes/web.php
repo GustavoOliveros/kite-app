@@ -41,15 +41,15 @@ Route::get('/test/{id}/{type}', [TitleController::class, 'getStreamingData']);
 Route::get('/', [HomeController::class, 'index']);
 
 // Users without services
-Route::group(['middleware' => ['no access app', 'auth', 'verified']], function(){
+Route::group(['middleware' => ['no access app', 'auth', 'verified']], function () {
     // Service selection
     Route::get('/services', [ServiceController::class, 'index'])->name('services');
-    Route::post('/services-selection', [UserController::class,'addServices'])
+    Route::post('/services-selection', [UserController::class, 'addServices'])
         ->name('services-selection');
 });
 
 // All users, except those who have not selected their streaming services
-Route::group(['middleware' => ['access app', 'auth', 'verified']], function(){
+Route::group(['middleware' => ['access app', 'auth', 'verified']], function () {
     // Home
     Route::get('/home', [HomeController::class, 'indexHomepage'])
         ->name('home');
@@ -90,10 +90,12 @@ Route::group(['middleware' => ['access app', 'auth', 'verified']], function(){
     Route::post('/review', [ReviewController::class, 'store'])->name('review.store');
     Route::get('/reviews/{titleId}', [ReviewController::class, 'getReviews'])->name('getReviews');
 
-   
+    // 
+
+
 
     // Dashboard (admins & moderators)
-    Route::group(['middleware' => ['can:access dashboard']], function(){
+    Route::group(['middleware' => ['can:access dashboard']], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');
 
@@ -129,7 +131,10 @@ Route::group(['middleware' => ['access app', 'auth', 'verified']], function(){
         // ANALYTICS
         Route::get('/analytics', [AnalyticsController::class, 'index'])
             ->middleware(['can:analytics'])->name('analytics');
+
+        Route::post('/analytics/perform', [AnalyticsController::class, 'perform'])
+            ->middleware(['can:analytics'])->name('analytics.perform');
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

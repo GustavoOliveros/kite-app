@@ -35,7 +35,9 @@ class HomeController extends Controller
                 'id' => $title->id,
                 'title' => $title->title,
                 'poster_path' => $title->poster_path,
-                'type' => $title->type
+                'type' => $title->type,
+                'backdrop_path' => $title->backdrop_path,
+                'year' => $title->year
             ];
         });
         $servicesObjCol = [];
