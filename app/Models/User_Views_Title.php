@@ -26,6 +26,10 @@ class User_Views_Title extends Model
     {
         return $this->belongsTo(Title::class, 'title_id', 'id');
     }
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'service_id', 'id');
+    }
 
 
 }

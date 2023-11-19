@@ -23,6 +23,7 @@ export default function Title({ auth, title, services, alreadySaved, genres, fla
     const [modalType, setModalType] = useState('watch');
     const [isOpen, setIsOpen] = useState(false);
     const [link, setLink] = useState('');
+    const [serviceId, setServiceId] = useState('');
 
     // MODAL FUNCTIONS
     
@@ -109,11 +110,12 @@ export default function Title({ auth, title, services, alreadySaved, genres, fla
             openAskErrorModal();
         }
     };
-    const saveHistory = (link) => {
+    const saveHistory = (link, serviceId) => {
         return axios
             .get(
                 route("saveHistory", {
                     id: title.id,
+                    service: serviceId
                 })
             )
             .then((response) => {
@@ -204,6 +206,7 @@ export default function Title({ auth, title, services, alreadySaved, genres, fla
                         setLoadingWatch={setLoadingWatch}
                         openAskNoSubModal={openAskNoSubModal}
                         setLink={setLink}
+                        setServiceId={setServiceId}
                     />
                 ) : (
                     ""
@@ -220,6 +223,7 @@ export default function Title({ auth, title, services, alreadySaved, genres, fla
                         setLoadingWatch={setLoadingWatch}
                         onClose={closeModal}
                         link={link}
+                        serviceId={serviceId}
                         saveHistory={saveHistory}
                     />
                 ) : (
@@ -232,6 +236,7 @@ export default function Title({ auth, title, services, alreadySaved, genres, fla
                         setLoadingWatch={setLoadingWatch}
                         onClose={closeModal}
                         link={link}
+                        serviceId={serviceId}
                         saveHistory={saveHistory}
                     />
                 ) : (

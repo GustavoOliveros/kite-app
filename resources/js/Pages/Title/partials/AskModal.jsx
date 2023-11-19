@@ -3,11 +3,11 @@ import { FilmIcon } from "@heroicons/react/24/solid";
 import { Spinner } from "@material-tailwind/react";
 import toast from "react-hot-toast";
 
-export default function AskModal({onClose, loadingWatch, setLoadingWatch, link, modalType, saveHistory}) {
+export default function AskModal({onClose, loadingWatch, setLoadingWatch, serviceId, link, modalType, saveHistory}) {
     const handleClick = () => {
         setLoadingWatch(true);
         if(modalType === 'askNoSub'){
-            saveHistory(link);
+            saveHistory(link, serviceId);
         }else{
             toast.success('Redireccionando...');
             window.location.href = link;
@@ -18,7 +18,7 @@ export default function AskModal({onClose, loadingWatch, setLoadingWatch, link, 
         <div className="p-5">
             <Dialog.Title
                 as="h3"
-                className="text-lg font-medium leading-6 font-light text-white"
+                className="text-lg font-medium leading-6 text-white"
             >
                 <div className="flex justify-center mb-2 gap-2">
                     {loadingWatch ? (
@@ -44,14 +44,14 @@ export default function AskModal({onClose, loadingWatch, setLoadingWatch, link, 
             <div className="mt-8 flex gap-3 justify-center">
                 <button
                     type="button"
-                    className="inline-flex justify-center rounded-md border bg-white border-black text-black  px-4 py-2 text-sm text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-800 focus-visible:ring-offset-2"
+                    className="inline-flex justify-center rounded-md border bg-white border-black   px-4 py-2 text-sm text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-800 focus-visible:ring-offset-2"
                     onClick={handleClick}
                 >
                     Continuar de todos modos
                 </button>
                 <button
                     type="button"
-                    className="inline-flex justify-center rounded-md border border-black text-white border-white px-4 py-2 text-sm text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-800 focus-visible:ring-offset-2"
+                    className="inline-flex justify-center rounded-md border border-white  px-4 py-2 text-sm text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-800 focus-visible:ring-offset-2"
                     onClick={onClose}
                 >
                     Cancelar

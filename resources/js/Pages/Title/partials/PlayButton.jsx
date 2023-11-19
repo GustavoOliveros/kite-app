@@ -7,7 +7,7 @@ export default function PlayButton({ services, openModal, saveHistory, loadingWa
     const watchTitle = () => {
         setLoadingWatch(true);
         if (services.length === 1 && services[0].isUserSubscribed) {
-            saveHistory(services[0].title_on_service.link);
+            saveHistory(services[0].title_on_service.link, services[0].service.id_name);
         } else {
             setLoadingWatch(false);
             openModal();

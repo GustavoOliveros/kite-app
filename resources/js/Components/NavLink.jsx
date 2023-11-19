@@ -19,15 +19,11 @@ export default function NavLink({
                     : "border-transparent text-gray-500 hover:border-gray-300 focus:text-white focus:border-gray-300 ") +
                 className
             }
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
         >
             <div className="flex flex-col relative">
-                <div
-                    className="flex mb-2"
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
-                >
-                    {children}
-                </div>
+                <div className="flex mb-2">{children}</div>
                 <div
                     className={`absolute bottom-0  bg-white h-[0.15rem] mt-1 rounded-lg transition-all duration-500  ${
                         active || isHovered ? "w-full" : "w-0"

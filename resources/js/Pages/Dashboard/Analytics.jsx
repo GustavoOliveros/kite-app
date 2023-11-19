@@ -12,7 +12,7 @@ import AnalyticsResult from "./partials/AnalyticsResult";
 export default function Analytics({ auth }) {
     const [activeStep, setActiveStep] = useState(0);
     const [isLastStep, setIsLastStep] = useState(false);
-    const [isFirstStep, setIsFirstStep] = useState(false);
+    const [data, setData] = useState([]);
 
     const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1);
     const reset = () => setActiveStep(0);
@@ -23,7 +23,7 @@ export default function Analytics({ auth }) {
             <Dashboard title="Generar Reporte">
                 <AnalyticsStepper activeStep={activeStep} />
                 {activeStep === 0 ? (
-                    <AnalyticsForm handleNext={handleNext} />
+                    <AnalyticsForm handleNext={handleNext} setData={setData} />
                 ) : (
                     ""
                 )}
@@ -35,10 +35,7 @@ export default function Analytics({ auth }) {
                 ) : (
                     ""
                 )}
-                {activeStep === 2 ? <AnalyticsResult /> : ""}
-
-                <button onClick={handleNext}>sig</button><br />
-                <button onClick={reset}>reset</button>
+                {activeStep === 2 ? <AnalyticsResult data={data} reset={reset} /> : ""}
             </Dashboard>
         </>
     );

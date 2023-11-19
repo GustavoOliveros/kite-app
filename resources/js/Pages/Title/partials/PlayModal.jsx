@@ -2,13 +2,14 @@ import { Dialog } from "@headlessui/react";
 import { CheckCircleIcon,  FilmIcon } from "@heroicons/react/24/solid";
 import { Button, Spinner } from "@material-tailwind/react";
 
-export default function PlayModal({onClose, services, saveHistory, loadingWatch, setLoadingWatch, openAskNoSubModal, setLink}) {
-    const handleClick = (link, isUserSubscribed) => {
+export default function PlayModal({onClose, services, saveHistory, loadingWatch, setLoadingWatch, setServiceId, openAskNoSubModal, setLink}) {
+    const handleClick = (link, isUserSubscribed, serviceId) => {
         if(isUserSubscribed){
             setLoadingWatch(true);
-            saveHistory(link);
+            saveHistory(link, serviceId);
         }else{
             setLink(link);
+            setServiceId(serviceId);
             openAskNoSubModal();
         }
     }
@@ -34,7 +35,7 @@ export default function PlayModal({onClose, services, saveHistory, loadingWatch,
                         <div className="flex flex-col justify-center items-center" key={index}>
                             <Button
                                 className="relative bg-zinc-900 p-5 rounded-lg mt-5 cursor-pointer transition ease-in-out delay-150 hover:scale-110 duration-300"
-                                onClick={(e) => {handleClick(element.title_on_service.link, element.isUserSubscribed)}}
+                                onClick={(e) => {handleClick(element.title_on_service.link, element.isUserSubscribed, element.service.id_name)}}
                             >
                                 <img
                                     className="w-10 h-10"

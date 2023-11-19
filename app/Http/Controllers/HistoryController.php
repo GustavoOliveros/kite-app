@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Models\Title;
 use Inertia\Inertia;
@@ -36,7 +37,7 @@ class HistoryController extends Controller
      * Updates the watch history of the auth user. Returns a JSON response
      * @param string $id (Title ID)
      */
-    public function saveHistory(string $id){
+    public function saveHistory(string $id, string $service_id){
         $response = [];
 
         try{
@@ -74,6 +75,9 @@ class HistoryController extends Controller
             if(!$userTitle){
                 // if the user has not seen the title before, we have to create a new User_Views_Title
                 $userTitle = new User_Views_Title();
+
+                $service = Service::where('id_name', $service_id)->first();
+                $userTitle->service()->associate($service);
                 $userTitle->user()->associate($user);
                 $userTitle->title()->associate($title);
                 $userTitle->view_count = 1;

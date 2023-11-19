@@ -83,7 +83,7 @@ Route::group(['middleware' => ['access app', 'auth', 'verified']], function () {
     Route::get('/genre/{id}', [GenreController::class, 'show'])->name('genres.show');
 
     // History
-    Route::get('/title/{id}/watch', [HistoryController::class, 'saveHistory'])->name('saveHistory');
+    Route::get('/title/{id}/{service}/watch', [HistoryController::class, 'saveHistory'])->name('saveHistory');
     Route::get('/your-history', [HistoryController::class, 'show'])->name('history');
 
     // Reviews
@@ -134,6 +134,15 @@ Route::group(['middleware' => ['access app', 'auth', 'verified']], function () {
 
         Route::post('/analytics/perform', [AnalyticsController::class, 'perform'])
             ->middleware(['can:analytics'])->name('analytics.perform');
+        
+        Route::get('/analytics/{file}/excel', [AnalyticsController::class, 'excel'])
+            ->middleware(['can:analytics'])->name('analytics.excel');
+        
+        Route::get('/analytics/{file}/pdf', [AnalyticsController::class, 'pdf'])
+            ->middleware(['can:analytics'])->name('analytics.pdf');
+
+        Route::get('/analytics/{file}/csv', [AnalyticsController::class, 'csv'])
+            ->middleware(['can:analytics'])->name('analytics.csv');
     });
 });
 

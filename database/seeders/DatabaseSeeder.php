@@ -23,5 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TitleTableSeeder::class);
         $this->call(ServiceTableSeeder::class);
         $this->call(GenreTableSeeder::class);
+        \App\Models\User_Views_Title::factory(100)->create();
+        \App\Models\Review::factory(100)->create();
     }
 }
