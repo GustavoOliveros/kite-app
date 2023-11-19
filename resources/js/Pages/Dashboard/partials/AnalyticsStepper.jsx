@@ -1,5 +1,4 @@
-import { Stepper, Step, Button } from "@material-tailwind/react";
-import { useState } from "react";
+import { Stepper, Step } from "@material-tailwind/react";
  
 export default function AnalyticsStepper({activeStep}) {
 

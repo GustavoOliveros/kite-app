@@ -36,6 +36,20 @@ Route::get('/popular', [TitleController::class, 'popular']);
 
 // Test
 Route::get('/test/{id}/{type}', [TitleController::class, 'getStreamingData']);
+Route::get('/test/pdf', function(){
+    return view('pdf/analytics', [
+        'title' => "pepepepe",
+        'data' => [
+            [
+                'pos' => 1,
+                'itemId' => 1,
+                'item' => 'caca',
+                'cantidad' => 23
+            ]
+        ]
+
+    ]);
+});
 
 // Guests
 Route::get('/', [HomeController::class, 'index']);
@@ -140,9 +154,6 @@ Route::group(['middleware' => ['access app', 'auth', 'verified']], function () {
         
         Route::get('/analytics/{file}/pdf', [AnalyticsController::class, 'pdf'])
             ->middleware(['can:analytics'])->name('analytics.pdf');
-
-        Route::get('/analytics/{file}/csv', [AnalyticsController::class, 'csv'])
-            ->middleware(['can:analytics'])->name('analytics.csv');
     });
 });
 

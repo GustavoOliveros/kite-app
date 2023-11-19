@@ -3,8 +3,9 @@ import Select from "react-select";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { useState } from "react";
 import TextInput from "@/Components/TextInput";
+import toast from "react-hot-toast";
 
-export default function AnalyticsForm({ handleNext, setData }) {
+export default function AnalyticsForm({ handleNext, setData, setActiveStep }) {
     const [mediaType, setMediaType] = useState(null);
     const [type, setType] = useState(null);
     const [dateFrom, setDateFrom] = useState(new Date(new Date().setMonth(new Date().getMonth() - 1)).toISOString().split('T')[0]);
@@ -34,6 +35,8 @@ export default function AnalyticsForm({ handleNext, setData }) {
                 
             })
             .catch((error) => {
+                setActiveStep(0);
+                toast.error('Ocurrió un error. Inténtelo de nuevo más tarde.');
                 console.log(error);
             });
     };

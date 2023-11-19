@@ -33,40 +33,23 @@ export default function AnalyticsResult({ data, reset }) {
     const columns = [
         {
             name: "Pos.",
-            selector: (row, index) => index + 1,
+            selector: (row) => row.pos,
+            grow: true,
+            sortable: true,
+        },
+        {
+            name: "Item ID",
+            selector: (row) => row.itemId,
             grow: true,
         },
         {
             name: "Item",
-            selector: (row) => {
-                if (row.title_id != undefined) {
-                    return (
-                        <a
-                            href={route("title.show", { id: row.title_id })}
-                            target="_blank"
-                            className="underline"
-                        >
-                            {row.title}
-                        </a>
-                    );
-                }
-
-                if (row.service_id != undefined) {
-                    return row.name;
-                }
-            },
+            selector: (row) => row.item,
         },
         {
             name: "Cantidad",
-            selector: (row) => {
-                if (row.view_count !== undefined) {
-                    return row.view_count;
-                } else if (row.review_average !== undefined) {
-                    return `${row.review_average} (${row.review_count})`;
-                } else {
-                    return row.review_count;
-                }
-            },
+            selector: (row) => row.cantidad,
+            sortable: true,
         },
     ];
 
@@ -83,14 +66,24 @@ export default function AnalyticsResult({ data, reset }) {
                     </PrimaryButton>
                 </div>
                 <div>
-                    <h2>Reporte: {data.report}</h2>
+                    <h2>Reporte: {data.title}</h2>
                 </div>
                 <div className="space-x-2">
-                    <PrimaryButton className="flex gap-2 items-center">
-                        <ArrowDownTrayIcon className="w-5 h-5" />
-                        PDF
-                    </PrimaryButton>
-                    <a href={route("analytics.excel", { file: data.path })}>
+                    <a
+                        href={route("analytics.pdf", {
+                            file: data.filename + ".pdf",
+                        })}
+                    >
+                        <PrimaryButton className="flex gap-2 items-center">
+                            <ArrowDownTrayIcon className="w-5 h-5" />
+                            PDF
+                        </PrimaryButton>
+                    </a>
+                    <a
+                        href={route("analytics.excel", {
+                            file: data.filename + ".xlsx",
+                        })}
+                    >
                         <PrimaryButton className="flex gap-2 items-center">
                             <ArrowDownTrayIcon className="w-5 h-5" />
                             Excel

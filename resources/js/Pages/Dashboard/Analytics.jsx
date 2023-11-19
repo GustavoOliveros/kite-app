@@ -1,15 +1,13 @@
 import Dashboard from "@/Layouts/DashboardLayout";
 import { Head } from "@inertiajs/react";
-import Select from "react-select";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
 import AnalyticsStepper from "./partials/AnalyticsStepper";
 import { useState } from "react";
 import AnalyticsForm from "./partials/AnalyticsForm";
 import { Spinner } from "@material-tailwind/react";
 import AnalyticsResult from "./partials/AnalyticsResult";
+import { Toaster } from "react-hot-toast";
 
-export default function Analytics({ auth }) {
+export default function Analytics() {
     const [activeStep, setActiveStep] = useState(0);
     const [isLastStep, setIsLastStep] = useState(false);
     const [data, setData] = useState([]);
@@ -23,7 +21,7 @@ export default function Analytics({ auth }) {
             <Dashboard title="Generar Reporte">
                 <AnalyticsStepper activeStep={activeStep} />
                 {activeStep === 0 ? (
-                    <AnalyticsForm handleNext={handleNext} setData={setData} />
+                    <AnalyticsForm handleNext={handleNext} setData={setData} setActiveStep={setActiveStep} />
                 ) : (
                     ""
                 )}
@@ -37,6 +35,7 @@ export default function Analytics({ auth }) {
                 )}
                 {activeStep === 2 ? <AnalyticsResult data={data} reset={reset} /> : ""}
             </Dashboard>
+            <Toaster />
         </>
     );
 }
