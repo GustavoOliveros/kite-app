@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Exports\AnalyticsExport;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use App\Models\Title;
 use App\Models\User_Views_Title;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;

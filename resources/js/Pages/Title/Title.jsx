@@ -146,7 +146,7 @@ export default function Title({ auth, title, services, alreadySaved, genres, fla
                             title.backdrop_path
                         }
                         alt={
-                            "Póster de la película " +
+                            "Póster de " +
                             title.title +
                             " (" +
                             title.year +

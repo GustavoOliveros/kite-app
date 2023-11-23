@@ -32,7 +32,7 @@ export default function PlayModal({onClose, services, saveHistory, loadingWatch,
             <div className="grid grid-cols-2 md:flex md:justify-center md:items-center md:gap-5">
                 {services && services.length > 0 ? (
                     services.map((element, index) => (
-                        <div className="flex flex-col justify-center items-center" key={index}>
+                        <div className="flex flex-col justify-center text-center items-center" key={index}>
                             <Button
                                 className="relative bg-zinc-900 p-5 rounded-lg mt-5 cursor-pointer transition ease-in-out delay-150 hover:scale-110 duration-300"
                                 onClick={(e) => {handleClick(element.title_on_service.link, element.isUserSubscribed, element.service.id_name)}}
@@ -40,7 +40,7 @@ export default function PlayModal({onClose, services, saveHistory, loadingWatch,
                                 <img
                                     className="w-10 h-10"
                                     src={element.service.logo_path}
-                                    alt={"Logo de " + element.service.name}
+                                    alt={element.service.name}
                                 />
                                 {element.isUserSubscribed ? <CheckCircleIcon className="w-5 h-5 absolute top-0 right-0 m-1" /> : ''}
                             </Button>

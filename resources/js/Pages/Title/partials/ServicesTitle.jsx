@@ -1,6 +1,6 @@
 export default function ServicesTitle({ services }) {
     return (
-        <div className="flex gap-5 mb-20">
+        <div className="flex flex-wrap gap-5 mb-20 justify-center md:justify-start">
             {services && services.length > 0 ? (
                 services.map((element, index) => (
                     <img
