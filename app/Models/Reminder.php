@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Title;
+use App\Models\Service;
 
 class Reminder extends Model
 {
@@ -11,9 +14,21 @@ class Reminder extends Model
 
     protected $table = 'reminders';
     protected $fillable = [
-        'user_id',
         'title_id',
-        'service_id',
-        'type',
+        'user_id',
+        'service_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function title(){
+        return $this->belongsTo(Title::class, 'title_id', 'id');
+    }
+
+    public function service(){
+        return $this->belongsTo(Service::class, 'service_id', 'id');
+    }
 }

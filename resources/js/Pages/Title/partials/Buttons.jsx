@@ -3,8 +3,10 @@ import {
     PlusIcon,
     SquaresPlusIcon,
     CheckIcon,
+    BellIcon
 } from "@heroicons/react/24/solid";
 import { Button, Spinner } from "@material-tailwind/react";
+import Reminder from "./Reminder";
 
 export default function Buttons({
     services,
@@ -17,6 +19,7 @@ export default function Buttons({
     saved,
     openListModal,
 }) {
+
     return (
         <div className="flex gap-3 flex-col md:flex-row">
             {/* PLAY BUTTON */}
@@ -50,6 +53,8 @@ export default function Buttons({
             >
                 <PlusIcon className="w-4 h-4" /> &nbsp; Lista
             </Button>
+
+            <Reminder />
         </div>
     );
 }

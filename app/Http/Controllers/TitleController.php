@@ -17,6 +17,7 @@ use App\Models\Title_On_Service;
 use App\Http\Requests\TitleRequest;
 use App\Http\Controllers\CountryFlagController;
 use App\Http\Controllers\ReviewController;
+use App\Models\Reminder;
 
 class TitleController extends Controller
 {
@@ -159,6 +160,9 @@ class TitleController extends Controller
                 $reviews = new ReviewController;
 
                 $reviews = $reviews->show($id);
+
+                $reminder = Reminder::where('user_id', Auth::user()->id)->where('title_id', $id)->first();
+                $isReminderActive = ($reminder) ? true : false;
     
                 return Inertia::render
                 ('Title/Title',
@@ -168,7 +172,8 @@ class TitleController extends Controller
                         'alreadySaved' => $alreadySaved,
                         'genres' => $genres,
                         'flag' => $flagUrl,
-                        'reviews' => $reviews
+                        'reviews' => $reviews,
+                        'isReminderActive' => $isReminderActive,
                         ]
                 );
             }

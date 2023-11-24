@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('reminders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('title_id');
             $table->unsignedBigInteger('service_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
-            $table->integer('type');
 
             $table->foreign('user_id')
                 ->references('id')

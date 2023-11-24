@@ -56,6 +56,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(User_Has_Service::class, "user_id", "id");
     }
 
+    public function servicesDirect(){
+        return $this->belongsToMany(Service::class, 'user_has_service', 'user_id', 'service_id');
+    }
+
     public function titles(){
         return $this->hasMany(User_Has_Title::class, "user_id", "id");
     }
@@ -66,6 +70,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function watchedTitles(){
         return $this->belongsToMany(Title::class, 'User_Views_Title', 'user_id', 'title_id');
+    }
+
+    public function titleReminder(){
+        return $this->belongsToMany(Title::class, 'Reminders', 'user_id', 'title_id');
     }
 
 }

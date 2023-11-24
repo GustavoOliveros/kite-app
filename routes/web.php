@@ -19,6 +19,7 @@ use Psy\Command\HistoryCommand;
 use App\Http\Controllers\ChangesController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\AnalyticsController;
+use App\Http\Controllers\ReminderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -104,7 +105,11 @@ Route::group(['middleware' => ['access app', 'auth', 'verified']], function () {
     Route::post('/review', [ReviewController::class, 'store'])->name('review.store');
     Route::get('/reviews/{titleId}', [ReviewController::class, 'getReviews'])->name('getReviews');
 
-    // 
+    // Reminders
+    Route::get('/your-reminders', [ReminderController::class, 'index'])->name('reminder.index');
+    Route::get('/setreminder/{id}', [ReminderController::class, 'store'])->name('reminder.store');
+    Route::delete('/unsetreminder/{id}', [ReminderController::class, 'destroy'])->name('reminder.destroy');
+    Route::get('/getreminders', [ReminderController::class, 'all'])->name('reminder.all');
 
 
 

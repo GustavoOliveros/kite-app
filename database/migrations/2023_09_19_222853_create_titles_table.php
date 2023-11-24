@@ -24,6 +24,7 @@ return new class extends Migration
             $table->float('rating')->nullable();
             $table->integer('rating_amount')->default(0);
             $table->string('origin_country')->nullable();
+            $table->timestamp('release_date')->default(now());
 
             $table->string('tmdb_id')->unique();
 
