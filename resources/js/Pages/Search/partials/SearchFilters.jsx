@@ -1,33 +1,70 @@
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
-import { Button } from "@material-tailwind/react";
+import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
+import { Button, Tooltip } from "@material-tailwind/react";
 import Select from "react-select";
 
-export default function SearchFilters({ genres, setSelectedGenres, setSelectedType, setFormData }) {
+export default function SearchFilters({
+    genres,
+    setSelectedGenres,
+    setSelectedType,
+    setFormData,
+    services,
+    setSelectedServices,
+}) {
     const typeOptions = [
         { value: "movie", label: "Película" },
         { value: "tv", label: "Serie" },
     ];
 
-
     return (
         <>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div>
-                    <InputLabel
-                        className="text-white my-3"
-                        htmlFor="type"
-                        value="Tipo"
-                    />
-                    <Select
-                        options={typeOptions}
-                        name="type"
-                        id="type"
-                        onChange={setSelectedType}
-                        isClearable={true}
-                        placeholder="Seleccione uno..."
-                        noOptionsMessage={() => {return ('No se encontraron coincidencias...')}}
-                    />
+                <div className="grid grid-cols-2 gap-3">
+                    <div>
+                        <InputLabel
+                            className="text-white my-3"
+                            htmlFor="type"
+                            value="Tipo"
+                        />
+                        <Select
+                            options={typeOptions}
+                            name="type"
+                            id="type"
+                            onChange={setSelectedType}
+                            isClearable={true}
+                            placeholder="Seleccione uno..."
+                            noOptionsMessage={() => {
+                                return "No se encontraron coincidencias...";
+                            }}
+                        />
+                    </div>
+                    <div>
+                        <InputLabel
+                            className="text-white my-3"
+                            htmlFor="services"
+                            value={
+                                <>
+                                    Servicios{" "}
+                                    <Tooltip
+                                        content="Por defecto se busca por sus servicios contratados."
+                                        placement="bottom"
+                                    >
+                                        <QuestionMarkCircleIcon className="w-3 h-3 inline-flex" />
+                                    </Tooltip>{" "}
+                                </>
+                            }
+                        />
+                        <Select
+                            isMulti
+                            name="services"
+                            placeholder="Seleccione uno o más..."
+                            options={services}
+                            className="basic-multi-select"
+                            classNamePrefix="select"
+                            onChange={setSelectedServices}
+                        />
+                    </div>
                 </div>
 
                 <div className="">
@@ -121,8 +158,7 @@ export default function SearchFilters({ genres, setSelectedGenres, setSelectedTy
                     </div>
                 </div>
 
-                <div className="flex items-center gap-3"></div>
-                <div className="flex justify-end gap-3">
+                <div className="flex justify-end gap-3 mt-auto">
                     <Button
                         className="bg-transparent shadow-none border-2 text-white w-full md:w-auto"
                         type="reset"

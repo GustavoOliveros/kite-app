@@ -12,6 +12,7 @@ import {
     AdjustmentsVerticalIcon,
     PlusIcon,
 } from "@heroicons/react/24/solid";
+import NotificationLayout from "./partials/NotificationLayout";
 
 export default function Authenticated({
     user,
@@ -30,7 +31,6 @@ export default function Authenticated({
     };
 
     const [isOnTop, setIsOnTop] = useState(true);
-
     const listenScrollEvent = () => {
         window.scrollY > 10 ? setIsOnTop(false) : setIsOnTop(true);
     };
@@ -40,6 +40,8 @@ export default function Authenticated({
             window.removeEventListener("scroll", listenScrollEvent);
         };
     }, []);
+
+
 
     return (
         <>
@@ -60,7 +62,9 @@ export default function Authenticated({
                 >
                     <nav
                         className={`p-1 md:p-0 md:sticky md:top-0 z-20 transition-all duration-500 ${
-                            isOnTop ? "bg-transparent" : "bg-zinc-900/90 backdrop-blur-2xl"
+                            isOnTop
+                                ? "bg-transparent"
+                                : "bg-zinc-900/90 backdrop-blur-2xl"
                         }`}
                     >
                         <div className="max-w-7xl mx-auto">
@@ -117,6 +121,7 @@ export default function Authenticated({
                                 </div>
 
                                 <div className="hidden md:flex md:items-center md:ml-6">
+                                    <NotificationLayout />
                                     <div className="ml-3 relative">
                                         <Dropdown>
                                             <Dropdown.Trigger>

@@ -1,5 +1,6 @@
 import { Button } from "@material-tailwind/react";
-import { BellIcon, BellSlashIcon } from "@heroicons/react/24/solid";
+import { BellAlertIcon } from "@heroicons/react/24/solid";
+import { BellIcon as BellIconOutline } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -61,13 +62,14 @@ export default function Reminder(){
         <Button
                 className="bg-transparent border border-white text-white flex justify-center md:p-5 rounded-full" aria-label="Crear recordatorio"
                 onClick={createReminder}
+                title={isActive ? 'Eliminar recordatorio' : 'Agregar recordatorio'}
             >
                 {loading ? (
                     <Spinner className="h-4 w-4" />
                 ) : isActive ? (
-                    <BellIcon className="h-4 w-4 scale-150" />
+                    <BellAlertIcon className="h-4 w-4 scale-150" />
                 ) : (
-                    <BellSlashIcon className="h-4 w-4 scale-150" />
+                    <BellIconOutline className="h-4 w-4 scale-150" />
                 )}
         </Button>
     );

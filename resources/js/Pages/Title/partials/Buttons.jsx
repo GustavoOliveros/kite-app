@@ -35,6 +35,7 @@ export default function Buttons({
             <Button
                 onClick={saveLibraryChanges}
                 className="bg-transparent border border-white text-white flex justify-center md:p-5"
+                title={saved ? 'Eliminar de biblioteca' : 'Agregar a biblioteca'}
             >
                 {loading ? (
                     <Spinner className="animate-spin h-4 w-4" />
@@ -50,6 +51,7 @@ export default function Buttons({
             <Button
                 onClick={openListModal}
                 className="bg-transparent border border-white text-white flex justify-center md:p-5"
+                title="Agregar o eliminar a lista de reproducción"
             >
                 <PlusIcon className="w-4 h-4" /> &nbsp; Lista
             </Button>

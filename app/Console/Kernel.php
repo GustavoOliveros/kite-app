@@ -8,6 +8,8 @@ use App\Http\Controllers\ChangesController;
 use Illuminate\Support\Facades\Log;
 use App\Models\ChangesLog;
 use Illuminate\Support\Carbon;
+use App\Models\Reminder;
+use App\Notifications\NotificationNotification;
 
 class Kernel extends ConsoleKernel
 {
@@ -16,11 +18,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        // Cambios
         // $schedule->call(function () {
         //     $objChanges = new ChangesController;
         //     $objChanges->perform(); 
         // })->everySixHours();
 
+        // Borrado de logs semanal
         // $schedule->call(function (){
         //     $weekAgo = Carbon::now()->subWeek();
         //     $logs = ChangesLog::where('created_at', '<', $weekAgo)->get();
@@ -29,6 +33,32 @@ class Kernel extends ConsoleKernel
         //         $log->delete();
         //     });
         // })->weekly();
+
+        // Actualizar recordatorios de estreno
+        // $schedule->call(function(){
+        //     Reminder::where('release_date', '<', now())->where('status', 0)->update(['status' => 1]);
+        // })->daily();
+        
+        // Borrado de recordatorios leídos diario
+        // $schedule->call(function(){
+        //     Reminder::where('status', 3)->delete();
+        // })->daily();
+
+        // Envio de mails (notificaciones)
+        // $schedule->call(function(){
+        //     $reminders = Reminder::where('status', 1)->get();
+
+        //     foreach($reminders as $reminder){
+        //         $user = $reminder->user;
+        //         $title = $reminder->title;
+        //         $service = $reminder->type === 'release' ? "" : $reminder->service->name;
+
+        //         $user->notify(new NotificationNotification($title->title, $title->id, $reminder->type, $service));
+
+        //         $reminder->status = 2;
+        //         $reminder->save();
+        //     }
+        // })->daily();
     }
 
     /**

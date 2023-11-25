@@ -14,8 +14,13 @@ return new class extends Migration
         Schema::create('reminders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('title_id');
-            $table->unsignedBigInteger('service_id');
+            $table->unsignedBigInteger('service_id')->nullable();
             $table->unsignedBigInteger('user_id');
+            $table->string('type')->default('service');
+            $table->timestamp('release_date')->nullable();
+
+            $table->integer('status')->default(0); // 0 inactivo, 1 activo, 2 mail enviado, 3 leido
+
             $table->timestamps();
 
             $table->foreign('user_id')

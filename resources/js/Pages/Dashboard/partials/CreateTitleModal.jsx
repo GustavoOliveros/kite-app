@@ -18,6 +18,8 @@ export default function CreateTitleModal({isModalOpen, closeModal, updateTable, 
         e.preventDefault();
         setLoading(true);
 
+        selectedValue['tmdb_id'] = selectedValue.media_type + '/' + selectedValue.id;
+
         return axios
             .post(
                 route("title.store", selectedValue)
@@ -32,10 +34,12 @@ export default function CreateTitleModal({isModalOpen, closeModal, updateTable, 
             })
             .catch((error) => {
                 setLoading(false);
-                if(error.response.status === 422){
-                    toast.error("Ocurrió un error o estás intentando registrar un título preexistente.");
-                }else{
-                    toast.error("Ocurrió un error. Inténtelo de nuevo más tarde.");
+                if (error.response.status == 422) {
+                    toast.error(error.response.data.message);
+                } else {
+                    toast.error(
+                        "Ocurrió un error. Inténtelo de nuevo más tarde."
+                    );
                 }
                 console.log(error);
             });

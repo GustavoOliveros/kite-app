@@ -51,6 +51,7 @@ Route::get('/test/pdf', function(){
 
     ]);
 });
+Route::get('/test/changes', [ChangesController::class, 'getChangesTest']);
 
 // Guests
 Route::get('/', [HomeController::class, 'index']);
@@ -110,6 +111,9 @@ Route::group(['middleware' => ['access app', 'auth', 'verified']], function () {
     Route::get('/setreminder/{id}', [ReminderController::class, 'store'])->name('reminder.store');
     Route::delete('/unsetreminder/{id}', [ReminderController::class, 'destroy'])->name('reminder.destroy');
     Route::get('/getreminders', [ReminderController::class, 'all'])->name('reminder.all');
+    Route::get('/your-notifications', [ReminderController::class, 'getNotifications'])->name('notifications');
+    Route::post('/markAsRead', [ReminderController::class, 'markAsRead'])->name('markAsRead');
+
 
 
 

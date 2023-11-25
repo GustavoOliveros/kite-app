@@ -9,13 +9,14 @@ import SearchFilters from "./partials/SearchFilters";
 import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import { Link } from "@inertiajs/react";
 
-export default function Search({ auth, genres }) {
+export default function Search({ auth, genres, services }) {
     const [showNoResults, setShowNoResults] = useState(false);
     const [data, setData] = useState([]); // React variable for the results
     const [showGenres, setShowGenres] = useState(true);
     const [selectedGenres, setSelectedGenres] = useState([]);
     const [selectedType, setSelectedType] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [selectedServices, setSelectedServices] = useState([]);
 
     const { data: formData, setData: setFormData } = useForm({
         query: "",
@@ -33,7 +34,8 @@ export default function Search({ auth, genres }) {
         const formDataAux = {
             formData: formData,
             selectedGenres: selectedGenres,
-            selectedType: selectedType
+            selectedType: selectedType,
+            selectedServices: selectedServices
         }
 
         console.log(formDataAux)
@@ -80,7 +82,7 @@ export default function Search({ auth, genres }) {
                             Filtros de búsqueda
                         </Button>
                     </div>
-                    {showFilters ? <SearchFilters setSelectedGenres={setSelectedGenres} setSelectedType={setSelectedType} setFormData={setFormData} genres={genres} /> : ""}
+                    {showFilters ? <SearchFilters setSelectedGenres={setSelectedGenres} setSelectedServices={setSelectedServices} setSelectedType={setSelectedType} setFormData={setFormData} genres={genres} services={services} /> : ""}
                 </form>
 
                 <div className="flex flex-col justify-center my-5">

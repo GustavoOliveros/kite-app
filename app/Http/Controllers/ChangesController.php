@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use App\Models\ChangesLog;
 use Illuminate\Support\Facades\Log;
+use App\Models\Reminder;
 
 class ChangesController extends Controller
 {
@@ -64,6 +65,8 @@ class ChangesController extends Controller
                             $titleService->available_since = isset($service['available_since']) ? date("Y-m-d H:i:s", $service['availableSince']) : null;
                             $titleService->leaving = isset($service['leaving']) && intval($service['leaving']) < 1919748376 ? date("Y-m-d H:i:s", $service['leaving']) : null;
                             $titleService->save();
+
+                            $this->updateReminders($title->id, $localService->id);
                         }
                     }
                 }
@@ -104,7 +107,6 @@ class ChangesController extends Controller
 
             }
         }
-
 
         return response()->json($response);
     }
@@ -162,4 +164,18 @@ class ChangesController extends Controller
 
         return response()->json($change);
     }
+
+    private function updateReminders(string $titleId, string $serviceId)
+    {
+        return Reminder::where('title_id', $titleId)
+                ->where('service_id', $serviceId)
+                ->update(['status' => 1]);
+    }
+
+    public function getChangesTest(){
+        $response = $this->getChangesFromAPI();
+
+        return response()->json($response);
+    }
+
 }

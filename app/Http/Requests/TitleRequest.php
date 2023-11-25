@@ -16,7 +16,7 @@ class TitleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|numeric|unique:'. Title::class,
+            'tmdb_id' => 'required|string|unique:' . Title::class,
             'media_type' => 'required|string',
             'title' => 'required_if:name,null|string',
             'name' => 'required_if:title,null|string',
@@ -26,6 +26,16 @@ class TitleRequest extends FormRequest
             'first_air_date' => 'required_if:release_date,null|string',
             'poster_path' => 'nullable',
             'backdrop_path' => 'nullable',
+        ];
+    }
+
+    public function messages(){
+        return [
+            'tmdb_id.unique' => "El título ya existe.",
+            'required' => 'Ocurrió un error. Inténtelo de nuevo más tarde.',
+            'string' => 'Ocurrió un error. Inténtelo de nuevo más tarde.',
+            'required_if' => 'Ocurrió un error. Inténtelo de nuevo más tarde.',
+            'nullable' => 'Ocurrió un error. Inténtelo de nuevo más tarde.',
         ];
     }
 }

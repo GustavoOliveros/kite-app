@@ -26,6 +26,8 @@ export default function AddTitle({ auth }) {
         e.preventDefault();
         setLoading(true);
 
+        selectedValue['tmdb_id'] = selectedValue.media_type + '/' + selectedValue.id;
+
         return axios
             .post(route("storeUser", selectedValue))
             .then((response) => {
@@ -36,10 +38,9 @@ export default function AddTitle({ auth }) {
             })
             .catch((error) => {
                 setLoading(false);
-                if (error.response.status === 422) {
-                    toast.error(
-                        "Ocurrió un error o estás intentando registrar un título preexistente."
-                    );
+
+                if (error.response.status == 422) {
+                    toast.error(error.response.data.message);
                 } else {
                     toast.error(
                         "Ocurrió un error. Inténtelo de nuevo más tarde."

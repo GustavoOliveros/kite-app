@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Exception;
 use Inertia\Inertia;
+use Illuminate\Support\Carbon;
 
 class ReminderController extends Controller
 {
@@ -21,7 +22,11 @@ class ReminderController extends Controller
         // $reminders = Reminder::where('user_id', Auth::user()->id)->get();
         $user = User::find(Auth::user()->id);
 
-        $titles = $user->titleReminder->unique('id')->values();
+        $titles = $user->titleReminder()
+            ->orderBy('created_at', 'desc') // or 'asc' for ascending order
+            ->get()
+            ->unique('id') // Assuming you want unique titles based on the 'id' column
+            ->values();
 
         return Inertia::render('UserReminders/UserReminders', ['titles' => $titles, 'deleteRoute' => 'reminder.destroy']);
     }
@@ -41,7 +46,7 @@ class ReminderController extends Controller
     {
         $response = [];
 
-        try{
+        try {
             // user
             $user = User::find(Auth::user()->id);
 
@@ -51,7 +56,8 @@ class ReminderController extends Controller
             // services
             $services = $user->servicesDirect;
 
-            foreach($services as $service){
+            // recordatorios de servicios
+            foreach ($services as $service) {
                 $reminder = new Reminder();
                 $reminder->user()->associate($user);
                 $reminder->service()->associate($service);
@@ -59,9 +65,19 @@ class ReminderController extends Controller
                 $reminder->save();
             }
 
+            // recordatorio de estreno
+            if ($title->release_date && now()->lt($title->release_date)) {
+                $reminder = new Reminder();
+                $reminder->user()->associate($user);
+                $reminder->title()->associate($title);
+                $reminder->type = 'release';
+                $reminder->release_date = $title->release_date;
+                $reminder->save();
+            }
+
             $response['type'] = "success";
             $response['message'] = "Recibiras notificaciones si el título llega a tus servicios contratados o cuando se estrene.";
-        }catch(Exception $error){
+        } catch (Exception $error) {
             $response['type'] = 'error';
             $response['message'] = "Ocurrió un error. Inténtelo de nuevo más tarde";
             $response['obj'] = $error;
@@ -101,12 +117,12 @@ class ReminderController extends Controller
     {
         $response = [];
 
-        try{
+        try {
             Reminder::where('user_id', Auth::user()->id)->where('title_id', $id)->delete();
 
             $response['type'] = "success";
             $response['message'] = "Ya no recibiras notificaciones del título.";
-        }catch(Exception $error){
+        } catch (Exception $error) {
             $response['type'] = 'error';
             $response['message'] = "Ocurrió un error. Inténtelo de nuevo más tarde";
             $response['obj'] = $error;
@@ -115,11 +131,43 @@ class ReminderController extends Controller
         return response()->json($response);
     }
 
-    public function all(){
+    public function all()
+    {
         $user = User::find(Auth::user()->id);
 
         $titles = $user->titleReminder->unique('id')->values();
 
         return response()->json($titles);
+    }
+
+    public function getNotifications()
+    {
+        $reminders = Reminder::where('user_id', Auth::user()->id)
+            ->where('status', '>', 0)
+            ->with('title:id,title')
+            ->with('service:id,name')
+            ->orderByDesc('created_at')
+            ->get()
+            ->map(function ($reminder) {
+                $reminder->formatted_created_at = Carbon::parse($reminder->created_at)->diffForHumans();
+                return $reminder;
+            });
+
+        return Inertia::render('Notifications/Notifications', ['reminders' => $reminders]);
+    }
+
+    public function markAsRead(Request $request)
+    {
+        if (!empty($request->input('id'))) {
+            $response = Reminder::where('user_id', Auth::user()->id)
+                ->where('id', $request->input('id'))
+                ->update(['status' => 3]);
+        } else {
+            $response = Reminder::where('user_id', Auth::user()->id)
+                ->where('status', '>', 0)
+                ->update(['status' => 3]);
+        }
+
+        return response()->json($response);
     }
 }

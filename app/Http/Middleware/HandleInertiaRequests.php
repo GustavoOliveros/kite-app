@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
+use App\Models\Reminder;
+use Illuminate\Support\Facades\Auth;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -34,6 +36,11 @@ class HandleInertiaRequests extends Middleware
             $permissions = $request->user()->getAllPermissions()->pluck('name');
         }
 
+        $unreadNotifications = Reminder::where('user_id', Auth::user()->id)
+            ->where('status', '>', 0)
+            ->where('status', '<', 3)
+            ->count();
+
         return [
             ...parent::share($request),
             'auth' => [
@@ -44,6 +51,7 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
+            'unreadNotifications' => $unreadNotifications
         ];
     }
 }
