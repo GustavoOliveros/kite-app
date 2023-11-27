@@ -41,6 +41,11 @@ class Title extends Model
         return $this->belongsToMany(Genre::class, 'Title_Has_Genre', 'title_id', 'genre_id');
     }
 
+    public function servicesDirect()
+    {
+        return $this->belongsToMany(Service::class, 'Title_On_Service', 'title_id', 'service_id');
+    }
+
     public function user(){
         return $this->belongsTo(User::class, 'user_id', 'id');
 

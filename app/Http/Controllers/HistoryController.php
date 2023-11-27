@@ -99,4 +99,23 @@ class HistoryController extends Controller
 
         return response()->json($response);
     }
+
+    static public function getUserHistory(){
+        $data = [];
+        $titles = [];
+
+        $userTitles = User_Views_Title::with('title')->where('user_id', Auth::user()->id)->orderBy('updated_at', 'desc')->take(15)->get();
+
+        if($userTitles){
+            foreach($userTitles as $userTitle){
+                array_push($titles, $userTitle->title);
+            }
+        }
+
+        $data['id'] = -1;
+        $data['name'] = "Últimos accesos";
+        $data['titles'] = $titles;
+ 
+        return $data;
+    }
 }

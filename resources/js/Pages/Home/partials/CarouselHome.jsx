@@ -3,7 +3,7 @@ import { Carousel } from "@material-tailwind/react";
 export function CarouselHome({ titles }) {
     return (
         <>
-            <Carousel className="rounded-xl aspect-[95/26] z-0" loop={true} autoplay={true}>
+            <Carousel className="rounded-xl aspect-[95/26] z-0 " loop={true} autoplay={true}>
                 <img
                     src={
                         "https://image.tmdb.org/t/p/w1280_and_h720_bestv2" +
