@@ -3,9 +3,30 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import SelectService from "./partials/SelectService";
 import SearchResults from "../Search/partials/SearchResults";
 import { CarouselHome } from "./partials/CarouselHome";
-import EndlessScroll from "./partials/EndlessScroll";
+import InfiniteScroll from "react-infinite-scroll-component";
+import axios from "axios";
+import { useState } from "react";
+import { Spinner } from "@material-tailwind/react";
 
 export default function Home({ auth, services, titles }) {
+
+    const [data, setData] = useState(titles);
+    const [page, setPage] = useState(2);
+    const [hasMore, setHasMore] = useState(true);
+
+    const fetchData = () => {
+        return axios.get(route('loadMoreTitles', {page:page}))
+            .then((response) => {
+                setData((prevData) => [...prevData, ...response.data]);
+                setPage((prevPage) => prevPage + 1);
+
+                if(response.data.length < 20){
+                    setHasMore(false);
+                }
+            })
+            .catch((error) => console.error(error));
+    };
+
     return (
         <>
             <Head title="Home" />
@@ -28,11 +49,10 @@ export default function Home({ auth, services, titles }) {
                     )}
                 </div>
 
-                <div>
-                    <SearchResults data={titles} showNoResults={false} />
-                </div>
 
-                <EndlessScroll />
+                <InfiniteScroll next={fetchData} dataLength={data.length} loader={<Spinner className="w-10 h-10 mx-auto my-10" />} hasMore={hasMore}>
+                    <SearchResults data={data}  showNoResults={false} />
+                </InfiniteScroll>
             </AuthenticatedLayout>
         </>
     );

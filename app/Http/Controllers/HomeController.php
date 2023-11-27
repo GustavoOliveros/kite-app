@@ -17,7 +17,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             return redirect()->route('home');
         }
 
@@ -26,9 +26,10 @@ class HomeController extends Controller
         return Inertia::render('LandingPage', ['services' => $services]);
     }
 
-    public function indexHomepage(){
+    public function indexHomepage()
+    {
         //  check if user has services
-        $user = User::where('id',Auth::user()->id)->first();
+        $user = User::where('id', Auth::user()->id)->first();
         $services = $user->services;
         $titles = Title::where('status', 1)->take(20)->get()->map(function ($title) {
             return [
@@ -41,11 +42,30 @@ class HomeController extends Controller
             ];
         });
         $servicesObjCol = [];
-        
-        foreach($services as $service){
+
+        foreach ($services as $service) {
             array_push($servicesObjCol, $service->service);
         }
         return Inertia::render('Home/Home', ['services' => $servicesObjCol, 'titles' => $titles]);
+    }
+
+    public function loadMoreTitles(string $page)
+    {
+        $perPage = 20;
+
+        // Fetch titles using pagination
+        $titles = Title::where('status', 1)->paginate($perPage, ['*'], 'page', $page)->map(function ($title) {
+            return [
+                'id' => $title->id,
+                'title' => $title->title,
+                'poster_path' => $title->poster_path,
+                'type' => $title->type,
+                'backdrop_path' => $title->backdrop_path,
+                'year' => $title->year
+            ];
+        });
+
+        return response()->json($titles);
     }
 
     /**

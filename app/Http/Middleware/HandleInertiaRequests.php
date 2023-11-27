@@ -34,12 +34,14 @@ class HandleInertiaRequests extends Middleware
     {
         if($request->user()){
             $permissions = $request->user()->getAllPermissions()->pluck('name');
+
+            $unreadNotifications = Reminder::where('user_id', Auth::user()->id)
+                ->where('status', '>', 0)
+                ->where('status', '<', 3)
+                ->count();
         }
 
-        $unreadNotifications = Reminder::where('user_id', Auth::user()->id)
-            ->where('status', '>', 0)
-            ->where('status', '<', 3)
-            ->count();
+        
 
         return [
             ...parent::share($request),
@@ -51,7 +53,7 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
-            'unreadNotifications' => $unreadNotifications
+            'unreadNotifications' => $unreadNotifications ?? []
         ];
     }
 }

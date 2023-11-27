@@ -69,6 +69,8 @@ Route::group(['middleware' => ['access app', 'auth', 'verified']], function () {
     // Home
     Route::get('/home', [HomeController::class, 'indexHomepage'])
         ->name('home');
+    Route::get('/home/{page}', [HomeController::class, 'loadMoreTitles'])->name('loadMoreTitles');
+
 
     // Search
     Route::get('/search', [SearchController::class, 'show'])->name('search');
