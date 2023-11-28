@@ -54,8 +54,8 @@ export default function AnalyticsResult({ data, reset }) {
     ];
 
     return (
-        <div className="w-full py-4 px-8 text-center">
-            <div className="flex gap-2 my-5 justify-between">
+        <div className="w-full py-4 md:px-8 px-2 text-center">
+            <div className="md:flex space-y-5 md:space-y-0 gap-2 my-5 justify-between">
                 <div>
                     <PrimaryButton
                         className="flex gap-2 items-center"

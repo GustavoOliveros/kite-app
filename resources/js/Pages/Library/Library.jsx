@@ -45,14 +45,14 @@ export default function Library({ auth, titles, errors, success }) {
                 user={auth.user}
                 permissions={auth.permissions}
             >
-                <div className="flex flex-col md:flex-row md:gap-5 text-center md:text-start">
+                <div className="flex flex-col md:flex-row md:gap-5 text-center items-center  md:text-start">
                     <h1 className="text-4xl text-white my-5">Biblioteca</h1>
                     <div className="my-auto">
                         <form>
                             <LibraryFilter onChange={submit} />
                         </form>
                     </div>
-                    <Link className="my-auto" href={route('reminder.index')}>
+                    <Link className="md:my-auto mt-5" href={route('reminder.index')}>
                         <Button className="bg-transparent border border-white text-white flex items-center gap-2">
                             <BellIcon className="w-4 h-4" />
                             Recordatorios

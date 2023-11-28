@@ -18,6 +18,7 @@ use App\Http\Requests\TitleRequest;
 use App\Http\Controllers\CountryFlagController;
 use App\Http\Controllers\ReviewController;
 use App\Models\Reminder;
+use App\Notifications\ApprovalNotification;
 
 class TitleController extends Controller
 {
@@ -46,7 +47,7 @@ class TitleController extends Controller
     {
         $response = [];
 
-        try{
+        try {
             DB::beginTransaction();
             // Create a new instance of the Title model
             $title = new Title();
@@ -64,7 +65,7 @@ class TitleController extends Controller
 
             // Set origin countries
             $originCountry = $request->input('origin_country');
-            if($originCountry){
+            if ($originCountry) {
                 $title->origin_country = $originCountry[0];
             }
 
@@ -77,20 +78,20 @@ class TitleController extends Controller
 
             // Get streaming data
             $services = $this->getStreamingData($title->tmdb_id);
-        
+
             // Attach streaming data
-            if(isset($services['result']['streamingInfo']['ar']) && count($services['result']['streamingInfo']['ar']) > 0){
+            if (isset($services['result']['streamingInfo']['ar']) && count($services['result']['streamingInfo']['ar']) > 0) {
                 $services = $services['result']['streamingInfo']['ar'];
 
-                foreach($services as $service){
-                    if($service['streamingType'] == 'subscription'){
+                foreach ($services as $service) {
+                    if ($service['streamingType'] == 'subscription') {
                         $titleService = new Title_On_Service();
 
                         $titleService->title()->associate($title);
-    
+
                         $localService = Service::where('id_name', $service['service'])->first();
                         $titleService->service()->associate($localService);
-    
+
                         $titleService->link = $service['link'];
 
                         $titleService->quality = $service['quality'] ?? 'HD';
@@ -106,7 +107,7 @@ class TitleController extends Controller
 
             $response['type'] = 'success';
             $response['message'] = 'Se guardó con éxito.';
-        }catch(Exception $error){
+        } catch (Exception $error) {
             DB::rollBack();
             $response['type'] = 'error';
             $response['message'] = 'Ocurrió un error. Inténtelo de nuevo más tarde.';
@@ -126,35 +127,34 @@ class TitleController extends Controller
 
 
 
-        if($title && $title->status === 1){
+        if ($title && $title->status === 1) {
             $userServices = User::find(Auth::user()->id)->services->pluck('service_id')->toArray();
 
             $originCountry = $title->origin_country;
 
-            if($originCountry){
+            if ($originCountry) {
                 $flagUrl = CountryFlagController::getFlag($originCountry);
-            }else{
+            } else {
                 $flagUrl = "";
             }
 
-            
+
             $titleOnServices = $title->services;
             $services = [];
             $array = [];
             $alreadySaved = false;
             $genres = $title->genresDirect;
-            
-            foreach($titleOnServices as $titleOnService){
+
+            foreach ($titleOnServices as $titleOnService) {
                 $array['service'] = $titleOnService->service;
                 $array['title_on_service'] = $titleOnService;
                 $array['isUserSubscribed'] = in_array($titleOnService->service->id, $userServices);
                 array_push($services, $array);
             }
-    
-            if($title){
-                $userTitle = User_Has_Title::
-                                where('user_id', Auth::user()->id)
-                                ->where('title_id', $id)->first();
+
+            if ($title) {
+                $userTitle = User_Has_Title::where('user_id', Auth::user()->id)
+                    ->where('title_id', $id)->first();
                 $alreadySaved = ($userTitle) ? true : false;
 
                 $reviews = new ReviewController;
@@ -163,19 +163,19 @@ class TitleController extends Controller
 
                 $reminder = Reminder::where('user_id', Auth::user()->id)->where('title_id', $id)->first();
                 $isReminderActive = ($reminder) ? true : false;
-    
-                return Inertia::render
-                ('Title/Title',
+
+                return Inertia::render(
+                        'Title/Title',
                         [
-                        'title' => $title,
-                        'services' => $services,
-                        'alreadySaved' => $alreadySaved,
-                        'genres' => $genres,
-                        'flag' => $flagUrl,
-                        'reviews' => $reviews,
-                        'isReminderActive' => $isReminderActive,
+                            'title' => $title,
+                            'services' => $services,
+                            'alreadySaved' => $alreadySaved,
+                            'genres' => $genres,
+                            'flag' => $flagUrl,
+                            'reviews' => $reviews,
+                            'isReminderActive' => $isReminderActive,
                         ]
-                );
+                    );
             }
         }
 
@@ -209,7 +209,8 @@ class TitleController extends Controller
     /**
      * Returns the 10 most popular titles
      */
-    public function popular(){
+    public function popular()
+    {
         $response = Title::take(10)->get();
 
         return response()->json($response);
@@ -240,13 +241,15 @@ class TitleController extends Controller
         }
     }
 
-    public function getAllLocalTitles(){
+    public function getAllLocalTitles()
+    {
         $titles = Title::orderBy('created_at', 'desc')->get();
 
         return response()->json($titles);
     }
 
-    public function getStreamingData(string $tmdb_id){
+    public function getStreamingData(string $tmdb_id)
+    {
         $response = [];
 
         $httpResponse = Http::withHeaders([
@@ -254,7 +257,7 @@ class TitleController extends Controller
             'X-RapidAPI-Key' => '68f1c519afmsh507f4877cb61cb3p15befejsn6aa174d81f5a',
             'content-type' => 'application/json'
         ])
-        ->get("https://streaming-availability.p.rapidapi.com/get?output_language=es&tmdb_id={$tmdb_id}");
+            ->get("https://streaming-availability.p.rapidapi.com/get?output_language=es&tmdb_id={$tmdb_id}");
 
         if ($httpResponse->successful()) {
             $response = $httpResponse->json();
@@ -263,7 +266,8 @@ class TitleController extends Controller
         return $response;
     }
 
-    public function showAddTitle(){
+    public function showAddTitle()
+    {
         return Inertia::render('AddTitle/AddTitle');
     }
 
@@ -274,7 +278,7 @@ class TitleController extends Controller
     {
         $response = [];
 
-        try{
+        try {
             DB::beginTransaction();
             // Create a new instance of the Title model
             $title = new Title();
@@ -301,13 +305,13 @@ class TitleController extends Controller
             $genreIds = $request->input('genre_ids');
             $title->genresDirect()->attach($genreIds);
 
-            
+
 
             DB::commit();
 
             $response['type'] = 'success';
             $response['message'] = 'Se guardó la solicitud con éxito. Queda en espera de aprobación.';
-        }catch(Exception $error){
+        } catch (Exception $error) {
             DB::rollBack();
             $response['type'] = 'error';
             $response['message'] = 'Ocurrió un error. Inténtelo de nuevo más tarde.';
@@ -319,12 +323,13 @@ class TitleController extends Controller
         return response()->json($response);
     }
 
-    public function accept(string $id){
+    public function accept(string $id)
+    {
 
         $response = [];
 
 
-        try{
+        try {
             DB::beginTransaction();
             $title = Title::findOrFail($id);
 
@@ -334,20 +339,20 @@ class TitleController extends Controller
 
             // Get streaming data
             $services = $this->getStreamingData($title->tmdb_id);
-        
+
             // Attach streaming data
-            if(isset($services['result']['streamingInfo']['ar']) && count($services['result']['streamingInfo']['ar']) > 0){
+            if (isset($services['result']['streamingInfo']['ar']) && count($services['result']['streamingInfo']['ar']) > 0) {
                 $services = $services['result']['streamingInfo']['ar'];
 
-                foreach($services as $service){
-                    if($service['streamingType'] == 'subscription'){
+                foreach ($services as $service) {
+                    if ($service['streamingType'] == 'subscription') {
                         $titleService = new Title_On_Service();
 
                         $titleService->title()->associate($title);
-    
+
                         $localService = Service::where('id_name', $service['service'])->first();
                         $titleService->service()->associate($localService);
-    
+
                         $titleService->link = $service['link'];
 
                         $titleService->quality = $service['quality'] ?? 'HD';
@@ -363,7 +368,7 @@ class TitleController extends Controller
 
             $response['type'] = 'success';
             $response['message'] = 'La solicitud fue aprobada.';
-        }catch(Exception $error){
+        } catch (Exception $error) {
             DB::rollBack();
             $response['type'] = 'error';
             $response['message'] = 'Ocurrió un error. Inténtelo de nuevo más tarde.';
@@ -371,12 +376,14 @@ class TitleController extends Controller
         }
 
 
-        // try{
-        //     $user = $title->user; // Assuming you have a relationship set up
-        //     $user->notify(new ApprovalNotification($user, $title));
-        // }catch(Exception $error){
-            
-        // }
+        try {
+            if ($response['type'] === 'success') {
+                $user = $title->user; // Assuming you have a relationship set up
+                $user->notify(new ApprovalNotification($user, $title));
+            }
+        } catch (Exception $error) {
+            $response['message'] += " Sin embargo, no se pudo notificar al usuario.";
+        }
 
         // Rest of your code
 
@@ -386,7 +393,7 @@ class TitleController extends Controller
         return response()->json($response);
     }
 
-    public function deny(){
-        
+    public function deny()
+    {
     }
 }

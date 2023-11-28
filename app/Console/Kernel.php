@@ -46,10 +46,11 @@ class Kernel extends ConsoleKernel
 
         // Envio de mails (notificaciones)
         // $schedule->call(function(){
-        //     $reminders = Reminder::where('status', 1)->get();
-
-        //     foreach($reminders as $reminder){
+        //     $reminder = Reminder::where('status', 1)->first();
+            
+        //     if($reminder){
         //         $user = $reminder->user;
+
         //         $title = $reminder->title;
         //         $service = $reminder->type === 'release' ? "" : $reminder->service->name;
 
@@ -57,8 +58,8 @@ class Kernel extends ConsoleKernel
 
         //         $reminder->status = 2;
         //         $reminder->save();
-        //     }
-        // })->daily();
+        //     }  
+        // })->everyThirtySeconds();
     }
 
     /**

@@ -49,7 +49,7 @@ export default function AnalyticsForm({ handleNext, setData, setActiveStep }) {
         perform();
     };
     return (
-        <div className="w-full py-4 px-8">
+        <div className="w-full py-4 md:px-8 px-1">
             <form onSubmit={submitHandler}>
                 <div className="md:grid md:grid-cols-2 gap-2">
                     <div className="text-black">

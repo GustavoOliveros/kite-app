@@ -1,4 +1,5 @@
 import DeletableTitleCard from "./DeletableTitleCard";
+import MobileSearchResult from "@/Pages/Search/partials/MobileSearchResult";
 
 /**
  * To use this component, the server must return a variable named "deleteRoute" (string) with the route to the delete method.
@@ -13,11 +14,11 @@ export default function DeletableTitleList({ data, isDeletable, fetchData }) {
             </div>
 
 
-            {/* <div className="flex flex-col md:hidden p-3 pb-6">
+            <div className="flex flex-col md:hidden p-3 pb-6">
                 {data && data.length > 0 && (
                     data.map((element, index) => <MobileSearchResult data={element} key={index} />)
                 )}
-            </div> */}
+            </div>
         </>
     );
 }

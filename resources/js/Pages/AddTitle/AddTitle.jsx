@@ -2,9 +2,13 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import axios from "axios";
 import { useState } from "react";
-import toast, {Toaster} from "react-hot-toast";
-import { PlusIcon, ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid";
-import { Spinner } from "@material-tailwind/react";
+import toast, { Toaster } from "react-hot-toast";
+import {
+    PlusIcon,
+    ArrowTopRightOnSquareIcon,
+    QuestionMarkCircleIcon,
+} from "@heroicons/react/24/solid";
+import { Spinner, Tooltip } from "@material-tailwind/react";
 import { Head, Link } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
@@ -26,7 +30,8 @@ export default function AddTitle({ auth }) {
         e.preventDefault();
         setLoading(true);
 
-        selectedValue['tmdb_id'] = selectedValue.media_type + '/' + selectedValue.id;
+        selectedValue["tmdb_id"] =
+            selectedValue.media_type + "/" + selectedValue.id;
 
         return axios
             .post(route("storeUser", selectedValue))
@@ -81,11 +86,28 @@ export default function AddTitle({ auth }) {
                 user={auth.user}
                 permissions={auth.permissions}
             >
-                <h1 className="text-white text-4xl my-5">Agregar título</h1>
-                <p className="text-white mb-5">En este apartado podrás buscar un título en la base de datos de The Movie Database para ser agregado a Kite.<br />
-                    Agradecemos mucho su apoyo en el crecimiento de la aplicación.</p>
+                <div className="md:flex gap-3 items-center">
+                    <h1 className="text-white text-4xl my-5 text-center md:text-start">
+                        Agregar título
+                    </h1>
+                    <Tooltip
+                        content={
+                            <p className="md:w-80">
+                                Busque un título en The Movie Database y
+                                solicite su adición a Kite.
+                            </p>
+                        }
+                        placement="bottom"
+                        className=""
+                    >
+                        <QuestionMarkCircleIcon className="w-10 h-10 mx-auto md:mx-0 text-white hover:text-gray-300 mb-5 md:mb-0" />
+                    </Tooltip>
+                </div>
                 <div>
-                    <InputLabel htmlFor="query" className="!text-lg font-light text-white" >
+                    <InputLabel
+                        htmlFor="query"
+                        className="!text-lg font-light text-white"
+                    >
                         {loading ? (
                             <Spinner className="animate-spin w-5 h-5 inline" />
                         ) : (
@@ -100,17 +122,22 @@ export default function AddTitle({ auth }) {
                             className="w-full"
                             name="query"
                             id="query"
+                            isFocused={true}
                             placeholder="Palabra clave..."
                             onChange={(e) => setQuery(e.target.value)}
                         />
                     </form>
                 </div>
                 <div>
-                    <h2 className="text-white font-bold">Su elección</h2>
+                    <h2 className="text-white font-bold px-2 md:px-0">
+                        Su elección
+                    </h2>
                     <ul>
                         <li
                             className={
-                                selectedValue.id ? "text-white flex gap-2" : "text-transparent flex gap-2"
+                                selectedValue.id
+                                    ? "text-white flex gap-2"
+                                    : "text-transparent flex gap-2"
                             }
                         >
                             {selectedValue.title
@@ -124,7 +151,12 @@ export default function AddTitle({ auth }) {
                                 ? selectedValue.first_air_date.substring(0, 4)
                                 : null}
                             )
-                            <a href={`https://www.themoviedb.org/${selectedValue.media_type}/${selectedValue.id}`} target="_blank"><ArrowTopRightOnSquareIcon className="w-5 h-5 cursor-pointer" /></a>
+                            <a
+                                href={`https://www.themoviedb.org/${selectedValue.media_type}/${selectedValue.id}`}
+                                target="_blank"
+                            >
+                                <ArrowTopRightOnSquareIcon className="w-5 h-5 cursor-pointer" />
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -165,7 +197,6 @@ export default function AddTitle({ auth }) {
                 </div>
 
                 <div className="flex gap-2 justify-center">
-
                     <button
                         type="submit"
                         form="store-form"

@@ -72,7 +72,7 @@ export default function Search({ auth, genres, services }) {
                             onClick={(e) => {
                                 setShowFilters(!showFilters);
                             }}
-                            className="text-white text-center bg-transparent shadow-none"
+                            className="text-white text-center bg-transparent !shadow-none"
                         >
                             {showFilters ? (
                                 <ChevronDownIcon className="w-5 h-5 inline-flex" />

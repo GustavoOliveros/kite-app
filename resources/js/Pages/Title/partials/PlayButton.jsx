@@ -16,7 +16,7 @@ export default function PlayButton({ services, openModal, saveHistory, loadingWa
     
     return (
         <Button
-            className="bg-white text-black md:p-5 flex justify-center"
+            className="bg-white text-black md:p-5 flex justify-center w-full md:w-auto"
             disabled={services.length <= 0}
             onClick={watchTitle}
         >

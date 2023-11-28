@@ -172,7 +172,7 @@ export default function Title({ auth, title, services, alreadySaved, genres, fla
                                 openListModal={openListModal}
                             />
 
-                            <p className="md:w-1/2 my-4">{title.overview}</p>
+                            <p className="md:w-1/2 my-4 px-2 md:px-0">{title.overview}</p>
                             <div className="flex flex-col md:flex-row gap-2 mb-4">
                                 {genres &&
                                     genres.map((element, index) => (

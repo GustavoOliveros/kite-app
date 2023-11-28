@@ -20,7 +20,7 @@ export default function SearchFilters({
     return (
         <>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div className="grid grid-cols-2 gap-3">
+                <div className="md:grid grid-cols-2 gap-3">
                     <div>
                         <InputLabel
                             className="text-white my-3"
@@ -158,7 +158,9 @@ export default function SearchFilters({
                     </div>
                 </div>
 
-                <div className="flex justify-end gap-3 mt-auto">
+                <div className="hidden md:block"></div>
+
+                <div className="md:flex justify-end gap-3 mt-5 md:mt-auto space-y-3 md:space-y-0">
                     <Button
                         className="bg-transparent shadow-none border-2 text-white w-full md:w-auto"
                         type="reset"

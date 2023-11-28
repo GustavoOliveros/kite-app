@@ -139,7 +139,7 @@ class HistoryController extends Controller
             $isUserSubscribed = $title->servicesDirect->pluck('id')->intersect($userServices)->isNotEmpty();
 
             return [
-                'id' => $userTitle->id,
+                'id' => $userTitle->title_id,
                 'title' => $title->title,
                 'poster_path' => $title->poster_path,
                 'type' => $title->type,

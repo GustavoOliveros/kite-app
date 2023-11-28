@@ -104,11 +104,11 @@ export default function Changes({ changes, auth }) {
         <>
             <Head title="Cambios" />
             <Dashboard title="Cambios">
-                <div className="md:flex md:justify-start md:gap-2">
+                <div className="flex justify-evenly md:justify-start gap-2 mb-3">
                     {auth.permissions.includes("perform changes") ? (
                         <Button
                             onClick={performChanges}
-                            className="bg-gray-800 mt-2 md:my-3  flex gap-2 justify-center items-center"
+                            className="bg-gray-800 mt-2 md:my-3  flex gap-2 justify-center items-center w-full md:w-auto"
                         >
                             <ArrowDownTrayIcon className="w-5 h-5" />
                             Hacer Cambios

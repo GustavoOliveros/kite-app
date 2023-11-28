@@ -10,24 +10,25 @@ import { useState } from "react";
 export default function Notifications({ reminders, auth }) {
     const [isMarkedAsRead, setIsMarkedAsRead] = useState(false);
 
-
     const markAsRead = () => {
-        return axios.post(route('markAsRead')).then((response) => {
-            if(response.data){
-                toast.success('Marcado con éxito');
+        return axios.post(route("markAsRead")).then((response) => {
+            if (response.data) {
+                toast.success("Marcado con éxito");
                 setIsMarkedAsRead(true);
-            }else{
-                toast.error('Ocurrió un error');
+            } else {
+                toast.error("Ocurrió un error");
             }
         });
-    }
+    };
 
     return (
         <>
             <Head title="Notificaciones" />
             <Authenticated user={auth.user} permissions={auth.permissions}>
-                <h1 className="text-4xl text-white mt-5 mb-10 flex items-center justify-center gap-4">
-                    Notificaciones
+                <div className="text-4xl text-white mt-5 mb-10 md:flex items-center justify-center text-center gap-4">
+                    <h1 className="">
+                        Notificaciones
+                    </h1>
                     <Tooltip
                         content="Marcar todo como leído"
                         placement="bottom"
@@ -37,14 +38,18 @@ export default function Notifications({ reminders, auth }) {
                         </button>
                     </Tooltip>
                     <button onClick={() => window.location.reload()}>
-                        <ArrowPathIcon className="w-7 h-7" />
+                        <ArrowPathIcon className="w-7 h-7 ms-5 md:ms-0" />
                     </button>
-                </h1>
+                </div>
 
-                <div className="space-y-4  text-white max-w-[50%] mx-auto">
+                <div className="space-y-4  text-white md:max-w-[50%] px-2 md:px-0 mx-auto">
                     {reminders &&
                         reminders.map((reminder) => (
-                            <Notification key={reminder.id} reminder={reminder} isMarkedAsRead={isMarkedAsRead} />
+                            <Notification
+                                key={reminder.id}
+                                reminder={reminder}
+                                isMarkedAsRead={isMarkedAsRead}
+                            />
                         ))}
                 </div>
             </Authenticated>

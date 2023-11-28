@@ -7,9 +7,9 @@ export default function TitleHeader({title, flag}) {
             {title.rating ?? 'N/A'} <StarIcon className="w-5 h-5" />
             ({title.rating_amount})
         </div>
-        <h1 className="text-4xl md:my-4 md:mt-0 md:mb-4 text-center md:text-start">
+        <h1 className="text-3xl md:text-4xl md:my-4 md:mt-0 md:mb-4 text-center md:text-start">
             {title.title}{" "}
-            <div className="inline-flex justify-center items-center">
+            <div className="  md:inline-flex justify-center items-center">
                 <span className="text-sm text-gray-300">({title.year})</span>
                 {flag && flag !== "" ? <img className="w-4 inline mx-2" src={flag} alt={"País de Origen: " + title.origin_country} /> : ''}
             </div>

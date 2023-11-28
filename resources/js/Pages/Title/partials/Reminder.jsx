@@ -60,17 +60,18 @@ export default function Reminder(){
 
     return (
         <Button
-                className="bg-transparent border border-white text-white flex justify-center md:p-5 rounded-full" aria-label="Crear recordatorio"
+                className="bg-transparent md:border border-white p-2 text-white flex flex-col justify-center items-center gap-3 md:gap-0 md:p-5 rounded-full" aria-label="Crear recordatorio"
                 onClick={createReminder}
                 title={isActive ? 'Eliminar recordatorio' : 'Agregar recordatorio'}
             >
                 {loading ? (
-                    <Spinner className="h-4 w-4" />
+                    <Spinner className="h-8 w-8 md:h-4 md:w-4" />
                 ) : isActive ? (
-                    <BellAlertIcon className="h-4 w-4 scale-150" />
+                    <BellAlertIcon className="h-8 w-8 md:h-4 md:w-4 md:scale-150" />
                 ) : (
-                    <BellIconOutline className="h-4 w-4 scale-150" />
+                    <BellIconOutline className="h-8 w-8 md:h-4 md:w-4 md:scale-150" />
                 )}
+                <span className="md:hidden">Notificar</span>
         </Button>
     );
 }

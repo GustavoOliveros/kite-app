@@ -1,7 +1,7 @@
 import { Carousel } from "@material-tailwind/react";
 import { Link } from "@inertiajs/react";
 
-export function CarouselHome({}) {
+export function CarouselHome({ titles }) {
     return (
         <>
             <Carousel
@@ -10,41 +10,16 @@ export function CarouselHome({}) {
                 autoplay={true}
                 autoplayDelay={8000}
             >
-                <Link href={route('title.show', {id:14})}>
-                    <img
-                        src="https://www.gran-turismo.com/images/c/i13ynTpBw8HAmb.jpg"
-                        alt="Gran Turismo"
-                        className="h-full w-full object-cover"
-                    />
-                </Link>
-                <Link href={route('title.show', {id:33})}>
-                    <img
-                        src="https://ponpausa.files.wordpress.com/2018/09/greys-15-poster-horizontal-e1538096228615.jpg"
-                        alt="Anatomía de Grey"
-                        className="h-full w-full object-cover"
-                    />
-                </Link>
-                <Link href={route('title.show', {id:33})}>
-                    <img
-                        src="https://ponpausa.files.wordpress.com/2018/09/greys-15-poster-horizontal-e1538096228615.jpg"
-                        alt="Anatomía de Grey"
-                        className="h-full w-full object-cover"
-                    />
-                </Link>
-                <Link href={route('title.show', {id:33})}>
-                    <img
-                        src="https://ponpausa.files.wordpress.com/2018/09/greys-15-poster-horizontal-e1538096228615.jpg"
-                        alt="Anatomía de Grey"
-                        className="h-full w-full object-cover"
-                    />
-                </Link>
-                <Link href={route('title.show', {id:33})}>
-                    <img
-                        src="https://ponpausa.files.wordpress.com/2018/09/greys-15-poster-horizontal-e1538096228615.jpg"
-                        alt="Anatomía de Grey"
-                        className="h-full w-full object-cover"
-                    />
-                </Link>
+                {[0, 1, 2, 3, 4].map((element) => (
+                    <Link href={route("title.show", { id: titles[element].id })} title={titles[element].title} className="relative">
+                        <img
+                            src={"https://image.tmdb.org/t/p/w1280_and_h720_bestv2" + titles[element].backdrop_path}
+                            alt={titles[element].title}
+                            className="h-full w-full object-cover"
+                        />
+                        <span className="absolute hidden md:block bottom-10 left-0 bg-white text-black rounded-e-lg py-2 ps-20 pe-2 font-extrabold text-shadow text-2xl">{titles[element].title}</span>
+                    </Link>
+                ))}
             </Carousel>
         </>
     );

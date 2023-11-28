@@ -48,7 +48,7 @@ export default function Home({ auth, services, lists, hasMoreDB}) {
             >
                 {/* <h1 className="text-2xl text-white text-center mt-8">¡Bienvenid@, {auth.user.username}!<br />¿Qué deseas ver?</h1> */}
                 <div className="md:pt-5">
-                    <CarouselHome  />
+                    <CarouselHome titles={lists[0].titles}  />
                 </div>
 
                 <div className="justify-center md:my-10 grid grid-cols-3 py-5 mt-5 px-2 md:py-0 gap-3 md:flex md:px-6">

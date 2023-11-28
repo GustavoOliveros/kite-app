@@ -12,6 +12,14 @@ import {
     AdjustmentsVerticalIcon,
     PlusIcon,
 } from "@heroicons/react/24/solid";
+import {
+    HomeIcon as HomeIconOutline,
+    MagnifyingGlassIcon as MagnifyingGlassIconOutline,
+    PlusIcon as PlusIconOutline,
+    UserCircleIcon as UserCircleIconOutline,
+    Squares2X2Icon as Squares2X2IconOutline,
+    AdjustmentsVerticalIcon as AdjustmentsVerticalIconOutline,
+} from "@heroicons/react/24/outline";
 import NotificationLayout from "./partials/NotificationLayout";
 
 export default function Authenticated({
@@ -40,8 +48,6 @@ export default function Authenticated({
             window.removeEventListener("scroll", listenScrollEvent);
         };
     }, []);
-
-
 
     return (
         <>
@@ -74,7 +80,9 @@ export default function Authenticated({
                                         <Link href="/">
                                             <ApplicationLogo className="block h-10 w-auto fill-current text-gray-800" />
                                         </Link>
+                                        
                                     </div>
+                                    
 
                                     <div className="hidden space-x-8 md:-my-px md:ml-10 md:flex">
                                         <NavLink
@@ -119,6 +127,8 @@ export default function Authenticated({
                                         </NavLink>
                                     </div>
                                 </div>
+
+                                <NotificationLayout className="md:hidden absolute top-5 right-5" />
 
                                 <div className="hidden md:flex md:items-center md:ml-6">
                                     <NotificationLayout />
@@ -200,57 +210,49 @@ export default function Authenticated({
             <nav className="md:hidden bg-gray-900 text-gray-400 fixed bottom-0 w-full">
                 <div className="flex justify-between gap-5 py-3 px-8">
                     <Link href={route("home")}>
-                        <HomeIcon
-                            className={`w-7 h-7 ${
-                                route().current("home") ? "text-white" : ""
-                            }`}
-                        />
+                        {route().current("home") ? (
+                            <HomeIcon className="w-7 h-7 text-white" />
+                        ) : (
+                            <HomeIconOutline className="w-7 h-7" />
+                        )}
                     </Link>
                     <Link href={route("search")}>
-                        <MagnifyingGlassIcon
-                            className={`w-7 h-7 ${
-                                route().current("search") ? "text-white" : ""
-                            }`}
-                        />
+                        {route().current("search") ? (
+                            <MagnifyingGlassIcon className="w-7 h-7 text-white" />
+                        ) : (
+                            <MagnifyingGlassIconOutline className="w-7 h-7" />
+                        )}
                     </Link>
                     <Link href={route("showAddTitle")}>
-                        <PlusIcon
-                            className={`w-7 h-7 ${
-                                route().current("showAddTitle")
-                                    ? "text-white"
-                                    : ""
-                            }`}
-                        />
+                        {route().current("showAddTitle") ? (
+                            <PlusIcon className="w-7 h-7 text-white" />
+                        ) : (
+                            <PlusIconOutline className="w-7 h-7" />
+                        )}
                     </Link>
                     {permissions.includes("access dashboard") ? (
                         <Link href={route("dashboard")}>
-                            <AdjustmentsVerticalIcon
-                                className={`w-7 h-7 ${
-                                    route().current("dashboard")
-                                        ? "text-white"
-                                        : ""
-                                }`}
-                            />
+                            {route().current("dashboard") ? (
+                                <AdjustmentsVerticalIcon className="w-7 h-7 text-white" />
+                            ) : (
+                                <AdjustmentsVerticalIconOutline className="w-7 h-7" />
+                            )}
                         </Link>
                     ) : (
                         <Link href={route("library")}>
-                            <Squares2X2Icon
-                                className={`w-7 h-7 ${
-                                    route().current("library")
-                                        ? "text-white"
-                                        : ""
-                                }`}
-                            />
+                            {route().current("library") ? (
+                                <Squares2X2Icon className="w-7 h-7 text-white" />
+                            ) : (
+                                <Squares2X2IconOutline className="w-7 h-7" />
+                            )}
                         </Link>
                     )}
                     <Link href={route("profile.edit")}>
-                        <UserCircleIcon
-                            className={`w-7 h-7 ${
-                                route().current("profile.edit")
-                                    ? "text-white"
-                                    : ""
-                            }`}
-                        />
+                        {route().current("profile.edit") ? (
+                            <UserCircleIcon className="w-7 h-7 text-white" />
+                        ) : (
+                            <UserCircleIconOutline className="w-7 h-7" />
+                        )}
                     </Link>
                 </div>
             </nav>
