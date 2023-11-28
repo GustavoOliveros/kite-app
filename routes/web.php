@@ -117,6 +117,9 @@ Route::group(['middleware' => ['access app', 'auth', 'verified']], function () {
     Route::get('/your-notifications', [ReminderController::class, 'getNotifications'])->name('notifications');
     Route::post('/markAsRead', [ReminderController::class, 'markAsRead'])->name('markAsRead');
 
+    // Services
+    Route::get('/service/{id_name}', [ServiceController::class, 'show'])->name('service.show');
+
 
 
 

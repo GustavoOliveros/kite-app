@@ -17,7 +17,7 @@ class ServiceController extends Controller
     {
         $services = Service::all();
 
-        return Inertia::render('Home/ServiceChoice',["serviceData" => $services]);
+        return Inertia::render('Home/ServiceChoice', ["serviceData" => $services]);
     }
 
     /**
@@ -39,9 +39,21 @@ class ServiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id_name)
     {
-        //
+        $service = Service::where('id_name', $id_name)->first();
+
+        if (!$service) {
+            return Inertia::render('Errors/Error', ['status' => 404]);
+        }
+
+        $titles = $service->titles()
+            ->orderByDesc('titles.created_at')
+            ->select('titles.id', 'titles.title', 'titles.poster_path', 'titles.type', 'titles.backdrop_path', 'titles.year', 'titles.created_at')
+            ->distinct('titles.id')
+            ->get();
+
+        return Inertia::render('Service/Service', ['service' => $service, 'titles' => $titles]);
     }
 
     /**

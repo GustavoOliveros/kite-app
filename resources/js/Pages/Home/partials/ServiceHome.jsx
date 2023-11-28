@@ -1,9 +1,11 @@
+import { Link } from "@inertiajs/react";
+
 export default function ServiceHome({ service }) {
     return (
-        <a
+        <Link
             className="flex justify-center md:p-10 rounded-md font-semibold text-xs text-white uppercase  focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out delay-150 hover:scale-110 md:hover:scale-150 duration-300"
             disabled={false}
-            href={service.homepage}
+            href={route('service.show', {id_name:service.id_name})}
             target="_blank"
         >
             <img
@@ -11,6 +13,6 @@ export default function ServiceHome({ service }) {
                 className="w-20 h-20"
                 alt={service.name}
             />
-        </a>
+        </Link>
     );
 }

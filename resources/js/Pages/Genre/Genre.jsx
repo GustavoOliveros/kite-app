@@ -7,9 +7,8 @@ export default function Genre({ auth, titles, genre }) {
         <>
             <Head title={genre.name} />
             <AuthenticatedLayout user={auth.user} permissions={auth.permissions}>
-                <div className='relative flex flex-col md:flex-row items-center md:gap-5 text-center md:text-start'>
+                <div className=' flex flex-col md:flex-row justify-center items-center text-center md:text-start h-[40vh] '>
                     <h1 className='text-4xl text-white my-5'>{genre.name}</h1>
-                    <span className='text-white border-2 p-2 rounded-lg'>{titles.length}</span>
                 </div>
                 <div>
                     <SearchResults data={titles} showNoResults={false} />

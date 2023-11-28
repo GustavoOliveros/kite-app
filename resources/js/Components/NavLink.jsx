@@ -25,7 +25,7 @@ export default function NavLink({
             <div className="flex flex-col relative">
                 <div className="flex mb-2">{children}</div>
                 <div
-                    className={`absolute bottom-0  bg-white h-[0.15rem] mt-1 rounded-lg transition-all duration-500  ${
+                    className={`absolute bottom-0  bg-white h-[0.15rem] mt-1 rounded-lg transition-all duration-250 ease-in-out  ${
                         active || isHovered ? "w-full" : "w-0"
                     }`}
                 ></div>
