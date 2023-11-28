@@ -1,5 +1,5 @@
 import { Link } from "@inertiajs/react";
-import { ListBulletIcon } from "@heroicons/react/24/solid";
+import { ListBulletIcon, NoSymbolIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { useState, useCallback, memo } from "react";
 
 const TitleCard = memo(({ data, className = "" }) => {
@@ -12,8 +12,8 @@ const TitleCard = memo(({ data, className = "" }) => {
 
     return (
         <>
-            <Link href={route(ruta, { id: data.id })}>
-                <div className="relative flex justify-center items-center border-2 border-transparent hover:border-white rounded-lg cursor-pointer transition ease-in-out delay-150 hover:scale-110 duration-300">
+            <Link href={route(ruta, { id: data.id })} title={data.title}>
+                <div className={`relative flex justify-center items-center border-2  rounded-lg cursor-pointer transition ease-in-out delay-150 md:hover:scale-110 duration-300 ${data.isUserSubscribed !== undefined && !data.isUserSubscribed ? 'border-red-500 hover:border-red-500': 'border-transparent hover:border-white'}`}>
                     <img
                         className={" rounded-lg " + className}
                         src={
@@ -43,7 +43,21 @@ const TitleCard = memo(({ data, className = "" }) => {
                         className={`${
                             data.poster_path ? "hidden" : ""
                         } w-5 h-5 absolute top-4 text-white left-4 `}
-                    />
+                    />  
+                    {data.position !== undefined ? (
+                        <span className="absolute top-0 left-0 text-white" title={'Título número ' + data.position + ' más visto de la plataforma.'}>
+                            <div className="w-12 h-12 rounded-tl-lg rounded-br-lg bg-white text-black text-2xl font-bold flex items-center justify-center">{data.position}</div>
+                        </span>
+                    ) : (
+                        ""
+                    )}
+                    {data.isUserSubscribed !== undefined && !data.isUserSubscribed ? (
+                        <span className="absolute top-0 right-0 text-white" title="No está disponible en sus servicios.">
+                            <NoSymbolIcon className="w-12 h-12" />
+                        </span>
+                    ) : (
+                        ""
+                    )}
                 </div>
             </Link>
         </>

@@ -1,33 +1,50 @@
 import { Carousel } from "@material-tailwind/react";
+import { Link } from "@inertiajs/react";
 
-export function CarouselHome({ titles }) {
+export function CarouselHome({}) {
     return (
         <>
-            <Carousel className="rounded-xl aspect-[95/26] z-0 " loop={true} autoplay={true}>
-                <img
-                    src={
-                        "https://image.tmdb.org/t/p/w1280_and_h720_bestv2" +
-                        titles[0].backdrop_path
-                    }
-                    alt={titles[0].title}
-                    className="h-full w-full object-cover"
-                />
-                <img
-                    src={
-                        "https://image.tmdb.org/t/p/w1280_and_h720_bestv2" +
-                        titles[1].backdrop_path
-                    }
-                    alt={titles[1].title}
-                    className="h-full w-full object-cover"
-                />
-                <img
-                    src={
-                        "https://image.tmdb.org/t/p/w1280_and_h720_bestv2" +
-                        titles[2].backdrop_path
-                    }
-                    alt={titles[2].title}
-                    className="h-full w-full object-cover"
-                />
+            <Carousel
+                className="rounded-xl aspect-video md:aspect-[95/26] z-0 "
+                loop={true}
+                autoplay={true}
+                autoplayDelay={8000}
+            >
+                <Link href={route('title.show', {id:14})}>
+                    <img
+                        src="https://www.gran-turismo.com/images/c/i13ynTpBw8HAmb.jpg"
+                        alt="Gran Turismo"
+                        className="h-full w-full object-cover"
+                    />
+                </Link>
+                <Link href={route('title.show', {id:33})}>
+                    <img
+                        src="https://ponpausa.files.wordpress.com/2018/09/greys-15-poster-horizontal-e1538096228615.jpg"
+                        alt="Anatomía de Grey"
+                        className="h-full w-full object-cover"
+                    />
+                </Link>
+                <Link href={route('title.show', {id:33})}>
+                    <img
+                        src="https://ponpausa.files.wordpress.com/2018/09/greys-15-poster-horizontal-e1538096228615.jpg"
+                        alt="Anatomía de Grey"
+                        className="h-full w-full object-cover"
+                    />
+                </Link>
+                <Link href={route('title.show', {id:33})}>
+                    <img
+                        src="https://ponpausa.files.wordpress.com/2018/09/greys-15-poster-horizontal-e1538096228615.jpg"
+                        alt="Anatomía de Grey"
+                        className="h-full w-full object-cover"
+                    />
+                </Link>
+                <Link href={route('title.show', {id:33})}>
+                    <img
+                        src="https://ponpausa.files.wordpress.com/2018/09/greys-15-poster-horizontal-e1538096228615.jpg"
+                        alt="Anatomía de Grey"
+                        className="h-full w-full object-cover"
+                    />
+                </Link>
             </Carousel>
         </>
     );

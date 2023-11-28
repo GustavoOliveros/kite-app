@@ -4,9 +4,9 @@ import { memo } from "react";
 const TitleLists = memo(({ data }) => {
     return (
         <>
-            <div className="hidden md:block space-y-5 my-5">
+            <div className="">
                 {data && data.length > 0
-                    ? data.map((element) => (
+                    ? data.map((element, index) => (
                           <TitleList data={element} key={element.id} />
                       ))
                     : ''}
