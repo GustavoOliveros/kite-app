@@ -1,4 +1,4 @@
-![image](https://github.com/GustavoOliveros/kite-app/assets/94009609/b9ced01f-b7ba-4f10-9be9-9e10371d7fff)
+![template](https://github.com/GustavoOliveros/kite-app/assets/94009609/97f67c14-a52c-4b3a-a8fc-87778abeddcb)
 
 # Kite App
 Aplicación web para la consulta de disponibilidad de películas y series en servicios de streaming en Argentina.
@@ -6,10 +6,20 @@ Aplicación web para la consulta de disponibilidad de películas y series en ser
 Proyecto final para la Tecnicatura Universitaria en Desarrollo Web en la Universidad Nacional del Comahue, Neuquén Capital, Argentina.
 
 ## Herramientas
-- Laravel (Backend)
-- React (Frontend)
-- Spatie: Laravel-Permissions (Manejo de Roles y Permisos)
-- Laravel Breeze (Base para la implementación de la autenticación)
+### Principales:
+- Front: React (JS)
+- Back: Laravel (PHP)
+- CSS: Tailwind (CSS)
+
+### Otros:
+- Material Tailwind (componentes)
+- Spatie: Laravel-Permissions (roles y permisos)
+- Heroicons (iconos)
+- Laravel Breeze (base para la app, autenticación)
+- React-Data-Table-Component (tablas)
+- HeadlessUI (componentes)
+- React-Hot-Toast (notificaciones toast)
+- react-infinite-scroll-component (scroll infinito)
 
 ## Creador
 Gustavo Oliveros - FAI-3621 (Grupo Real)
