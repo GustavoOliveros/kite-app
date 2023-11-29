@@ -35,31 +35,31 @@ class Kernel extends ConsoleKernel
         // })->weekly();
 
         // Actualizar recordatorios de estreno
-        // $schedule->call(function(){
-        //     Reminder::where('release_date', '<', now())->where('status', 0)->update(['status' => 1]);
-        // })->daily();
+        $schedule->call(function(){
+            Reminder::where('release_date', '<', now())->where('status', 0)->update(['status' => 1]);
+        })->everyThirtySeconds();
         
         // Borrado de recordatorios leídos diario
-        // $schedule->call(function(){
-        //     Reminder::where('status', 3)->delete();
-        // })->daily();
+        $schedule->call(function(){
+            Reminder::where('status', 3)->delete();
+        })->everyThirtySeconds();
 
         // Envio de mails (notificaciones)
-        // $schedule->call(function(){
-        //     $reminder = Reminder::where('status', 1)->first();
+        $schedule->call(function(){
+            $reminder = Reminder::where('status', 1)->first();
             
-        //     if($reminder){
-        //         $user = $reminder->user;
+            if($reminder){
+                $user = $reminder->user;
 
-        //         $title = $reminder->title;
-        //         $service = $reminder->type === 'release' ? "" : $reminder->service->name;
+                $title = $reminder->title;
+                $service = $reminder->type === 'release' ? "" : $reminder->service->name;
 
-        //         $user->notify(new NotificationNotification($title->title, $title->id, $reminder->type, $service));
+                $user->notify(new NotificationNotification($title->title, $title->id, $reminder->type, $service));
 
-        //         $reminder->status = 2;
-        //         $reminder->save();
-        //     }  
-        // })->everyThirtySeconds();
+                $reminder->status = 2;
+                $reminder->save();
+            }  
+        })->everyThirtySeconds();
     }
 
     /**

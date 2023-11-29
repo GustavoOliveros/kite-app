@@ -75,13 +75,17 @@ export default function Authenticated({
                     >
                         <div className="max-w-7xl mx-auto">
                             <div className="flex justify-center md:justify-between h-16">
-                                <div className="flex">
-                                    <div className="shrink-0 flex items-center">
+                                <div className="md:flex grid grid-cols-3 items-center justify-center w-full md:w-auto md:justify-normal ">
+                                    <div className="md:hidden"></div>
+
+                                    <div className="shrink-0 flex items-center justify-center">
                                         <Link href="/">
                                             <ApplicationLogo className="block h-10 w-auto fill-current text-gray-800" />
                                         </Link>
                                         
                                     </div>
+
+                                    <NotificationLayout className="md:hidden flex justify-center" />
                                     
 
                                     <div className="hidden space-x-8 md:-my-px md:ml-10 md:flex">
@@ -128,7 +132,7 @@ export default function Authenticated({
                                     </div>
                                 </div>
 
-                                <NotificationLayout className="md:hidden absolute top-5 right-5" />
+                                
 
                                 <div className="hidden md:flex md:items-center md:ml-6">
                                     <NotificationLayout />
