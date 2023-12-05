@@ -52,6 +52,7 @@ class TitleController extends Controller
             // Create a new instance of the Title model
             $title = new Title();
 
+
             // Set the attributes based on the data in the request
             $title->tmdb_id = $request->input('media_type') . '/' . $request->input('id');
             $title->type = $request->input('media_type');
@@ -68,6 +69,10 @@ class TitleController extends Controller
             if ($originCountry) {
                 $title->origin_country = $originCountry[0];
             }
+
+            
+            $user = User::find(Auth::user()->id);
+            $title->user()->associate($user);
 
             // Save the newly created resource to the database
             $title->save();
@@ -102,11 +107,19 @@ class TitleController extends Controller
                 }
             }
 
+            $reminder = new Reminder;
+            $user = User::find(Auth::user()->id);
+            $reminder->user()->associate($user);
+            $reminder->title()->associate($title);
+            $reminder->type = "suggestion";
+            $reminder->status = 1;
+            $reminder->save();
+
 
             DB::commit();
 
             $response['type'] = 'success';
-            $response['message'] = 'Se guardó con éxito.';
+            $response['message'] = 'Se guardó la solicitud con éxito. Queda en espera de aprobación.';
         } catch (Exception $error) {
             DB::rollBack();
             $response['type'] = 'error';
@@ -165,17 +178,17 @@ class TitleController extends Controller
                 $isReminderActive = ($reminder) ? true : false;
 
                 return Inertia::render(
-                        'Title/Title',
-                        [
-                            'title' => $title,
-                            'services' => $services,
-                            'alreadySaved' => $alreadySaved,
-                            'genres' => $genres,
-                            'flag' => $flagUrl,
-                            'reviews' => $reviews,
-                            'isReminderActive' => $isReminderActive,
-                        ]
-                    );
+                    'Title/Title',
+                    [
+                        'title' => $title,
+                        'services' => $services,
+                        'alreadySaved' => $alreadySaved,
+                        'genres' => $genres,
+                        'flag' => $flagUrl,
+                        'reviews' => $reviews,
+                        'isReminderActive' => $isReminderActive,
+                    ]
+                );
             }
         }
 
@@ -305,7 +318,12 @@ class TitleController extends Controller
             $genreIds = $request->input('genre_ids');
             $title->genresDirect()->attach($genreIds);
 
-
+            $reminder = new Reminder;
+            $reminder->user()->associate($user);
+            $reminder->title()->associate($title);
+            $reminder->type = "suggestion";
+            $reminder->status = 0;
+            $reminder->save();
 
             DB::commit();
 
@@ -363,7 +381,6 @@ class TitleController extends Controller
                 }
             }
 
-
             DB::commit();
 
             $response['type'] = 'success';
@@ -380,6 +397,11 @@ class TitleController extends Controller
             if ($response['type'] === 'success') {
                 $user = $title->user; // Assuming you have a relationship set up
                 $user->notify(new ApprovalNotification($user, $title));
+
+
+                $reminder = Reminder::where('title_id', $title->id)->where('user_id', $user->id)->where('type', 'suggestion')->first();
+                $reminder->status = 1;
+                $reminder->save();
             }
         } catch (Exception $error) {
             $response['message'] += " Sin embargo, no se pudo notificar al usuario.";
@@ -395,5 +417,13 @@ class TitleController extends Controller
 
     public function deny()
     {
+    }
+
+    public function showSuggestions(){
+        $user = User::find(Auth::user()->id);
+
+        $suggestedTitles = $user->suggestedTitles()->orderByDesc('created_at')->get();
+
+        return Inertia::render('Profile/Suggestions', ['suggestions' => $suggestedTitles]);
     }
 }

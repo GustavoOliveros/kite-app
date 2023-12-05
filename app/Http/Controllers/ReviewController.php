@@ -8,6 +8,7 @@ use App\Models\Title;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class ReviewController extends Controller
 {
@@ -134,5 +135,13 @@ class ReviewController extends Controller
         $response['userReview'] = $userReview ?? [];
 
         return response()->json($response);
+    }
+
+    public function userReviews(){
+        $user = User::find(Auth::user()->id);
+
+        $reviews = $user->reviews()->with('title')->orderByDesc('created_at')->get();
+
+        return Inertia::render('Profile/Reviews', ['reviews' => $reviews]);
     }
 }

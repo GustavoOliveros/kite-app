@@ -9,7 +9,8 @@ import {
     UserCircleIcon,
     ClockIcon,
     ListBulletIcon,
-    ArrowLeftOnRectangleIcon
+    ArrowLeftOnRectangleIcon,
+    StarIcon
 } from "@heroicons/react/24/solid";
 import { Link } from "@inertiajs/react";
 
@@ -43,14 +44,22 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
                                         Historial
                                     </ListItem>
                                 </Link>
-                                {/* <Link href="#" className="bg-white rounded-lg">
+                                <Link href={route('showSuggestions')} className="bg-white rounded-lg">
                                     <ListItem className="hover:bg-gray-300">
                                         <ListItemPrefix>
                                             <ListBulletIcon className="h-5 w-5 pe-2" />
                                         </ListItemPrefix>
                                         Sugerencias
                                     </ListItem>
-                                </Link> */}
+                                </Link>
+                                <Link href={route('userReviews')} className="bg-white rounded-lg">
+                                    <ListItem className="hover:bg-gray-300">
+                                        <ListItemPrefix>
+                                            <StarIcon className="h-5 w-5 pe-2" />
+                                        </ListItemPrefix>
+                                        Reseñas
+                                    </ListItem>
+                                </Link>
                                 <Link href={route('logout')} as="button" method="post" className="bg-white rounded-lg">
                                     <ListItem className="hover:bg-gray-300 text-red-800">
                                         <ListItemPrefix>

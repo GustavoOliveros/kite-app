@@ -189,7 +189,7 @@ export default function Title({ auth, title, services, alreadySaved, genres, fla
                             <ServicesTitle services={services} />
                         </div>
                     </div>
-                    <Reviews reviews={reviews} titleId={title.id} />
+                    <Reviews reviews={reviews} titleId={title.id} rating={title.rating} rating_amount={title.rating_amount} />
 
                 </div>
             </AuthenticatedLayout>

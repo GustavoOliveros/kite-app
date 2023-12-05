@@ -103,7 +103,7 @@ class LibraryController extends Controller
         return $response;
     }
 
-    public function getUserTitles(){
+    static public function getUserTitles(){
         $response = [];
 
         $userTitles = User_Has_Title::

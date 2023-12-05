@@ -20,6 +20,7 @@ use App\Http\Controllers\ChangesController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\ReminderController;
+use App\Models\Title;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,7 +83,8 @@ Route::group(['middleware' => ['access app', 'auth', 'verified']], function () {
     Route::get('/title/{id}', [TitleController::class, 'show'])->name('title.show');
     Route::get('/titles/{query}/API', [TitleController::class, 'getTitlesFromAPI'])->name('getTitlesFromAPI');
     Route::get('/add-title', [TitleController::class, 'showAddTitle'])->name('showAddTitle');
-    Route::post('/add-title', [TitleController::class, 'storeUser'])->name('storeUser');
+    Route::post('/add-title', [TitleController::class, 'store'])->name('storeUser');
+    Route::get('/suggestions', [TitleController::class, 'showSuggestions'])->name('showSuggestions');
 
     // Library
     Route::get('/your-library', [LibraryController::class, 'show'])->name('library');
@@ -108,6 +110,7 @@ Route::group(['middleware' => ['access app', 'auth', 'verified']], function () {
     // Reviews
     Route::post('/review', [ReviewController::class, 'store'])->name('review.store');
     Route::get('/reviews/{titleId}', [ReviewController::class, 'getReviews'])->name('getReviews');
+    Route::get('/reviews', [ReviewController::class, 'userReviews'])->name('userReviews');
 
     // Reminders
     Route::get('/your-reminders', [ReminderController::class, 'index'])->name('reminder.index');

@@ -27,6 +27,6 @@ class GenreTableSeeder extends Seeder
             ]);
         }
 
-        $this->call(Title_Has_GenreTableSeeder::class);
+        // $this->call(Title_Has_GenreTableSeeder::class);
     }
 }

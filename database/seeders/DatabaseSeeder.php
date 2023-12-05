@@ -20,12 +20,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RolesAndPermissionsSeeder::class);
         $this->call(UserTableSeeder::class);
-        $this->call(TitleTableSeeder::class);
+        // $this->call(TitleTableSeeder::class);
         $this->call(ServiceTableSeeder::class);
         $this->call(GenreTableSeeder::class);
-        \App\Models\User_Views_Title::factory(100)->create();
-        \App\Models\Review::factory(100)->create();
+        // \App\Models\User_Views_Title::factory(100)->create();
+        // \App\Models\Review::factory(100)->create();
         \App\Models\User_Has_Service::factory(30)->create();
-        \App\Models\Title_On_Service::factory(60)->create();
+        // \App\Models\Title_On_Service::factory(60)->create();
     }
 }

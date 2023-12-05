@@ -1,6 +1,6 @@
 import { Head } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { CarouselHome } from "./partials/CarouselHome";
+import CarouselHome from "./partials/CarouselHome";
 import InfiniteScroll from "react-infinite-scroll-component";
 import axios from "axios";
 import { useState } from "react";

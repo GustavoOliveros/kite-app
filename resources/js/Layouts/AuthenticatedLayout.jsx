@@ -82,11 +82,9 @@ export default function Authenticated({
                                         <Link href="/">
                                             <ApplicationLogo className="block h-10 w-auto fill-current text-gray-800" />
                                         </Link>
-                                        
                                     </div>
 
                                     <NotificationLayout className="md:hidden flex justify-center" />
-                                    
 
                                     <div className="hidden space-x-8 md:-my-px md:ml-10 md:flex">
                                         <NavLink
@@ -131,8 +129,6 @@ export default function Authenticated({
                                         </NavLink>
                                     </div>
                                 </div>
-
-                                
 
                                 <div className="hidden md:flex md:items-center md:ml-6">
                                     <NotificationLayout />
@@ -189,6 +185,17 @@ export default function Authenticated({
                                                 >
                                                     Historial
                                                 </Dropdown.Link>
+                                                <Dropdown.Link
+                                                    href={route("showSuggestions")}
+                                                >
+                                                    Sugerencias
+                                                </Dropdown.Link>
+                                                <Dropdown.Link
+                                                    href={route("userReviews")}
+                                                >
+                                                    Reseñas
+                                                </Dropdown.Link>
+                                               
                                                 <hr />
                                                 <Dropdown.Link
                                                     href={route("logout")}
@@ -213,21 +220,21 @@ export default function Authenticated({
             </div>
             <nav className="md:hidden bg-gray-900 text-gray-400 fixed bottom-0 w-full">
                 <div className="flex justify-between gap-5 py-3 px-8">
-                    <Link href={route("home")}>
+                    <Link href={route("home")} title="Inicio (Home)">
                         {route().current("home") ? (
                             <HomeIcon className="w-7 h-7 text-white" />
                         ) : (
                             <HomeIconOutline className="w-7 h-7" />
                         )}
                     </Link>
-                    <Link href={route("search")}>
+                    <Link href={route("search")} title="Búsqueda">
                         {route().current("search") ? (
                             <MagnifyingGlassIcon className="w-7 h-7 text-white" />
                         ) : (
                             <MagnifyingGlassIconOutline className="w-7 h-7" />
                         )}
                     </Link>
-                    <Link href={route("showAddTitle")}>
+                    <Link href={route("showAddTitle")} title="Agregar título">
                         {route().current("showAddTitle") ? (
                             <PlusIcon className="w-7 h-7 text-white" />
                         ) : (
@@ -235,7 +242,7 @@ export default function Authenticated({
                         )}
                     </Link>
                     {permissions.includes("access dashboard") ? (
-                        <Link href={route("dashboard")}>
+                        <Link href={route("dashboard")} title="Dashboard">
                             {route().current("dashboard") ? (
                                 <AdjustmentsVerticalIcon className="w-7 h-7 text-white" />
                             ) : (
@@ -243,7 +250,7 @@ export default function Authenticated({
                             )}
                         </Link>
                     ) : (
-                        <Link href={route("library")}>
+                        <Link href={route("library")} title="Biblioteca">
                             {route().current("library") ? (
                                 <Squares2X2Icon className="w-7 h-7 text-white" />
                             ) : (
@@ -251,7 +258,7 @@ export default function Authenticated({
                             )}
                         </Link>
                     )}
-                    <Link href={route("profile.edit")}>
+                    <Link href={route("profile.edit")} title="Perfil">
                         {route().current("profile.edit") ? (
                             <UserCircleIcon className="w-7 h-7 text-white" />
                         ) : (

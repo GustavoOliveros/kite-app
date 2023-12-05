@@ -94,6 +94,15 @@ class HomeController extends Controller
             $data[] = $history;
         }
 
+        $library = LibraryController::getUserTitles();
+
+        if($library && count($library) > 0){
+            $aux['id'] = 2;
+            $aux['name'] = "En biblioteca";
+            $aux['titles'] = $library;
+            $data[] = $aux;
+        }
+
 
         $userGenres = $this->getUserGenres($user);
 
@@ -114,6 +123,7 @@ class HomeController extends Controller
 
         return $data;
     }
+
 
     /**
      * Obtiene los títulos más vistos entre los servicios contratados por el usuario
