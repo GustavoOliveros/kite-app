@@ -37,9 +37,9 @@ export default function Review({ review }) {
                 </h1>
                 <p>{review.review_text}</p>
                 <p className="text-sm text-gray-400">{formattedDate}</p>
-                <div className=" md:absolute top-4 right-4 flex gap-4 mt-4 justify-center">
-                    <PencilIcon className="w-8 h-8 " />
-                    <TrashIcon className="w-8 h-8" />
+                <div className=" md:absolute top-4 right-4 flex gap-4 md:gap-2 mt-4 md:mt-0 justify-center">
+                    <PencilIcon className="w-8 h-8 cursor-pointer" title="Editar reseña" />
+                    <TrashIcon className="w-8 h-8 cursor-pointer" title="Eliminar reseña" />
                 </div>
             </div>
         </>
